@@ -1,0 +1,36 @@
+{
+  "grid_count": 21963,
+  "all_10062_candidate_scores_recomputed": true,
+  "forward_route_origins_checked": 20,
+  "max_distance_error_m": 3.0425530098909803e-05,
+  "difference_from_hira_reference_includes_schedule_assumptions": {
+    "api": {
+      "5": {
+        "lower": 940.4907370500587,
+        "upper": -397232.79087765946
+      },
+      "10": {
+        "lower": 4422.203069080482,
+        "upper": -710144.1292317195
+      },
+      "15": {
+        "lower": 11103.697452394408,
+        "upper": -728526.8836522349
+      }
+    },
+    "policy": {
+      "5": {
+        "lower": 0.0,
+        "upper": -396917.0852124196
+      },
+      "10": {
+        "lower": 0.0,
+        "upper": -708659.58081991
+      },
+      "15": {
+        "lower": 0.0,
+        "upper": -724251.4245135437
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "osm_source": "https://download.geofabrik.de/asia/south-korea-260913.osm.pbf",
+  "osm_date": "2026-09-13",
+  "pbf_sha256": "9fd311e570571d18b6131521a37f3be0fe6335b742066f2994a342d170ea83a0",
+  "bbox": [
+    128.55,
+    34.75,
+    129.55,
+    35.65
+  ],
+  "graph_nodes": 1107002,
+  "directed_arcs": 2362226,
+  "weak_components": 630,
+  "largest_component_nodes": 1002636,
+  "counts": {
+    "barrier_nodes_seen": 834,
+    "accepted_ways": 129894,
+    "highway_residential": 33724,
+    "highway_tertiary": 5346,
+    "highway_secondary": 5726,
+    "excluded_ways": 8310,
+    "highway_primary": 2168,
+    "highway_service": 35278,
+    "highway_primary_link": 903,
+    "highway_secondary_link": 1444,
+    "highway_living_street": 1316,
+    "highway_unclassified": 5051,
+    "highway_tertiary_link": 576,
+    "highway_footway": 15400,
+    "highway_track": 9383,
+    "highway_pedestrian": 899,
+    "highway_steps": 1121,
+    "highway_path": 11265,
+    "highway_cycleway": 294
+  },
+  "snap_status": {
+    "accepted_model_connector": 1900,
+    "review_over_100m": 2
+  },
+  "snap_distance_quantiles_m": {
+    "0.5": 15.205128543663424,
+    "0.9": 29.805356304783192,
+    "0.95": 36.77924333630398,
+    "0.99": 56.840430075707715,
+    "1.0": 130.0408849986159
+  },
+  "pair_count": 349376,
+  "finite_pairs": 347728,
+  "demand_count": 206,
+  "pharmacy_count": 1696,
+  "route_model": "public outdoor OSM walking; steps included; no slope; foot direction respected; no turn-restriction relations; <=100m straight connector"
+}

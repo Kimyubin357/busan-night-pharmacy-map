@@ -1,0 +1,46 @@
+{
+  "hira_202606.zip": {
+    "source": "https://opendata.hira.or.kr/op/opc/selectOpenData.do?sno=11925",
+    "file_id": "326801",
+    "reference_date": "2026-06-30",
+    "bytes": 64452916,
+    "sha256": "eed609c3ee13018d70367c83e84cdc456e91d7036cf68e6c72574df1520c2907"
+  },
+  "sgis_grid_population.zip": {
+    "source": "https://link.mods.go.kr/view/pss/downloadList",
+    "download_filename": "/census/reqdoc/1789222868357.zip",
+    "reference_year": 2024,
+    "bytes": 11185764,
+    "sha256": "12e3ed6b07fd9da782e01335b449ac3e1256c1a0e9fe5c893c17fe5d26341c83"
+  },
+  "sgis_grid_mara.zip": {
+    "source": "https://link.mods.go.kr/view/pss/downloadList",
+    "download_filename": "/grid_border/grid_2025/grid_마라/grid_마라.zip",
+    "bytes": 3196747,
+    "sha256": "37bc428db9f35907f74fd24cfcf3553ba8df52a43326e6535d3eaa905334a480"
+  },
+  "sgis_grid_mama.zip": {
+    "source": "https://link.mods.go.kr/view/pss/downloadList",
+    "download_filename": "/grid_border/grid_2025/grid_마마/grid_마마.zip",
+    "bytes": 15276884,
+    "sha256": "3b993e0e53f884b41104ddac6eb00b09bb146224d363b78770ae7cfd8a82148a"
+  },
+  "sgis_dong.zip": {
+    "source": "https://link.mods.go.kr/view/pss/downloadList",
+    "download_filename": "/census/bnd_data/bnd_dong/bnd_dong_00_2025_2Q.zip",
+    "boundary_date": "2025-06-30",
+    "bytes": 79381548,
+    "sha256": "6a675f0c5ae569f33fbe903d620d804fb2672ca65790ea53b23aba7118fa9ec7"
+  },
+  "sgis_codebook.zip": {
+    "source": "https://link.mods.go.kr/contents/include/download.jsp?filename=ref_code.zip&path=/board/&type=board",
+    "bytes": 40167509,
+    "sha256": "e95f43f59c9f159ae103fae86d239f81c05ded17441885e420aca022ae07ca0c"
+  },
+  "nmc_guide": {
+    "source": "https://www.data.go.kr/data/15000576/openapi.do",
+    "data_access_status": "see_nmc_update_summary",
+    "bytes": 1304576,
+    "sha256": "03cd5f4a393a91cf49d0b985ccd8db6dd97a5af9a928f0bfb0889c43f234488b"
+  }
+}

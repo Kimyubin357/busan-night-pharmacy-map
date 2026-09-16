@@ -1,0 +1,32 @@
+{
+  "html_payload_matches_current_model": true,
+  "nmc_updated_weekday_rows_verified_in_html": 1679,
+  "unmatched_id_secondary_review": [
+    {
+      "pharmacy_id": "C1202416",
+      "name": "국민약국",
+      "secondary_name_or_phone_within200m": 0,
+      "nearest_nmc": "좋은약국",
+      "nearest_distance_m": 22.864887101917848
+    },
+    {
+      "pharmacy_id": "C1203068",
+      "name": "송송약국",
+      "secondary_name_or_phone_within200m": 1,
+      "nearest_nmc": "송송약국",
+      "nearest_distance_m": 0.0
+    },
+    {
+      "pharmacy_id": "C1201438",
+      "name": "엘지참약국",
+      "secondary_name_or_phone_within200m": 0,
+      "nearest_nmc": "메트로3층약국",
+      "nearest_distance_m": 343.5572561085489
+    }
+  ],
+  "nmc_match_rate": 0.9982311320754716,
+  "grid_count": 21963,
+  "unique_grid_count": 18841,
+  "route_recalculation_complete": true,
+  "new_ranking_available": true
+}

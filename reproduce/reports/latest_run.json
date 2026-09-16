@@ -1,0 +1,8 @@
+{
+  "run_id": "current",
+  "output_dir": "data/processed/current",
+  "report_dir": "reports",
+  "stages": {
+    "snapshot": "complete"
+  }
+}

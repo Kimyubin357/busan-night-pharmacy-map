@@ -1,0 +1,11 @@
+{
+  "grid_nodes": 21963,
+  "pharmacies": 1696,
+  "pair_count": 37249248,
+  "within1km_pairs": 266100,
+  "snap_over100m": 440,
+  "snap_over100m_population_share": 0.01385823342474887,
+  "max_distance_m": 1000,
+  "speed_kmh": 4,
+  "slope_included": false
+}
