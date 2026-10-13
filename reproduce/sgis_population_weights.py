@@ -141,7 +141,7 @@ def main():
                  max_dong_total_error=float(audit.total_error.abs().max()),
                  median_center_shift_m=float(audit.displacement_from_old_point_m.median()),
                  route_recalculation_complete=False,elderly_grid_population_available=False,
-                 note='2024년 거주인구 비중으로 2025년12월 심야 수요를 배분한 추정 시나리오. 관측 심야 격자인구가 아님. 미수록 격자는 인구 0으로 확정하지 않음.')
+                 note=f"{__import__('pipeline_context').context()['grid_year']}년 거주인구 비중으로 {__import__('pipeline_context').context()['population_month']} 심야 수요를 배분한 추정 시나리오. 관측 심야 격자인구가 아님. 미수록 격자는 인구 0으로 확정하지 않음.")
     (OUT/'sgis_weighting_summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2))
     print(json.dumps(summary,ensure_ascii=False,indent=2));print(grid.head(3).to_string(index=False))
 

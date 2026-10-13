@@ -1,0 +1,14 @@
+{
+  "dongs": 206,
+  "grid_nodes": 21963,
+  "unique_grids": 18841,
+  "intersecting_grid_records": 19908,
+  "missing_value_grid_records": 0,
+  "total_original": 3292751.3333333335,
+  "total_allocated": 3292751.3333333335,
+  "max_dong_total_error": 1.4551915228366852e-11,
+  "median_center_shift_m": 168.08127522369077,
+  "route_recalculation_complete": false,
+  "elderly_grid_population_available": false,
+  "note": "2024년 거주인구 비중으로 202607 심야 수요를 배분한 추정 시나리오. 관측 심야 격자인구가 아님. 미수록 격자는 인구 0으로 확정하지 않음."
+}

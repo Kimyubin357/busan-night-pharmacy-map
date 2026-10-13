@@ -1,0 +1,246 @@
+{
+  "population_month": "202512",
+  "grid_year": 2024,
+  "boundary_date": "2025-06-30",
+  "osm_filename": "south-korea.osm.pbf",
+  "osm_latest_url": "https://download.geofabrik.de/asia/south-korea-latest.osm.pbf",
+  "osm_snapshot_url": "https://download.geofabrik.de/asia/south-korea-260913.osm.pbf",
+  "speed_kmh": 4,
+  "snapshot_id": "20260915",
+  "distance_limit_m": 1250,
+  "population_month_candidates": [
+    "202301",
+    "202302",
+    "202303",
+    "202304",
+    "202305",
+    "202306",
+    "202307",
+    "202308",
+    "202309",
+    "202310",
+    "202311",
+    "202312",
+    "202401",
+    "202402",
+    "202403",
+    "202404",
+    "202405",
+    "202406",
+    "202407",
+    "202408",
+    "202409",
+    "202410",
+    "202411",
+    "202412",
+    "202501",
+    "202502",
+    "202503",
+    "202504",
+    "202505",
+    "202506",
+    "202507",
+    "202508",
+    "202509",
+    "202510",
+    "202511",
+    "202512"
+  ],
+  "mode": "snapshot",
+  "created_at": "2026-10-13T11:25:29.724040+00:00",
+  "pharmacy_collected_at": "2026-09-14",
+  "osm_timestamp": "2026-09-13T20:21:20Z",
+  "osm_date": "2026-09-13",
+  "osm_sha256": "9fd311e570571d18b6131521a37f3be0fe6335b742066f2994a342d170ea83a0",
+  "inputs": {
+    "team2/inputs/15028854.csv": {
+      "sha256": "10960ef68e6b47362ea13d6a89c5b39589a28744e59543a9d126c56ef3869ff1",
+      "bytes": 28586837
+    },
+    "team2/inputs/PD_LP00002.xlsx": {
+      "sha256": "9975536274f015c68356c7463e7942f89edd8982746066d3332bbb9dfcbab3fd",
+      "bytes": 1543852
+    },
+    "team2/osm/south-korea.osm.pbf": {
+      "sha256": "9fd311e570571d18b6131521a37f3be0fe6335b742066f2994a342d170ea83a0",
+      "bytes": 287186484
+    },
+    "team2/update_20260915/raw/sgis_codebook.zip": {
+      "sha256": "e95f43f59c9f159ae103fae86d239f81c05ded17441885e420aca022ae07ca0c",
+      "bytes": 40167509
+    },
+    "team2/update_20260915/raw/sgis_dong.zip": {
+      "sha256": "6a675f0c5ae569f33fbe903d620d804fb2672ca65790ea53b23aba7118fa9ec7",
+      "bytes": 79381548
+    },
+    "team2/update_20260915/raw/sgis_grid_mama.zip": {
+      "sha256": "3b993e0e53f884b41104ddac6eb00b09bb146224d363b78770ae7cfd8a82148a",
+      "bytes": 15276884
+    },
+    "team2/update_20260915/raw/sgis_grid_mara.zip": {
+      "sha256": "37bc428db9f35907f74fd24cfcf3553ba8df52a43326e6535d3eaa905334a480",
+      "bytes": 3196747
+    },
+    "team2/update_20260915/raw/sgis_grid_population.zip": {
+      "sha256": "12e3ed6b07fd9da782e01335b449ac3e1256c1a0e9fe5c893c17fe5d26341c83",
+      "bytes": 11185764
+    },
+    "team2/update_20260915/hira_busan_pharmacy_details.csv": {
+      "sha256": "581ca586c450e49f1500aba96e7f6559b97abcafa284e06adcf61c626e23c734",
+      "bytes": 42732
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_001.json": {
+      "sha256": "9764d8a5cf95469665a6210a447ca76bd69d8785e710baa1a65152a55761547a",
+      "bytes": 69683
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_002.json": {
+      "sha256": "bd4e80a642722a67aaa234485a4436abcd490e639a62551c7be684a6c67a0091",
+      "bytes": 69396
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_003.json": {
+      "sha256": "a75a930032814344a2e422ff6ae5ea97d96eb52030d6d18c0aaf7f4025f793db",
+      "bytes": 69276
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_004.json": {
+      "sha256": "f118822ae55bae7b80da8d736b8272b0424b7331c9e188c9988b031e10efe53a",
+      "bytes": 69189
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_005.json": {
+      "sha256": "5746f839573ae22d4fdb048cc220b4655df468537c941b006992320194674728",
+      "bytes": 69700
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_006.json": {
+      "sha256": "033e143cb072359bafdcb2096cc1ee671dc49d426df8eb3abfd31a96d2a37817",
+      "bytes": 69246
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_007.json": {
+      "sha256": "87aa48c433b1da880142ceaf4920e65ed753469c1d935fc6f90c4b5e13bc9a33",
+      "bytes": 69865
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_008.json": {
+      "sha256": "b697cf03e4dea98351f188de145feb9d0dec6a4674bc10c4d08afad9a95d7215",
+      "bytes": 68946
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_009.json": {
+      "sha256": "8cd2ec2e31d46b15a29f1e1d10360ad02bcda3a3a5c85e280e0cad4c9e687e65",
+      "bytes": 69454
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_010.json": {
+      "sha256": "5a1b450c372af9fdadee2f9ed2f95da115923ee85fcdc612c61d9a9a3cb70807",
+      "bytes": 69686
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_011.json": {
+      "sha256": "6d278e944aca0242b3a04c16cc72804d407bed41a05254a295cddce45162c04c",
+      "bytes": 69880
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_012.json": {
+      "sha256": "5ffadf66c4c54be2eb527ebea844ea1b7f9892203f1ea7d2bdd2add5519ae377",
+      "bytes": 70221
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_013.json": {
+      "sha256": "2b96577b1863af79079ee07b92201445f6da43f7d62e38278c3b9f5725d9b0c4",
+      "bytes": 70463
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_014.json": {
+      "sha256": "593ac441309df7a576b164699a75627fae7ea7cbb0d85fb100d0355346abde9f",
+      "bytes": 70076
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_015.json": {
+      "sha256": "52d08fd1a5d53f77da55506f4cbdabb8e59622b8979ef8f35004e96c7cf6af79",
+      "bytes": 69387
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_016.json": {
+      "sha256": "2296a8cf67775ca391f2e5842c74c1121e39da98dd7edc2bc389756551469c31",
+      "bytes": 69409
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_017.json": {
+      "sha256": "b68b3c08da1bbadd88747b6cef29fbd0c5144aa1da05830966d5cf2e1dd85f2a",
+      "bytes": 69525
+    },
+    "data/raw/20261013_202521_038132/pharmacy_api_page_018.json": {
+      "sha256": "d09e5f0e39626c3ac6f4923ef2a03f0ca4afac9925ca60c4fe269157c2dbca13",
+      "bytes": 822
+    },
+    "data/raw/20261013_202521_038132/population_original.xlsx": {
+      "sha256": "c6c26134f53fe5171e4b2e872c52c8953573d23993caf3a8f272f5dac3403689",
+      "bytes": 6243714
+    },
+    "data/raw/20261013_202521_038132/public_night_original.csv": {
+      "sha256": "9e43db636eb9372a1fd71c7fe48cbdd61cc049f6b11422adfa43a0430a42ec5b",
+      "bytes": 1533
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_001.xml": {
+      "sha256": "26dbddc169c4d793fa51b601a987a3f4642cda4d2d23e0e79155553b88ab63ea",
+      "bytes": 75703
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_002.xml": {
+      "sha256": "cd552767433487085088399ecb69ee05a56c8086689e185c42f2e4fd99e95daa",
+      "bytes": 75740
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_003.xml": {
+      "sha256": "dd170d04429e3b7ed943d8c8bd6d2b4dc85c0eab2a500592db95d49f29191e73",
+      "bytes": 75833
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_004.xml": {
+      "sha256": "a48311914f59150ad611eee35d517bf2f4c3e61a42d168f239e666e1920dac4f",
+      "bytes": 77727
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_005.xml": {
+      "sha256": "480b0cf3c2f6c91a7bcb17830fba069124f80f32fe1a0506d3518f1dea277f6c",
+      "bytes": 75462
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_006.xml": {
+      "sha256": "34f50efb93bde08d338f24aeee5f230cb422ddc4fd766cbf6eb3c4a3d0c22526",
+      "bytes": 75631
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_007.xml": {
+      "sha256": "7087d0e825ec1b7847f3ea80e81e2b4249aad59724c58d7be760b6d31a8e1b6f",
+      "bytes": 73740
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_008.xml": {
+      "sha256": "1190cd7a95c5c5f21841bae4dd6254cf70256efa24f386a5aee07d938938a80a",
+      "bytes": 74733
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_009.xml": {
+      "sha256": "21655e8c6650e5e152c03bc8c7082b0d3bde499765195912e42412da5bf4d43e",
+      "bytes": 76003
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_010.xml": {
+      "sha256": "69e08e8d4326c7837fd173a32fa5ce38b22c3effb29d0c3c92dd1b23adf14f8b",
+      "bytes": 76856
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_011.xml": {
+      "sha256": "f7e71bbfc1f609e158232602a21f885227e40e3a96d7d23c34fadfb1bcb326c4",
+      "bytes": 76494
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_012.xml": {
+      "sha256": "3ce93eb4d807b51ed2d85d4ae551b3a836e6f9964ee806e1e8a3a8f11bdca41b",
+      "bytes": 74992
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_013.xml": {
+      "sha256": "ae14dbed1d4b74caea825005f5033aa205ca11a766329e89f693520ee919a6e6",
+      "bytes": 77249
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_014.xml": {
+      "sha256": "d90e8e34f53a8cda4f741f8fbc679ef9b58356d260996491d2727bcd81d4c47b",
+      "bytes": 74786
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_015.xml": {
+      "sha256": "374cfd08ee21b440fae083c48b54b9db92f5a41e09c90cf6fbd4c7de6f60f4b8",
+      "bytes": 75434
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_016.xml": {
+      "sha256": "05eb15e830bab7cbce056704d82bb913631b693bf4ee92380ce16a4eef629978",
+      "bytes": 78522
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_017.xml": {
+      "sha256": "6189ea0a4ac55df8e6db1f7f6917d44039cd9064729afa4f4f09e1cb8c61df3d",
+      "bytes": 76636
+    },
+    "team2/update_20260915/raw/nmc/20261013_202521_038132/page_018.xml": {
+      "sha256": "02cfecfe9c0dcc7b937a0efc24e17b0b2c69d9a20cc65c33e0e2a5d32942415d",
+      "bytes": 10099
+    }
+  },
+  "nmc_collected_at": "2026-09-15T10:17:41.930387+00:00"
+}

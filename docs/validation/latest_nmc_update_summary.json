@@ -1,0 +1,13 @@
+{
+  "nmc_pharmacies": 1714,
+  "identity_matches": 1693,
+  "identity_review": 3,
+  "new_ids": 20,
+  "hours_rows_updated": 1681,
+  "unknown_before": 4487,
+  "unknown_after": 2841,
+  "monday_known": 1679,
+  "monday_unknown": 17,
+  "acquisition_success": true,
+  "live_operation_verified": false
+}

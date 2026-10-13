@@ -1,0 +1,108 @@
+{
+  "mode": "latest",
+  "attempted_at": "2026-10-13T11:13:16.501086+00:00",
+  "status": "passed",
+  "next_scheduled_at": null,
+  "finished_at": "2026-10-13T11:17:03.797638+00:00",
+  "stages": [
+    {
+      "name": "test_contracts.py",
+      "exit_code": 0,
+      "duration_seconds": 0.173
+    },
+    {
+      "name": "test_schedule_exceptions.py",
+      "exit_code": 0,
+      "duration_seconds": 0.025
+    },
+    {
+      "name": "team1_pipeline.py",
+      "exit_code": 0,
+      "duration_seconds": 11.861
+    },
+    {
+      "name": "download_inputs.py",
+      "exit_code": 0,
+      "duration_seconds": 55.803
+    },
+    {
+      "name": "prepare_context.py",
+      "exit_code": 0,
+      "duration_seconds": 2.268
+    },
+    {
+      "name": "monday_analysis.py",
+      "exit_code": 0,
+      "duration_seconds": 0.163
+    },
+    {
+      "name": "team2_pipeline.py",
+      "exit_code": 0,
+      "duration_seconds": 4.746
+    },
+    {
+      "name": "supplement_hira_hours.py",
+      "exit_code": 0,
+      "duration_seconds": 0.384
+    },
+    {
+      "name": "collect_nmc_hours.py",
+      "exit_code": 0,
+      "duration_seconds": 12.509
+    },
+    {
+      "name": "sgis_population_weights.py",
+      "exit_code": 0,
+      "duration_seconds": 7.584
+    },
+    {
+      "name": "osm_network.py",
+      "exit_code": 0,
+      "duration_seconds": 118.043
+    },
+    {
+      "name": "dashboard_v3/grid_routes.py",
+      "exit_code": 0,
+      "duration_seconds": 2.925
+    },
+    {
+      "name": "dashboard_v3/build_data.py",
+      "exit_code": 0,
+      "duration_seconds": 4.704
+    },
+    {
+      "name": "dashboard_v3/verify_v3.py",
+      "exit_code": 0,
+      "duration_seconds": 0.724
+    },
+    {
+      "name": "analyze_sensitivity.py",
+      "exit_code": 0,
+      "duration_seconds": 3.046
+    },
+    {
+      "name": "publish_dashboard_data.py",
+      "exit_code": 0,
+      "duration_seconds": 1.945
+    },
+    {
+      "name": "../build_html.py",
+      "exit_code": 0,
+      "duration_seconds": 0.218
+    },
+    {
+      "name": "../check_finder.cjs",
+      "exit_code": 0,
+      "duration_seconds": 0.025
+    },
+    {
+      "name": "../check_report.cjs",
+      "exit_code": 0,
+      "duration_seconds": 0.116
+    }
+  ],
+  "failed_stage": null,
+  "log_path": "/tmp/busan-live-refresh-20261013-retry/project/refresh.log",
+  "published_html_sha256": "5a286fff8b449de9f34c57623e6468c147eeb9c619db92ec08291319e4ed4543",
+  "published_payload_sha256": "c5b1065725a70e04a441d5e5d630919f0c5e3a7d776cbf62f332a1c53eb050bc"
+}

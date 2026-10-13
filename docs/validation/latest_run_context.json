@@ -1,0 +1,261 @@
+{
+  "population_month": "202607",
+  "grid_year": 2024,
+  "boundary_date": "2025-06-30",
+  "osm_filename": "south-korea.osm.pbf",
+  "osm_latest_url": "https://download.geofabrik.de/asia/south-korea-latest.osm.pbf",
+  "osm_snapshot_url": "https://download.geofabrik.de/asia/south-korea-260913.osm.pbf",
+  "speed_kmh": 4,
+  "snapshot_id": "20260915",
+  "distance_limit_m": 1250,
+  "population_month_candidates": [
+    "202301",
+    "202302",
+    "202303",
+    "202304",
+    "202305",
+    "202306",
+    "202307",
+    "202308",
+    "202309",
+    "202310",
+    "202311",
+    "202312",
+    "202401",
+    "202402",
+    "202403",
+    "202404",
+    "202405",
+    "202406",
+    "202407",
+    "202408",
+    "202409",
+    "202410",
+    "202411",
+    "202412",
+    "202501",
+    "202502",
+    "202503",
+    "202504",
+    "202505",
+    "202506",
+    "202507",
+    "202508",
+    "202509",
+    "202510",
+    "202511",
+    "202512",
+    "202601",
+    "202602",
+    "202603",
+    "202604",
+    "202605",
+    "202606",
+    "202607"
+  ],
+  "mode": "latest",
+  "created_at": "2026-10-13T11:14:26.434788+00:00",
+  "pharmacy_collected_at": "2026-10-13",
+  "osm_timestamp": "2026-10-12T20:21:35Z",
+  "osm_date": "2026-10-12",
+  "osm_sha256": "0b45a02593fc7d3d2ae3bdd616f8abebf1e21deeda3eff3a9a46814920d46587",
+  "inputs": {
+    "team2/inputs/15028854.csv": {
+      "sha256": "10960ef68e6b47362ea13d6a89c5b39589a28744e59543a9d126c56ef3869ff1",
+      "bytes": 28586837
+    },
+    "team2/inputs/PD_LP00002.xlsx": {
+      "sha256": "ae45283cdc617f3e0082c0f90b42a50060d807c6705e92d76803868c9c3c36a7",
+      "bytes": 1843425
+    },
+    "team2/osm/south-korea.osm.pbf": {
+      "sha256": "0b45a02593fc7d3d2ae3bdd616f8abebf1e21deeda3eff3a9a46814920d46587",
+      "bytes": 289140584
+    },
+    "team2/update_20260915/raw/sgis_codebook.zip": {
+      "sha256": "e95f43f59c9f159ae103fae86d239f81c05ded17441885e420aca022ae07ca0c",
+      "bytes": 40167509
+    },
+    "team2/update_20260915/raw/sgis_dong.zip": {
+      "sha256": "6a675f0c5ae569f33fbe903d620d804fb2672ca65790ea53b23aba7118fa9ec7",
+      "bytes": 79381548
+    },
+    "team2/update_20260915/raw/sgis_grid_mama.zip": {
+      "sha256": "3b993e0e53f884b41104ddac6eb00b09bb146224d363b78770ae7cfd8a82148a",
+      "bytes": 15276884
+    },
+    "team2/update_20260915/raw/sgis_grid_mara.zip": {
+      "sha256": "37bc428db9f35907f74fd24cfcf3553ba8df52a43326e6535d3eaa905334a480",
+      "bytes": 3196747
+    },
+    "team2/update_20260915/raw/sgis_grid_population.zip": {
+      "sha256": "12e3ed6b07fd9da782e01335b449ac3e1256c1a0e9fe5c893c17fe5d26341c83",
+      "bytes": 11185764
+    },
+    "team2/update_20260915/hira_busan_pharmacy_details.csv": {
+      "sha256": "581ca586c450e49f1500aba96e7f6559b97abcafa284e06adcf61c626e23c734",
+      "bytes": 42732
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_001.json": {
+      "sha256": "f1afed62965ca5b92aea70f662a1e44584fcea2a48fa318681ce4c480b8eaf81",
+      "bytes": 69933
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_002.json": {
+      "sha256": "39166ee2000572c09558485b836c198435525462e3fde9eb912af4a31d301f67",
+      "bytes": 69271
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_003.json": {
+      "sha256": "d8ec70790ccdcba03dc3f0c5ccffedf7b1f3f3b03b7cc84ce771d9a952737a9b",
+      "bytes": 69407
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_004.json": {
+      "sha256": "8ebecd7b8dfb1fed8ac3b41587fe057b6751d1fdc4f1f3ccd824e3e7997effbb",
+      "bytes": 69207
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_005.json": {
+      "sha256": "ea6d312061780569daf0fe3c7595a6b200983d58387b40bcedd197946111ee28",
+      "bytes": 69662
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_006.json": {
+      "sha256": "9460e9747fe2a2d4efe8f1a7c04617eaa27c45eea3f8bfebae7d51e932f241a6",
+      "bytes": 69613
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_007.json": {
+      "sha256": "c0673772b350960d8eb64b2e7f4717ad1dcb0a683cd3dcde1c6085a2433da2b7",
+      "bytes": 69134
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_008.json": {
+      "sha256": "355474330075ebe16c166d93a33eb120c67d8680caca881ce20227e4294371fd",
+      "bytes": 69174
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_009.json": {
+      "sha256": "d224e3a69a6a37c8de9202bf0a141f034a26aae9df116d9798172301d8d4e7c7",
+      "bytes": 69539
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_010.json": {
+      "sha256": "4c260a3936978fe376e3445bb2f17ad2c2fd8d034a813f29d0bed23f800e1f1f",
+      "bytes": 69798
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_011.json": {
+      "sha256": "4b8fcc05141f7c080da356eb329647cf81953f0abb32adfe9aebef8ecf2aa541",
+      "bytes": 69767
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_012.json": {
+      "sha256": "787de32880152a1a313a244a264c87c46f9ce874ee4026cd6c455b914caa5ead",
+      "bytes": 70378
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_013.json": {
+      "sha256": "65240596b641014169494f1a78a8c23e0611a67f0f69b94e3259790778d8038a",
+      "bytes": 70207
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_014.json": {
+      "sha256": "8fe4aad5e3306bb9625ddcfcdb9f655143fdfe795fe1e7d96ac2ad22d1c25ea1",
+      "bytes": 69900
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_015.json": {
+      "sha256": "15511b595c1e4bc688dc75c8bf41fd4ecf41cf51c1ea852c1944d21af5ec2430",
+      "bytes": 69171
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_016.json": {
+      "sha256": "2b4ef3a268a9a706d3f621abb862c4b01d46b07b13122de14b9beffa334b84d6",
+      "bytes": 69424
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_017.json": {
+      "sha256": "f2c02def16f7b78854ce2e387a9fe343c83278bc0f063f94ae24cdef47db779d",
+      "bytes": 69897
+    },
+    "data/raw/20261013_201316_849985/pharmacy_api_page_018.json": {
+      "sha256": "a8a84fac020cda0542772cf7d863f577fe536af983a4aea3e79104971b742439",
+      "bytes": 810
+    },
+    "data/raw/20261013_201316_849985/population_original.xlsx": {
+      "sha256": "b30bf984adc4c09fd8579ba4100b3d5e10a7d9fb2b25db017dd91b4f03225f34",
+      "bytes": 7461337
+    },
+    "data/raw/20261013_201316_849985/population_original_metadata.json": {
+      "sha256": "a35a2edf8bac4c2447b906b363a3ebaf87f884f00164c0f597949af3161ede52",
+      "bytes": 2471
+    },
+    "data/raw/20261013_201316_849985/public_night_original.csv": {
+      "sha256": "9e43db636eb9372a1fd71c7fe48cbdd61cc049f6b11422adfa43a0430a42ec5b",
+      "bytes": 1533
+    },
+    "data/raw/20261013_201316_849985/public_night_original_metadata.json": {
+      "sha256": "5beb277110e65a7766f8fcd48e37fc82b0bb32cd4cae5a904fc925398d04637d",
+      "bytes": 3705
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_001.xml": {
+      "sha256": "aad1979c97fe8d2428ce4fe3a33f987f8f2c39ed9af8aaadd1cf2da3a1925f29",
+      "bytes": 75761
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_002.xml": {
+      "sha256": "ca43cb952c99b2d27d54e1864890093e76f7811e940f57b55f1290eb203ec4d6",
+      "bytes": 75752
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_003.xml": {
+      "sha256": "3ff3fb72fa039c5423fa0c6c35f8375c3f4d0c93053cd4fe617fe3298f2b693d",
+      "bytes": 76084
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_004.xml": {
+      "sha256": "ed80fb98dcc39f6bbecf7e72e428f8a231221ea7b5560941b23902b8a44e21af",
+      "bytes": 77896
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_005.xml": {
+      "sha256": "257a270b978ba72252b68166c0ea0ccd9fb80193eaf7c3eabaf256ef6e929658",
+      "bytes": 75447
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_006.xml": {
+      "sha256": "f7f113802b9bec707833237ebe5da40f80a03c89c1be8a350633e82c3f209f8e",
+      "bytes": 75608
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_007.xml": {
+      "sha256": "01c2385825bdb5738b3ab9c2f61e153f16ff276a6dceea818a2264e01b41e2be",
+      "bytes": 73808
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_008.xml": {
+      "sha256": "406ca6f282aa3489cb042f768906844f9ff147c00a0d25a258a5e01878d60a21",
+      "bytes": 74670
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_009.xml": {
+      "sha256": "5753d75f1f3077f7436f920ba8be7ef33e6a3a94c283808c5837abcdc6a1f5e9",
+      "bytes": 76152
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_010.xml": {
+      "sha256": "b73a66142cee55cface0008fb1f6ce6d4bdacac6a26ec5fec401a06885294cab",
+      "bytes": 76742
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_011.xml": {
+      "sha256": "870cc8d30b85f57b108ac3009cbdd5ca0839dbc117d98d3540925d437bf97182",
+      "bytes": 76521
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_012.xml": {
+      "sha256": "10cc14a4bbea5292ec7036d3cb15d2019dc306218f1ddc4db0c314ad62dc1188",
+      "bytes": 75118
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_013.xml": {
+      "sha256": "b098c08e7d2f6ffbbf3175e8824b164a716282f9a725101661ea253fd6b77e43",
+      "bytes": 76927
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_014.xml": {
+      "sha256": "0f75c6cdb5d7f8b96a0cebacaf668fbd2ac308836563240208c3cc2d65ca858f",
+      "bytes": 74974
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_015.xml": {
+      "sha256": "488b5914e0660b4965b171c2efd59be85fbe215fdee29c7c5a8e907f496fb8d3",
+      "bytes": 75346
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_016.xml": {
+      "sha256": "a33d3ea6990a896ea8617bc6fce34135e62a0d143dad01570b11f08e43111dcf",
+      "bytes": 78606
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_017.xml": {
+      "sha256": "14ec59aef6ecb723d0af6cdc35b1891f2cd3a043ef545735e3d755b13ffbf149",
+      "bytes": 76637
+    },
+    "team2/update_20260915/raw/nmc/20261013_201316_849985/page_018.xml": {
+      "sha256": "67709f88359bfc399c0b83ce7ba79cea27a61639448ffd3188727ac2fb8a37db",
+      "bytes": 10813
+    }
+  },
+  "nmc_collected_at": "2026-10-13T11:14:40.763584+00:00"
+}

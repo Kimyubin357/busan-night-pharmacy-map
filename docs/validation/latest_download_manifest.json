@@ -1,0 +1,66 @@
+{
+  "team2/inputs/15028854.csv": {
+    "url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003632450&fileDetailSn=1",
+    "source": "download",
+    "mode": "latest",
+    "checked_at": "2026-10-13T11:13:35.051650+00:00",
+    "sha256": "10960ef68e6b47362ea13d6a89c5b39589a28744e59543a9d126c56ef3869ff1",
+    "bytes": 28586837
+  },
+  "team2/inputs/PD_LP00002.xlsx": {
+    "url": "https://data.busan.go.kr/bdip/opendata/DATA_202411250501368790",
+    "source": "download",
+    "mode": "latest",
+    "checked_at": "2026-10-13T11:13:35.584190+00:00",
+    "sha256": "ae45283cdc617f3e0082c0f90b42a50060d807c6705e92d76803868c9c3c36a7",
+    "bytes": 1843425
+  },
+  "team2/update_20260915/raw/sgis_grid_population.zip": {
+    "url": "https://link.mods.go.kr/census/reqdoc/1789222868357.zip",
+    "source": "existing_verified",
+    "mode": "latest",
+    "checked_at": "2026-10-13T11:13:35.594285+00:00",
+    "sha256": "12e3ed6b07fd9da782e01335b449ac3e1256c1a0e9fe5c893c17fe5d26341c83",
+    "bytes": 11185764
+  },
+  "team2/update_20260915/raw/sgis_grid_mara.zip": {
+    "url": "https://link.mods.go.kr/grid_border/grid_2025/grid_%EB%A7%88%EB%9D%BC/grid_%EB%A7%88%EB%9D%BC.zip",
+    "source": "existing_verified",
+    "mode": "latest",
+    "checked_at": "2026-10-13T11:13:35.604787+00:00",
+    "sha256": "37bc428db9f35907f74fd24cfcf3553ba8df52a43326e6535d3eaa905334a480",
+    "bytes": 3196747
+  },
+  "team2/update_20260915/raw/sgis_grid_mama.zip": {
+    "url": "https://link.mods.go.kr/grid_border/grid_2025/grid_%EB%A7%88%EB%A7%88/grid_%EB%A7%88%EB%A7%88.zip",
+    "source": "existing_verified",
+    "mode": "latest",
+    "checked_at": "2026-10-13T11:13:35.619039+00:00",
+    "sha256": "3b993e0e53f884b41104ddac6eb00b09bb146224d363b78770ae7cfd8a82148a",
+    "bytes": 15276884
+  },
+  "team2/update_20260915/raw/sgis_dong.zip": {
+    "url": "https://link.mods.go.kr/census/bnd_data/bnd_dong/bnd_dong_00_2025_2Q.zip",
+    "source": "existing_verified",
+    "mode": "latest",
+    "checked_at": "2026-10-13T11:13:35.666718+00:00",
+    "sha256": "6a675f0c5ae569f33fbe903d620d804fb2672ca65790ea53b23aba7118fa9ec7",
+    "bytes": 79381548
+  },
+  "team2/update_20260915/raw/sgis_codebook.zip": {
+    "url": "https://link.mods.go.kr/contents/include/download.jsp?filename=ref_code.zip&path=/board/&type=board",
+    "source": "existing_verified",
+    "mode": "latest",
+    "checked_at": "2026-10-13T11:13:35.710098+00:00",
+    "sha256": "e95f43f59c9f159ae103fae86d239f81c05ded17441885e420aca022ae07ca0c",
+    "bytes": 40167509
+  },
+  "team2/osm/south-korea.osm.pbf": {
+    "url": "https://download.geofabrik.de/asia/south-korea-latest.osm.pbf",
+    "source": "download",
+    "mode": "latest",
+    "checked_at": "2026-10-13T11:14:24.261224+00:00",
+    "sha256": "0b45a02593fc7d3d2ae3bdd616f8abebf1e21deeda3eff3a9a46814920d46587",
+    "bytes": 289140584
+  }
+}

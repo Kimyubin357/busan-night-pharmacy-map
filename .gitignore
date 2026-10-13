@@ -52,3 +52,4 @@ reproduce/sensitivity_results.json
 reproduce/sensitivity_rankings.csv
 reproduce/field_validation_plan.csv
 *.partial
+.refresh-lock/

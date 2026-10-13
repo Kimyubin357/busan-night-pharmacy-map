@@ -1,16 +1,20 @@
 {
   "total_pharmacies": 1716,
   "observed": 1699,
-  "sunday_assumed_sunday_closed_original_blank": 1284,
-  "saturday_observed": 1601,
-  "conflict_days_resolved_nmc": 22,
-  "sunday_nmc_conflict_resolved": 3,
-  "sunday_observed": 324,
-  "sunday_assumed_weekend_closed_original_blank": 89,
-  "saturday_assumed_weekend_closed_original_blank": 89,
+  "sunday_assumed_sunday_closed_original_blank": 1285,
+  "saturday_observed": 1602,
+  "sunday_observed": 327,
+  "sunday_assumed_weekend_closed_original_blank": 88,
+  "saturday_assumed_weekend_closed_original_blank": 88,
   "saturday_unknown": 22,
+  "conflict_days_resolved_nmc": 17,
   "assumed_monday_tue_fri_equal": 3,
   "saturday_nmc_conflict_resolved": 4,
   "unknown": 14,
-  "sunday_unknown": 16
+  "sunday_unknown": 16,
+  "pharmacies_with_breaks": 81,
+  "pharmacies_with_recurring_exceptions": 9,
+  "pharmacies_with_exception_review": 159,
+  "sunday_unknown_after_exceptions": 22,
+  "saturday_unknown_after_exceptions": 25
 }

@@ -64,9 +64,22 @@ def build_schedules():
         counts['sunday_'+sources[7]]+=1
         counts['saturday_'+sources[6]]+=1
         audit.append(dict(pharmacy_id=pid,monday_before=json.dumps(before_mon),monday_after=json.dumps(w[1]),monday_source=sources[1],tue_fri_equal=equal,saturday_complete=w[6] is not None,saturday_equals_weekdays=sat_equal,sunday_original_both_blank=origin_blank,sunday_nmc_both_blank=nmc_blank,sunday_before=json.dumps(before_sun),sunday_after=json.dumps(w[7]),sunday_source=sources[7],saturday_before=json.dumps(before_sat),saturday_after=json.dumps(w[6]),saturday_source=sources[6],conflict_days_resolved_nmc=json.dumps([d for d in range(1,8) if sources[d]=='nmc_conflict_resolved']),error_days=json.dumps([d for d in range(1,8) if w[d] is None]),in_route_model=pid in route_ids))
+    from schedule_exceptions import apply_exceptions
+    by_id={r['pharmacy_id']:r for r in audit}
+    exceptions=apply_exceptions(weekly,by_id)
+    counts['pharmacies_with_breaks']=sum(any(e['breaks']) for e in exceptions.values())
+    counts['pharmacies_with_recurring_exceptions']=sum(bool(e['recurring']) for e in exceptions.values())
+    counts['pharmacies_with_exception_review']=sum(bool(e['review']) for e in exceptions.values())
+    for r in audit:
+        w=weekly[r['pharmacy_id']]
+        for day,label in [(1,'monday'),(6,'saturday'),(7,'sunday')]:r[label+'_after']=json.dumps(w[day])
+        r['error_days']=json.dumps([d for d in range(1,8) if w[d] is None])
+        r['sunday_error_reason']=('monthly_exception_requires_calendar_date' if 7 in json.loads(r['exception_days']) else 'missing_opening_hours') if w[7] is None else ''
+    counts['sunday_unknown_after_exceptions']=sum(w[7] is None for w in weekly.values())
+    counts['saturday_unknown_after_exceptions']=sum(w[6] is None for w in weekly.values())
     pd.DataFrame(audit).to_csv(P/'schedule_assumptions_audit.csv',index=False)
     pd.DataFrame(conflict_audit).to_csv(P/'nmc_conflict_resolutions.csv',index=False)
-    pd.DataFrame([r for r in audit if r['sunday_source']=='unknown']).to_csv(P/'remaining_sunday_errors.csv',index=False)
+    pd.DataFrame([r for r in audit if weekly[r['pharmacy_id']][7] is None]).to_csv(P/'remaining_sunday_errors.csv',index=False)
     edge_path=P/'sunday_109_edge_cases.csv'
     if edge_path.exists():
         edge=pd.read_csv(edge_path);by_id={r['pharmacy_id']:r for r in audit}

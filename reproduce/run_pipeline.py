@@ -3,7 +3,7 @@
 import argparse, json, os, subprocess, sys, time
 from pipeline_context import ROOT, config, sha256, utc_now
 
-STEPS=[['test_contracts.py'],['team1_pipeline.py'],['prepare_context.py'],['monday_analysis.py'],['team2_pipeline.py'],
+STEPS=[['test_contracts.py'],['test_schedule_exceptions.py'],['test_refresh.py'],['team1_pipeline.py'],['prepare_context.py'],['monday_analysis.py'],['team2_pipeline.py'],
        ['supplement_hira_hours.py'],['collect_nmc_hours.py'],['sgis_population_weights.py'],
        ['osm_network.py'],['dashboard_v3/grid_routes.py'],['dashboard_v3/build_data.py'],
        ['dashboard_v3/verify_v3.py'],['analyze_sensitivity.py'],['publish_dashboard_data.py']]
@@ -11,9 +11,13 @@ STEPS=[['test_contracts.py'],['team1_pipeline.py'],['prepare_context.py'],['mond
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--mode',choices=['snapshot','latest'],default='snapshot')
-    args=parser.parse_args();cfg=config();catalog=json.loads((ROOT/'input_catalog.json').read_text())
+    args=parser.parse_args()
+    if args.mode=='latest' and os.environ.get('BUSAN_ISOLATED_REFRESH')!='1':
+        # 직접 실행해도 최신 수집은 검증 전 공개 결과를 바꾸지 않습니다.
+        raise SystemExit(subprocess.run([sys.executable,str(ROOT/'refresh_dashboard.py'),'--mode','latest'],cwd=ROOT).returncode)
+    cfg=config();catalog=json.loads((ROOT/'input_catalog.json').read_text())
     missing=[rel for rel in catalog if not (ROOT/rel).exists()]
-    if missing:raise SystemExit('먼저 python download_inputs.py --mode '+args.mode+' 실행 필요:\n- '+'\n- '.join(missing))
+    if missing and args.mode=='snapshot':raise SystemExit('먼저 python download_inputs.py --mode '+args.mode+' 실행 필요:\n- '+'\n- '.join(missing))
     if args.mode=='snapshot':
         for rel,entry in catalog.items():
             if sha256(ROOT/rel)!=entry['snapshot_sha256']:raise ValueError('입력 스냅샷 해시 불일치: '+rel)
@@ -22,6 +26,7 @@ def main():
     else:env.pop('BUSAN_SNAPSHOT_DIR',None)
     started=utc_now();stages=[];report=ROOT/'reports/pipeline_run.json';report.parent.mkdir(exist_ok=True)
     steps=[*STEPS,['../build_html.py'],['../check_finder.cjs'],['../check_report.cjs']]
+    if args.mode=='latest':steps.insert(4,['download_inputs.py','--mode','latest'])
     try:
         for i,argv in enumerate(steps,1):
             name=argv[0];print(f'[{i}/{len(steps)}] {name}',flush=True);begin=time.monotonic()

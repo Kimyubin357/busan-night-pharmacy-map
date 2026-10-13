@@ -1,0 +1,23 @@
+{
+  "mode": "latest",
+  "started_at": "2026-10-13T11:11:43.767216+00:00",
+  "finished_at": "2026-10-13T11:12:03.583185+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "test_contracts.py",
+      "exit_code": 0,
+      "duration_seconds": 0.222
+    },
+    {
+      "name": "team1_pipeline.py",
+      "exit_code": 0,
+      "duration_seconds": 13.597
+    },
+    {
+      "name": "download_inputs.py",
+      "exit_code": 1,
+      "duration_seconds": 5.989
+    }
+  ]
+}

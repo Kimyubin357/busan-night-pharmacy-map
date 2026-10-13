@@ -19,9 +19,11 @@ for p in data['pharmacies']:
 data['meta']['display_distance_limit_m']=1000
 target=ROOT.parent/'dashboard_data.json.gz'
 target.write_bytes(gzip.compress(json.dumps(data,ensure_ascii=False,separators=(',',':'),allow_nan=False).encode()))
-for name in ['data.json.gz','validation.json','model_summary.json','candidate_rankings_v3.csv','schedule_assumptions_audit.csv','schedule_assumptions_summary.json','nmc_conflict_resolutions.csv','remaining_sunday_errors.csv','grid_route_quality.json']:
+for name in ['data.json.gz','validation.json','model_summary.json','candidate_rankings_v3.csv','schedule_assumptions_audit.csv','schedule_assumptions_summary.json','schedule_exceptions_audit.csv','nmc_conflict_resolutions.csv','remaining_sunday_errors.csv','grid_route_quality.json']:
     path=ROOT/'dashboard_v3'/name
     if path.exists(): (ROOT.parent/name).write_bytes(path.read_bytes())
 for name in ['sensitivity_results.json','sensitivity_rankings.csv','field_validation_plan.csv']:
     (ROOT.parent/name).write_bytes((ROOT/name).read_bytes())
+for source,name in [('nmc_busan_pharmacies.csv','nmc_pharmacies_latest.csv'),('nmc_identity_review.csv','nmc_identity_review_latest.csv')]:
+    (ROOT.parent/name).write_bytes((ROOT/'team2/update_20260915'/source).read_bytes())
 print(target,target.stat().st_size)

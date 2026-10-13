@@ -1,0 +1,148 @@
+{
+  "mode": "snapshot",
+  "started_at": "2026-10-13T11:25:20.635419+00:00",
+  "finished_at": "2026-10-13T11:26:21.664533+00:00",
+  "status": "passed",
+  "stages": [
+    {
+      "name": "test_contracts.py",
+      "exit_code": 0,
+      "duration_seconds": 0.173
+    },
+    {
+      "name": "test_schedule_exceptions.py",
+      "exit_code": 0,
+      "duration_seconds": 0.025
+    },
+    {
+      "name": "test_refresh.py",
+      "exit_code": 0,
+      "duration_seconds": 0.069
+    },
+    {
+      "name": "team1_pipeline.py",
+      "exit_code": 0,
+      "duration_seconds": 7.187
+    },
+    {
+      "name": "prepare_context.py",
+      "exit_code": 0,
+      "duration_seconds": 1.818
+    },
+    {
+      "name": "monday_analysis.py",
+      "exit_code": 0,
+      "duration_seconds": 0.16
+    },
+    {
+      "name": "team2_pipeline.py",
+      "exit_code": 0,
+      "duration_seconds": 4.357
+    },
+    {
+      "name": "supplement_hira_hours.py",
+      "exit_code": 0,
+      "duration_seconds": 0.365
+    },
+    {
+      "name": "collect_nmc_hours.py",
+      "exit_code": 0,
+      "duration_seconds": 3.786
+    },
+    {
+      "name": "sgis_population_weights.py",
+      "exit_code": 0,
+      "duration_seconds": 7.3
+    },
+    {
+      "name": "osm_network.py",
+      "exit_code": 0,
+      "duration_seconds": 22.119
+    },
+    {
+      "name": "dashboard_v3/grid_routes.py",
+      "exit_code": 0,
+      "duration_seconds": 2.908
+    },
+    {
+      "name": "dashboard_v3/build_data.py",
+      "exit_code": 0,
+      "duration_seconds": 4.677
+    },
+    {
+      "name": "dashboard_v3/verify_v3.py",
+      "exit_code": 0,
+      "duration_seconds": 0.734
+    },
+    {
+      "name": "analyze_sensitivity.py",
+      "exit_code": 0,
+      "duration_seconds": 3.038
+    },
+    {
+      "name": "publish_dashboard_data.py",
+      "exit_code": 0,
+      "duration_seconds": 1.933
+    },
+    {
+      "name": "../build_html.py",
+      "exit_code": 0,
+      "duration_seconds": 0.227
+    },
+    {
+      "name": "../check_finder.cjs",
+      "exit_code": 0,
+      "duration_seconds": 0.024
+    },
+    {
+      "name": "../check_report.cjs",
+      "exit_code": 0,
+      "duration_seconds": 0.116
+    }
+  ],
+  "output_sha256": {
+    "dashboard_data.json.gz": "1174b33a911339447e21136b99472647ea60e47865c9d4117040c3b2a7c9442c",
+    "dist/index.html": "3060c072eff19fb90db1acdaf02c2ce0820604a412ad1146da403c7edc691eb2",
+    "reproduce/dashboard_v3/validation.json": "249c35e5b13389d162eb97fead534199d1198b00933f18e2b245910e622f8baa",
+    "reproduce/sensitivity_results.json": "8fe0120f72d14d1ee71492528b3d5cd869ffce8b0ed4d9e66c93eee9c8dd1f10"
+  },
+  "code_sha256": {
+    "reproduce/test_contracts.py": "79f3794691f57bf9fc7088dc364746c9f7dc7693c79f2d1fb404cc5f6ff8966e",
+    "reproduce/public_data.py": "90fa1c1282fc500336415974e189442e3cc67c3ffe9fa1ce3646fabcddc17ff8",
+    "reproduce/team2_refinements.py": "e7a453c70bf9bcc2c41bfad77fbbb880105cc5854c7662386e31481862a0ec95",
+    "reproduce/prepare_context.py": "ee6c0ca83009b77f9fa6f69ca358a881f96cfcaae81d2f1c1dda5c67d31e6325",
+    "reproduce/test_schedule_exceptions.py": "4fd490db573fdb1016ef640d2f65540770aff5cd121ff689cbb7773c2e2dfad4",
+    "reproduce/sgis_population_weights.py": "11c62b983baac283bfb04b0f054699aeff04cb6768e981236f3cb3dba645c7be",
+    "reproduce/opening_calendar.py": "46e545c047a65f995ddc5408cad936c82fb35a1943e5305a657f41ebe1177b31",
+    "reproduce/publish_dashboard_data.py": "b6a8502d5f405bf7c18155e3bf340afdc7480bc9e69813d7f4850dfa6354e273",
+    "reproduce/pharmacy_data.py": "6d85ab61fcb761f56998fe3b27b2733cb8d0640b87bb876d66481ba43c16ba47",
+    "reproduce/team1_pipeline.py": "9101e7bc9429a0e295f4a19301698fe38b59f20677be02d8e3b67f96f5794af5",
+    "reproduce/download_inputs.py": "b4d3f44976745be00d8892258c310700fbc24c5a1c95767e4d44b5c8f94977d5",
+    "reproduce/pipeline_context.py": "acb22f149464bc73a7f9800dfdb83f3c7fc598042c858a009a9c98da1890127f",
+    "reproduce/monday_analysis.py": "4380ddd6f1cdc4706c4e6126c4ca2beffd376b85d985f400420f580eaf6c9abc",
+    "reproduce/test_refresh.py": "c695066745bc3c9137989379fd7a14089c31c1f81dcf0a2ac6c44b504ef5cb2d",
+    "reproduce/audit_data.py": "cc673f178f703fba00bf2462a8f6edd7618b06a7a8d5ba3a45403068beff518f",
+    "reproduce/analyze_sensitivity.py": "5a2e38510ddf7775d3c1c8edf2f6074dbbb0e4ba21f97861a4e30f0a06838cdc",
+    "reproduce/run_pipeline.py": "e1871b5de559c97767951ebe1648601b7d19081a81fb4e0e3814400edd1140c9",
+    "reproduce/collect_nmc_hours.py": "abc423c0dfbaa0784ab444ab0d0b7134cacd2bbcba319317b00f177e7c3db533",
+    "reproduce/reprocess_cached.py": "1069ea5e8c81109c9f2e2aa9dd079e653d34757c6a041030e64de7c82154353b",
+    "reproduce/verify_population_hours_update.py": "2d68a6b62b5414278f8361180e132e9974ec91e75357b7b705073b94d56ad5db",
+    "reproduce/verify_outputs.py": "ccf0c4b76002013bc18a668832663f68554c48cb6f45648ac9b07affa2125bd8",
+    "reproduce/osm_network.py": "d5cf2e6c90bd306105c80932041e5b77b828e283dc561e1407c9a0893f4c5e5f",
+    "reproduce/refresh_dashboard.py": "0ebf6a443b5116bf4059e8ef6348c5ac430c50781708849c93e1d8599630794c",
+    "reproduce/team2_pipeline.py": "4d09887fd86de087898ee00740072e64d0fa516b0060e6f1b6ed22adc46f6b8c",
+    "reproduce/supplement_hira_hours.py": "6f674049050dc6829b1e377a04654f75bc1218175443de72065da1481d4d4d14",
+    "reproduce/dashboard_v3/schedule_exceptions.py": "d6df2e393e4420610096c8d96760f71ffff6b0eb6d19e06567819daa78410ad8",
+    "reproduce/dashboard_v3/build_map_data.py": "5961e562c3c6a8019634ddd2e656439a73f65cf4de1a2e7fa4b0835ec7119b7a",
+    "reproduce/dashboard_v3/build_data.py": "e00789f6126e2570e79aadfa67472c0492337dff5f8f7e02a91d8eb281e12f93",
+    "reproduce/dashboard_v3/verify_v3.py": "abf12dbb12c10a3092a4ab574ec674ef5982ba92445b86ce4889685a62fed959",
+    "reproduce/dashboard_v3/schedule_assumptions.py": "0ff9508bf3c2cc5f16d7d6e7e09963b8fd59a97f0286adacc97bfe3390a8fd85",
+    "reproduce/dashboard_v3/grid_routes.py": "6420425af359a9964048922c00ee0f9325b8bdefcea5bb2a326ceeac0c249510",
+    "build_html.py": "1b7c0d2c604517c3817ea9ecc4333adba3dd4d1a3ad7409d213628e5403378f0",
+    "finder.js": "bede20923e4365a4eb1d938a62117895489a42ec994fb6f41c23845fa81dbdda",
+    "app.js": "90a31a7870636ef2fa030ed3d2762c5764e8c964683141f9c418cf6c97a401b7",
+    "report.js": "e61befbb048c08bcdbed29893dc7d361932e7d93aa121cc40ac9348bdad9f382",
+    "report.css": "c5f92db28add7b8a2632558e73bd8a390731d08efd097bfc877752a5860165b6",
+    "dist/template.html": "8bb4c5c9d4c67f49c97e5b698974f3f806a32911215a0bdc1cb395002d668698"
+  }
+}

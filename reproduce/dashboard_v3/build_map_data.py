@@ -1,6 +1,6 @@
 """접근성 분석 대상과 독립된 전체 약국 지도 목록을 구성합니다."""
 from pathlib import Path
-import csv
+import csv,json
 from shapely.geometry import Point, shape
 
 P = Path(__file__).resolve().parent
@@ -23,12 +23,16 @@ def build_map_pharmacies(data):
     for pid, p in existing.items():
         if pid not in points:
             points[pid] = {k: p[k] for k in ['id', 'name', 'address', 'phone', 'lat', 'lon', 'designated']}
-            points[pid]['source'] = '기존 부산 약국 목록 · 최신 API 미조회, 운영 여부 확인 필요'
+            points[pid]['source'] = '부산 약국 목록 · NMC 미조회, 운영 여부 확인 필요'
     from schedule_assumptions import build_schedules
     weekly,audit,_=build_schedules()
+    from schedule_exceptions import load_exceptions
+    exceptions=load_exceptions()
     dong_shapes=[(shape(f['geometry']),data['dongs'][f['properties']['i']]) for f in data['boundaries']['features']]
     for pid,p in points.items():
-        p['schedule']=[weekly[pid][d] for d in range(1,8)]
+        p['schedule']=json.loads(audit[pid]['finder_schedule'])
+        e=exceptions.get(pid,dict(notes='',breaks=[[] for _ in range(7)],recurring=[],closedDates=[],review=['NMC 미조회 · 운영 여부 확인 필요']))
+        p['scheduleExceptions']=e
         p['scheduleSources']={'monday':audit[pid]['monday_source'],'sunday':audit[pid]['sunday_source'],'saturday':audit[pid]['saturday_source']}
         area=next((d for geom,d in dong_shapes if geom.covers(Point(p['lon'],p['lat']))),None)
         p['district']=area['district'] if area else (existing.get(pid,{}).get('district') or '')

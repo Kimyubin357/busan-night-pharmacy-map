@@ -21,7 +21,9 @@ def main():
                 rows=[x for x in metadata['fileList'] if x.get('downurl')]
                 url=max(rows,key=lambda x:str(x.get('updatedAt') or ''))['downurl']
             else:url=entry.get('latest_url',url)
-        if target.exists() and args.mode=='snapshot' and sha256(target)==entry['snapshot_sha256']:
+        # 기준 연도/경계일을 고정한 SGIS 원천은 재사용해도 최신 API 조회와 모순되지 않습니다.
+        pinned=args.mode=='latest' and not entry.get('latest_metadata_pk') and not entry.get('latest_url')
+        if target.exists() and (args.mode=='snapshot' or pinned) and sha256(target)==entry['snapshot_sha256']:
             source='existing_verified'
         else:
             part=target.with_suffix(target.suffix+'.partial')
@@ -33,7 +35,8 @@ def main():
                     with urlopen(Request(url,headers={'User-Agent':'BusanPharmacyResearch/1.0'}),timeout=180) as response,part.open('wb') as stream:
                         while chunk:=response.read(1024*1024):stream.write(chunk)
                 except Exception as error:
-                    raise SystemExit(f'{rel} 다운로드 실패: {type(error).__name__}. 원천 서버가 과거 파일을 제공하지 않으면 동일 해시의 파일을 --local-inputs로 제공하거나 --mode latest를 사용하세요.') from None
+                    code=f' HTTP {error.code}' if hasattr(error,'code') else ''
+                    raise SystemExit(f'{rel} 다운로드 실패: {type(error).__name__}{code}. 원천 서버가 과거 파일을 제공하지 않으면 동일 해시의 파일을 --local-inputs로 제공하거나 --mode latest를 사용하세요.') from None
             digest=sha256(part)
             if args.mode=='snapshot' and digest!=entry['snapshot_sha256']:
                 raise ValueError(f'{rel}: 원천 스냅샷 해시 불일치. 최신 파일을 과거 파일로 사용하지 않습니다.')
