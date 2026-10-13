@@ -18,7 +18,7 @@ def build_map_pharmacies(data):
             points[row['hpid']] = dict(id=row['hpid'], name=row['dutyName'],
                 address=row['dutyAddr'], phone=row['dutyTel1'], lat=lat, lon=lon,
                 designated=bool(original and original['designated']),
-                source='NMC 2026-09-15 조회')
+                source='NMC '+data['meta']['pharmacy_collected_at'][:10]+' 조회')
     # 최신 API에서 누락된 기존 시설도 표시하되 확인 필요 상태를 명시합니다.
     for pid, p in existing.items():
         if pid not in points:

@@ -20,3 +20,18 @@
 }
 @media screen and (max-width:899px){.finderpage{height:auto;min-height:0;padding:18px 16px}.finderhead{align-items:start}.finderfilters{grid-template-columns:1fr 1fr}.findersearch{grid-column:1/-1}.finderlayout{grid-template-columns:1fr}.findermapwrap #finderMap{height:55vh}.finderresults{max-height:520px}.finder-now{display:none}}
 @media print{@page{size:A4 landscape;margin:12mm}body{background:white!important;font-size:12px;print-color-adjust:exact;-webkit-print-color-adjust:exact}.top,.reportnav,.savechart,.comparetools,.maptools,.toolbar,.print,.loading{display:none!important}.reportpage{padding:0;max-width:none}.sectiontop h2{font-size:23px}.reportcard{break-inside:avoid;padding:14px;border-radius:0}.reportstats{margin-bottom:14px}.reportstat{padding:10px 16px}.reportstat .num{font-size:28px}.reportgrid{grid-template-columns:1fr 1fr;gap:12px}.reportnote,.reviewstrip{font-size:11px}.reviewstrip{padding:8px 12px;margin-top:12px}.reporttable td,.reporttable th{padding:7px 9px;font-size:12px}.pipeline{grid-template-columns:repeat(4,1fr)}.pipeline article{padding:10px}.pipeline p{font-size:12px}.reportnav+section[hidden]{display:none!important}.workspace{height:auto;display:block;padding:0}.workspace .left,.workspace .right{display:none}.map-panel{height:165mm}.kpis{margin:0 0 10px}.map .leaflet-control-zoom{display:none}.printlabel{display:block;font-size:16px;font-weight:700;margin:0 0 8px}.pagecaption{font-size:10px}.sectiontop{margin-bottom:12px}.auditrow{font-size:12px}}
+/* 범례는 항목마다 한 줄의 설명을 유지하고 중첩 컨테이너를 가로로 합치지 않습니다. */
+#pharmacyLegend{display:block!important;margin-top:10px;border-top:1px solid #e1e7ed;padding-top:7px}
+#pharmacyLegend>div{display:flex;align-items:center;gap:7px}
+#legend{width:255px;max-width:calc(100% - 24px);line-height:1.5}
+#legend div{min-width:0;flex-wrap:nowrap}
+#legend .sub{line-height:1.5;margin:5px 0}
+.candidate-reason{border:1px solid #dce8f6;border-radius:7px;background:#f5f9ff;padding:11px 12px;margin:12px 0;font-size:12px;line-height:1.7}
+.candidate-reason p{margin:6px 0}.candidate-reason button{font-size:12px;width:100%;margin-top:5px}
+.finderpagination{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;border-top:1px solid var(--line);background:#fafcfe;flex:none}
+.finderpagination span{font-size:12px;color:#526a82;font-variant-numeric:tabular-nums}.finderpagination button{font-size:12px;padding:5px 10px}
+.finderpagination button:disabled{opacity:.45;cursor:default}
+.stability-summary{background:#f2f7fe;border-left:3px solid #2467e8;padding:12px 16px;font-size:14px;line-height:1.7;margin:12px 0}
+.stability-table th,.stability-table td{font-size:13px}.stability-table td:first-child{min-width:180px}
+@media(max-width:899px){.finderhead{flex-wrap:wrap;gap:8px}.finder-now{display:flex;align-items:baseline;gap:8px;text-align:left;padding:5px 9px}.finder-now strong{font-size:13px}.finder-now span{font-size:11px}}
+@media(max-width:700px){#legend{width:235px;max-height:42%;overflow:auto;font-size:11px}.candidate-reason{font-size:13px}.stability-summary{font-size:13px}.finderpage .findernote{font-size:11px}}

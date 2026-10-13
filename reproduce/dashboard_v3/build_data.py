@@ -14,18 +14,19 @@ from schedule_assumptions import build_schedules
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'dashboard_v3';UP=ROOT/'team2/update_20260915'
 SLOTS=[(d,h) for d in range(1,8) for h in [22,23,0]]
 def main():
- source=Path(json.loads((ROOT/'reports/latest_run.json').read_text())['output_dir'])
+ ctx=__import__('pipeline_context').context()
+ source=__import__('pipeline_context').processed_source()
  ph=pd.read_csv(source/'pharmacy_master.csv').fillna('');grid=pd.read_csv(OUT/'grid_nodes_routing.csv',dtype={'dong_code':str});dongs=pd.read_csv(UP/'sgis_dong_crosswalk.csv',dtype={'dong_code':str,'sgis_code':str});dongids=list(dongs.dong_code);dmap={k:i for i,k in enumerate(dongids)};di=grid.dong_code.map(dmap).to_numpy();N=len(grid)
  hourly=pd.read_csv(UP/'sgis_grid_hourly_demand.csv');weights=np.array([hourly[hourly.hour.eq(h)].set_index('grid_node_id').reindex(grid.grid_node_id).allocated_total_population_proxy.to_numpy() for h in [22,23,0]])
  dist=np.load(OUT/'grid_distance_m.npy',mmap_mode='r');unc=np.load(OUT/'grid_route_uncertain.npy')
  project=Transformer.from_crs(4326,5179,always_xy=True);px,py=project.transform(ph.longitude.to_numpy(),ph.latitude.to_numpy())
  weekly,schedule_audit,schedule_summary=build_schedules()
  conflicts=pd.read_csv(UP/'nmc_hours_comparison.csv');conflicts=conflicts[conflicts.conflict & ~conflicts.applied]
- policy=pd.read_csv(ROOT/'team2_handoff/public_policy_hours.csv').set_index('pharmacy_id')
+ policy=pd.read_csv(ROOT/'team2/outputs/public_policy_hours.csv').set_index('pharmacy_id')
  paths=[];maybe=[];routeUnknown=np.full(N,np.inf)
  for j,p in ph.iterrows():
   idx=np.flatnonzero(np.isfinite(dist[:,j]));mins=dist[idx,j].astype(float)/ (4000/60);paths.append((idx,mins))
-  direct=np.hypot(grid.x_5179.to_numpy()-px[j],grid.y_5179.to_numpy()-py[j]);ix=np.flatnonzero(unc[:,j]&~np.isfinite(dist[:,j])&(direct<=1000));mi=direct[ix]/(4000/60);maybe.append((ix,mi));np.minimum.at(routeUnknown,ix,mi)
+  direct=np.hypot(grid.x_5179.to_numpy()-px[j],grid.y_5179.to_numpy()-py[j]);ix=np.flatnonzero(unc[:,j]&~np.isfinite(dist[:,j])&(direct<=ctx['distance_limit_m']));mi=direct[ix]/(4000/60);maybe.append((ix,mi));np.minimum.at(routeUnknown,ix,mi)
  public=ph.public_designation_status.eq('matched_designated').to_numpy();candidates=np.flatnonzero(~public)
  models={};rankcsv=[]
  for mode in ['api','policy']:
@@ -79,7 +80,7 @@ def main():
   for d in range(1,8):
    iv=weekly.get(p.pharmacy_id,{}).get(d);schedule.append(iv)
   pharmacies.append(dict(id=p.pharmacy_id,name=p['name'],district=p.district,address=p.address,phone=p.phone,lat=p.latitude,lon=p.longitude,designated=bool(public[j]),reach=idx.tolist(),seconds=np.round(mins*60,5).tolist(),uncertain=ui.tolist(),uncertainSeconds=np.round(um*60,5).tolist(),schedule=schedule,scheduleSources={'monday':schedule_audit[p.pharmacy_id]['monday_source'],'sunday':schedule_audit[p.pharmacy_id]['sunday_source'],'saturday':schedule_audit[p.pharmacy_id]['saturday_source']}))
- data=dict(meta={'title':'부산 심야약국 접근성','version':3,'population_month':'2025-12','grid_year':2024,'boundary_date':'2025-06-30','osm_date':'2026-09-13','nmc_rows':1713,'monday_known':sum(weekly[pid][1] is not None for pid in ph.pharmacy_id),'monday_unknown':sum(weekly[pid][1] is None for pid in ph.pharmacy_id),'schedule_assumptions':schedule_summary,'conflicting_days':len(conflicts),'grid_count':N,'pharmacy_count':len(ph),'designated_count':int(public.sum()),'route_quality':json.loads((OUT/'grid_route_quality.json').read_text())},
+ data=dict(meta={'title':'부산 심야약국 접근성','version':3,'population_month':ctx['population_month'][:4]+'-'+ctx['population_month'][4:],'grid_year':ctx['grid_year'],'boundary_date':ctx['boundary_date'],'osm_date':ctx['osm_date'],'nmc_rows':len(pd.read_csv(UP/'nmc_busan_pharmacies.csv')),'pharmacy_collected_at':json.loads((UP/'raw/nmc'/json.loads((ROOT/'reports/latest_run.json').read_text())['run_id']/'manifest.json').read_text())['collected_at'],'input_manifest':ctx['inputs'],'monday_known':sum(weekly[pid][1] is not None for pid in ph.pharmacy_id),'monday_unknown':sum(weekly[pid][1] is None for pid in ph.pharmacy_id),'schedule_assumptions':schedule_summary,'conflicting_days':len(conflicts),'unique_grid_count':int(grid.grid_id.nunique()),'grid_count':N,'pharmacy_count':len(ph),'designated_count':int(public.sum()),'route_quality':json.loads((OUT/'grid_route_quality.json').read_text())},
   dongs=[dict(code=r.dong_code,name=r.dong_name,district=r.district,age60plus=r.age60plus_share_all_day) for r in dongs.itertuples()],boundaries={'type':'FeatureCollection','features':features},
   grids={'lat':grid.latitude.round(7).tolist(),'lon':grid.longitude.round(7).tolist(),'dong':di.tolist(),'weight':np.round(weights,6).tolist(),'snapAccepted':grid.route_snap_accepted.tolist()},pharmacies=pharmacies,models=models)
  payload=json.dumps(data,ensure_ascii=False,separators=(',',':'),allow_nan=False).encode();(OUT/'data.json.gz').write_bytes(gzip.compress(payload));(OUT/'model_summary.json').write_text(json.dumps({m:models[m]['summary'] for m in models},indent=2));print('payload',len(payload),'gzip',len(gzip.compress(payload)),flush=True)

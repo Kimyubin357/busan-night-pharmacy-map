@@ -220,7 +220,7 @@ def main():
     OUTPUT.mkdir(parents=True,exist_ok=True);REPORT.mkdir(parents=True,exist_ok=True)
     (REPORT/'head_preview.txt').write_text('',encoding='utf-8')
     inherited=json.loads((ROOT/'reports/latest_run.json').read_text())
-    source=Path(inherited['output_dir'])
+    source=__import__('pipeline_context').processed_source()
     if not source.is_relative_to(ROOT):raise ValueError('복사본 밖의 team1 경로를 참조하고 있습니다')
     night,hourly=demand_tables(source)
     nodes,address_count,unmatched=representative_points(night)

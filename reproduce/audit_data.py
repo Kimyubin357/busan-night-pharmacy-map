@@ -9,7 +9,7 @@ from pharmacy_data import START, END, DAY_NAMES, minute
 def main():
     root=Path(__file__).resolve().parent
     q=json.loads((root/'reports/latest_run.json').read_text())
-    raw_dir=root/'data/raw'/q['run_id']; out=Path(q['output_dir']); report=Path(q['report_dir'])
+    raw_dir=root/'data/raw'/q['run_id']; out=root / q['output_dir']; report=root / q['report_dir']
     pages=[]; items=[]; key_orders=Counter(); keys=set()
     for file in sorted(raw_dir.glob('pharmacy_api_page_*.json')):
         body=json.loads(file.read_text())['response']['body']; rows=body['items']['item']

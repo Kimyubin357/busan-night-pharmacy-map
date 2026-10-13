@@ -12,7 +12,10 @@ from shapely import linestrings,points,line_locate_point,line_interpolate_point,
 from shapely.strtree import STRtree
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'dashboard_v3';UP=ROOT/'team2/update_20260915'
 
+sys.path.insert(0,str(ROOT))
+
 def main():
+ ctx=__import__('pipeline_context').context();distance_limit=ctx['distance_limit_m']
  grid=pd.read_csv(UP/'sgis_grid_demand.csv',dtype={'dong_code':str});g=load_npz(ROOT/'team2/osm/graph.npz');xy=np.load(ROOT/'team2/osm/graph_xy.npy');snaps=pd.read_csv(ROOT/'team2/osm/snapping.csv')
  # 기존 출발점/약국의 직선 연결선은 새로운 격자가 붙을 도로가 아닙니다.
  actual=snaps.graph_node.to_numpy(int);coo=g.tocoo();ok=~np.isin(coo.row,actual)&~np.isin(coo.col,actual)
@@ -28,8 +31,8 @@ def main():
  matrix=np.lib.format.open_memmap(OUT/'grid_distance_m.npy',mode='w+',dtype='float32',shape=(len(grid),len(ends)))
  transpose=g.T.tocsr();start=time.time()
  for j,node in enumerate(ends):
-  d=dijkstra(transpose,directed=True,indices=int(node),limit=1000)
-  values=np.minimum(d[gu]+cu,d[gv]+cv);values[values>1000]=np.inf;matrix[:,j]=values
+  d=dijkstra(transpose,directed=True,indices=int(node),limit=distance_limit)
+  values=np.minimum(d[gu]+cu,d[gv]+cv);values[values>distance_limit]=np.inf;matrix[:,j]=values
   if j%200==0:print('pharmacy',j,'/',len(ends),'seconds',round(time.time()-start),flush=True)
  matrix.flush()
  # 도로 연결 성분이 다르거나 도로에서 먼 점은 접근 불가능으로 단정하지 않습니다.
@@ -37,6 +40,6 @@ def main():
  np.save(OUT/'grid_route_uncertain.npy',unresolved)
  grid['snap_distance_m']=gap;grid['route_snap_accepted']=valid;grid['road_component']=component
  grid.to_csv(OUT/'grid_nodes_routing.csv',index=False)
- meta=dict(grid_nodes=len(grid),pharmacies=len(ends),pair_count=int(matrix.size),within1km_pairs=int(np.isfinite(matrix).sum()),snap_over100m=int((~valid).sum()),snap_over100m_population_share=float(grid.loc[~valid,'allocated_night_total_proxy'].sum()/grid.allocated_night_total_proxy.sum()),max_distance_m=1000,speed_kmh=4,slope_included=False)
+ meta=dict(grid_nodes=len(grid),pharmacies=len(ends),pair_count=int(matrix.size),within_limit_pairs=int(np.isfinite(matrix).sum()),within1km_pairs=int((matrix<=1000).sum()),snap_over100m=int((~valid).sum()),snap_over100m_population_share=float(grid.loc[~valid,'allocated_night_total_proxy'].sum()/grid.allocated_night_total_proxy.sum()),max_distance_m=distance_limit,speed_kmh=4,slope_included=False)
  (OUT/'grid_route_quality.json').write_text(json.dumps(meta,indent=2));print(meta,flush=True)
 if __name__=='__main__':main()

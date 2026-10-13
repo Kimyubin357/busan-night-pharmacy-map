@@ -17,10 +17,12 @@ import numpy as np
 import pandas as pd
 from pyproj import Transformer
 from pharmacy_data import read_key,normal,phone,interval
+from public_data import snapshot_file
+from pipeline_context import utc_now
 
 ROOT=Path(__file__).resolve().parent
 OUT=ROOT/'team2/update_20260915'
-RAW=OUT/'raw/nmc_approved'
+RAW=OUT/'raw/nmc'/json.loads((ROOT/'reports/latest_run.json').read_text())['run_id']
 URL='https://apis.data.go.kr/B552657/ErmctInsttInfoInqireService/getParmacyListInfoInqire'
 
 def parse(b):
@@ -35,7 +37,10 @@ def collect():
     rows=[];total=None;page=1;hashes={}
     while total is None or len(rows)<total:
         path=RAW/f'page_{page:03d}.xml'
-        if path.exists():b=path.read_bytes()
+        stored = snapshot_file(f'nmc/page_{page:03d}.xml')
+        if stored:
+            b=stored.read_bytes();path.write_bytes(b)
+        elif path.exists():b=path.read_bytes()
         else:
             u=URL+'?'+urlencode(dict(serviceKey=key,Q0='부산광역시',pageNo=page,numOfRows=100))
             for attempt in range(3):
@@ -57,7 +62,14 @@ def collect():
     assert len(rows)==total
     df=pd.DataFrame(rows).fillna('');assert df.hpid.is_unique
     df.to_csv(OUT/'nmc_busan_pharmacies.csv',index=False)
-    (RAW/'manifest.json').write_text(json.dumps(dict(endpoint=URL,region='부산광역시',collected_at=datetime.now(timezone.utc).isoformat(),rows=len(df),pages=page-1,sha256=hashes),ensure_ascii=False,indent=2))
+    original = snapshot_file('nmc/manifest.json')
+    collected_at = json.loads(original.read_text())['collected_at'] if original else utc_now()
+    (RAW/'manifest.json').write_text(json.dumps(dict(endpoint=URL,region='부산광역시',collected_at=collected_at,reprocessed_at=utc_now(),rows=len(df),pages=page-1,sha256=hashes),ensure_ascii=False,indent=2))
+    context_path=ROOT/'reports/run_context.json'
+    ctx=json.loads(context_path.read_text());ctx['nmc_collected_at']=collected_at
+    for name,digest in hashes.items():
+        path=RAW/name;ctx['inputs'][str(path.relative_to(ROOT))]={'sha256':digest,'bytes':path.stat().st_size}
+    context_path.write_text(json.dumps(ctx,ensure_ascii=False,indent=2))
     return df
 
 def main():
@@ -73,7 +85,7 @@ def main():
     long=pd.DataFrame(long)
     long.to_csv(OUT/'nmc_opening_hours_long.csv',index=False)
     long[long.end_minute_unwrapped.gt(1320)].to_csv(OUT/'nmc_late_hours.csv',index=False)
-    source=Path(json.loads((ROOT/'reports/latest_run.json').read_text())['output_dir'])
+    source=__import__('pipeline_context').processed_source()
     master=pd.read_csv(source/'pharmacy_master.csv').fillna('')
     nmc=df.set_index('hpid')
     matches=[];review=[]

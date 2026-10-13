@@ -2,61 +2,75 @@
 
 ## 환경
 
-- Python 3.12 권장
-- RAM 최소 8GB, 권장 16GB 이상
-- 빈 디스크 최소 5GB
-- 네트워크 다운로드 약 0.5GB 이상
-- OSM 파싱과 최단경로 계산은 장비에 따라 약 30분~2시간 이상
-- 최종 HTML만 재생성하면 수 초 이내
-
-## 설치
+Python 3.12와 Node.js가 필요합니다. `requirements.txt`는 검사에 사용한 Python 패키지 버전입니다. RAM 최소 8GB, 권장 16GB 이상, 빈 디스크 최소 5GB를 준비합니다. 전체 한국 OSM PBF와 SGIS ZIP 등 약 0.5GB 이상을 내려받습니다.
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+cd reproduce
 ```
 
-## 전체 실행
+## 당시 원천 스냅샷으로 재계산
 
 ```bash
-cd reproduce
-python download_inputs.py
-python run_pipeline.py
-cd ..
-python build_html.py
-node check_report.cjs
+python download_inputs.py --mode snapshot
+python run_pipeline.py --mode snapshot
 ```
 
-`download_inputs.py`는 도로명주소, 연령 생활인구, SGIS 파일과 OSM PBF를 지정 위치에 저장하고 SHA-256을 기록합니다. SGIS 서버가 직접 다운로드를 거부하면 `docs/DATA_SOURCES.md`의 출처에서 수동으로 내려받아 다음 위치에 둡니다.
+약국 API 전 페이지 JSON, NMC 전 페이지 XML, 공공심야 명단 CSV, 생활인구 원본 XLSX는 `snapshots/20260915/`에 보관합니다. 매번 정제 결과를 새로 계산하며 원본 SHA-256을 확인합니다. 큰 도로명주소·연령인구·SGIS·OSM 파일은 `input_catalog.json`의 URL과 해시를 이용합니다. 다운로드 대상이 과거와 달라지면 중단합니다.
 
-```text
-reproduce/team2/update_20260915/raw/sgis_grid_population.zip
-reproduce/team2/update_20260915/raw/sgis_grid_mara.zip
-reproduce/team2/update_20260915/raw/sgis_grid_mama.zip
-reproduce/team2/update_20260915/raw/sgis_dong.zip
-reproduce/team2/update_20260915/raw/sgis_codebook.zip
-reproduce/team2/osm/south-korea-260913.osm.pbf
+외부 제공기관이 과거 파일을 더 이상 제공하지 않으면 같은 SHA-256의 원본이 필요합니다. 원천 폴더를 직접 지정할 수도 있습니다.
+
+```bash
+python download_inputs.py --mode snapshot --local-inputs /path/to/original-input-folder
+python run_pipeline.py --mode snapshot
 ```
 
-## 실행 단계
+원천 폴더의 상대 위치는 `input_catalog.json`의 `local_path`에 적혀 있습니다. 코드는 부모 프로젝트 폴더를 암묵적으로 읽지 않습니다. 수동 다운로드 파일도 검사에 통과해야 하며 최신 파일을 과거 파일로 바꿔 쓰지 않습니다.
 
-1. `team1_pipeline.py`: 약국·공공심야·생활인구 수집 및 정제
-2. `monday_analysis.py`: 기존 분석용 시간표와 보완 감사표 생성
-3. `team2_pipeline.py`: 동별 수요, 대표주소, 공급 시나리오 생성
-4. `supplement_hira_hours.py`: 포함된 HIRA 비교 스냅샷 적용
-5. `collect_nmc_hours.py`: NMC 부산 약국 전 페이지 수집·대조
-6. `sgis_population_weights.py`: SGIS 격자 분할과 수요 배분
-7. `osm_network.py`: OSM 파싱, 보행 그래프와 대표점 경로 생성
-8. `dashboard_v3/grid_routes.py`: 21,963개 격자와 약국 거리행렬 생성
-9. `dashboard_v3/build_data.py`: 접근성·후보점수·경계 payload 생성
-10. `publish_dashboard_data.py`: 저장소 루트의 독립 payload 갱신
-11. `build_html.py`: 단일 HTML 생성
+## 외부 API를 다시 조회하는 최신 모드
 
-## Git에서 제외한 파일
+```bash
+python download_inputs.py --mode latest
+python run_pipeline.py --mode latest
+```
 
-PBF, SGIS ZIP, OSM 그래프, 37,249,248개 격자×약국 거리행렬과 불확실성 배열은 다운로드 또는 위 코드로 재생성합니다. 현재 검증본 기준으로 거리행렬은 약 142MB, 불확실성 배열은 약 36MB입니다.
+부산·NMC API를 새로 조회하고 생활인구·연령인구 파일의 최신 메타데이터를 가져옵니다. 새 NMC 원본은 실행별 폴더에 저장하므로 이전 조회 페이지와 섞이지 않습니다. SGIS 인구·경계는 명시한 2024/2025년 공간 배분 기준을 유지하고, OSM은 latest 파일을 받습니다. 외부 자료 변경으로 결과가 달라질 수 있습니다. 인증·컬럼·행정동 연결·정책 예외 검사가 실패하면 다음 단계와 최종 게시를 중단합니다.
 
-## 동일성에 관한 주의
+`config.json`의 `population_month`는 기본적으로 `latest_common`입니다. 시간별 생활인구와 연령별 파일에 공통으로 존재하는 가장 최근 월을 선택합니다. `202512` 같은 고정 월도 지정할 수 있지만 두 파일에 모두 있어야 합니다. 격자 배분, 최종 payload와 화면의 기준 월은 선택된 값에서 만들어집니다.
 
-`dashboard_data.json.gz`는 대회 분석 당시 스냅샷의 고정 결과입니다. API와 Geofabrik `latest` 파일을 다시 받으면 최신 스냅샷으로 계산되므로 결과가 달라지는 것이 정상입니다. 과거와 바이트 단위로 같아야 한다면 `source_manifest.json`의 SHA-256과 동일한 원천 파일을 확보해야 합니다.
+OSM 기준시각은 PBF 헤더의 실제 replication timestamp를 읽습니다. 파일이 바뀌면 해시가 달라져 파싱 캐시도 새로 만듭니다. 날짜를 파일명만 보고 추정하지 않습니다.
+
+## 실행 순서와 자동 검증
+
+`run_pipeline.py`가 다음을 순서대로 실행합니다.
+
+1. 기간·스냅샷·이동한 경로의 회귀 검사
+2. 부산 약국·공공심야·생활인구 원천 수집 또는 해시 검사 후 재독해
+3. 공통 기준 월 선택, 원천 파일 해시·조회일·OSM 실제 시각 기록
+4. 월요일 보완, 공급·수요 정리, 정책 시간표 생성
+5. HIRA 비교 및 NMC 기관·시간 대조
+6. SGIS 공간조인·격자 배분과 동별 시간별 총량 보존 검사
+7. OSM 파싱·보행 그래프·약국 및 출발점 연결
+8. 격자×약국 거리행렬·경로 불확실성 생성
+9. 접근성 및 후보 점수 생성
+10. 모든 후보 점수 독립 재집계, 20개 출발점의 정방향 최단경로 대조
+11. 3·4·5km/h, 일요일 결측, 수요 배분 민감도 재계산 및 기준 점수 일치 검사
+12. 독립 payload·감사표 게시, 단일 HTML 생성, 보고서 생성 검사
+
+도로 거리행렬은 5km/h·15분 민감도 계산까지 빠짐없이 비교하기 위해 1250m까지 생성합니다. 주모형은 기존 4km/h·5/10/15분이며 브라우저에는 이에 필요한 1000m 범위만 전달합니다.
+
+`reports/run_context.json`에는 선택 기준과 입력 해시가, `reports/pipeline_run.json`에는 각 단계 종료코드·시간·최종 산출물 해시가 남습니다. 이전 성공 파일을 이번 성공으로 기록하지 않습니다. 최종 검증 성공 전에 루트 payload를 덮어쓰지 않습니다.
+
+## 산출물과 해석
+
+- 루트 `dashboard_data.json.gz`: 지도 목록과 분석·검증·민감도를 포함한 독립 화면 데이터
+- 루트 `dist/index.html`: 브라우저에서 볼 단일 HTML
+- 루트 `sensitivity_results.json` / `sensitivity_rankings.csv`: 가정별 후보 점수와 순위
+- 루트 `field_validation_plan.csv`: 현장·전화 확인 체크리스트. 현재는 미실시
+- `dashboard_v3/validation.json`: 수치·경로 알고리즘 일치 검사. 현장 검증과 구분
+
+수집·원천 파싱 시간을 포함한 전체 실행시간은 장비와 네트워크에 따라 달라집니다. 이 프로젝트의 실제 로컬 검사 기록은 `docs/VALIDATION_RUN.md`에 보관합니다. 약 142MB 거리행렬, 약 36MB 불확실성 배열, OSM 그래프·PBF·SGIS ZIP은 Git에 넣지 않고 재생성합니다.
+
+스냅샷 재실행에서는 기준 지표와 후보 점수가 재현되어야 합니다. 실행 시각·로그·gzip 헤더 등으로 파일 해시는 실행마다 달라질 수 있습니다. 현재 저장된 payload에서 HTML만 재생성하는 경로는 `python build_html.py`입니다.

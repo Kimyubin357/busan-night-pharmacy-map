@@ -1,0 +1,11 @@
+{
+  "population_month": "latest_common",
+  "grid_year": 2024,
+  "boundary_date": "2025-06-30",
+  "osm_filename": "south-korea.osm.pbf",
+  "osm_latest_url": "https://download.geofabrik.de/asia/south-korea-latest.osm.pbf",
+  "osm_snapshot_url": "https://download.geofabrik.de/asia/south-korea-260913.osm.pbf",
+  "speed_kmh": 4,
+  "snapshot_id": "20260915",
+  "distance_limit_m": 1250
+}

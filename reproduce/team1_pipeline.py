@@ -10,6 +10,7 @@ import argparse
 from pathlib import Path
 from public_data import Run, collect_designated, collect_population
 from pharmacy_data import read_key, collect_api, process_pharmacies
+import os
 
 
 def main():
@@ -34,7 +35,7 @@ def main():
         key = read_key(run.root)
         if args.public_only:
             run.quality['stages']['pharmacy'] = 'skipped_public_only'
-        elif not key:
+        elif not key and not os.environ.get('BUSAN_SNAPSHOT_DIR'):
             run.quality['stages']['pharmacy'] = 'pending_api_key_in_dotenv'
             print('약국 API 대기: .env에 활용승인된 DATA_GO_KR_SERVICE_KEY를 입력하세요.', flush=True)
         else:

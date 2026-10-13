@@ -27,7 +27,7 @@ def hhmm(v):
     except (ValueError,TypeError):return None
 
 def main():
-    source=Path(json.loads((ROOT/'reports/latest_run.json').read_text())['output_dir'])
+    source=__import__('pipeline_context').processed_source()
     ph=pd.read_csv(source/'pharmacy_master.csv').fillna('')
     hira=pd.read_csv(OUT/'hira_busan_pharmacy_details.csv',dtype=str).fillna('')
     trans=Transformer.from_crs(4326,5179,always_xy=True)

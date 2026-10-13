@@ -8,6 +8,7 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+import os
 import time
 import urllib.error
 import urllib.request
@@ -16,6 +17,16 @@ from pathlib import Path
 import pandas as pd
 
 WAVE = 'https://data.busan.go.kr/bdip/opendata/'
+
+def snapshot_file(name):
+    """기준 원본 재실행 모드에서는 해시가 검증된 저장 원본만 읽습니다."""
+    folder = os.environ.get('BUSAN_SNAPSHOT_DIR')
+    if not folder: return None
+    base = Path(folder); path = base / name
+    hashes = json.loads((base / 'manifest.json').read_text())
+    if name not in hashes or hashlib.sha256(path.read_bytes()).hexdigest() != hashes[name]:
+        raise ValueError('스냅샷 원본 해시 불일치: ' + name)
+    return path
 
 
 def request_bytes(url, payload=None):
@@ -77,12 +88,19 @@ class Run:
         for filename, value in [('sources.json', self.sources), ('quality_report.json', self.quality)]:
             (self.reports / filename).write_text(json.dumps(value, ensure_ascii=False, indent=2), encoding='utf-8')
         # 최신 실행 위치와 각 단계의 성공 여부만 기록합니다. 이전 성공 파일을 재사용하지 않습니다.
-        pointer = {**self.quality, 'output_dir': str(self.out), 'report_dir': str(self.reports)}
+        pointer = {**self.quality, 'output_dir': str(self.out.relative_to(self.root)), 'report_dir': str(self.reports.relative_to(self.root))}
         (self.root / 'reports' / 'latest_run.json').write_text(json.dumps(pointer, ensure_ascii=False, indent=2), encoding='utf-8')
 
 
 def download_wave(run, pk, label, extension):
     """사이트 FILE 탭이 사용하는 공개 메타데이터에서 실제 다운로드 URL을 찾습니다."""
+    stored = snapshot_file(f'{label}.{extension}')
+    if stored:
+        content = stored.read_bytes()
+        (run.raw / stored.name).write_bytes(content)
+        original = next(x for x in json.loads((stored.parent / 'sources.json').read_text()) if x.get('dataset_id') == pk)
+        run.sources.append({**original, 'raw_file': str((run.raw / stored.name).relative_to(run.root)), 'replayed_snapshot': True})
+        return content
     metadata = json.loads(request_bytes(WAVE + 'selectFileData.do', {'publicdatapk': pk}))
     (run.raw / f'{label}_metadata.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2), encoding='utf-8')
     files = [item for item in metadata.get('fileList', [])
@@ -97,7 +115,7 @@ def download_wave(run, pk, label, extension):
     run.sources.append({
         'dataset_id': pk, 'title': chosen.get('title'), 'metadata_updated_at': chosen.get('updatedAt'),
         'download_url': chosen['downurl'], 'retrieved_at_utc': datetime.now(timezone.utc).isoformat(),
-        'sha256': hashlib.sha256(content).hexdigest(), 'bytes': len(content), 'raw_file': str(path),
+        'sha256': hashlib.sha256(content).hexdigest(), 'bytes': len(content), 'raw_file': str(path.relative_to(run.root)),
         'description': chosen.get('description'),
     })
     return content

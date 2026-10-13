@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlencode, unquote
 import pandas as pd
-from public_data import request_bytes
+from public_data import request_bytes, snapshot_file
 
 API = 'https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo'
 # 공식 Swagger에서 확인한 필드명입니다. 월요일 시작 필드만 명명 규칙이 다릅니다.
@@ -63,7 +63,8 @@ def collect_api(run, key):
     while True:
         # 약국명 조건을 넣지 않아 이 서비스가 제공하는 부산 전체 약국을 수집합니다.
         params = {'serviceKey': key, 'pageNo': page, 'numOfRows': 100, 'resultType': 'json'}
-        content = request_bytes(API + '?' + urlencode(params))
+        stored = snapshot_file(f'pharmacy_api_page_{page:03}.json')
+        content = stored.read_bytes() if stored else request_bytes(API + '?' + urlencode(params))
         total, items = parse_page(content)
         if expected is None:
             expected = total
@@ -77,7 +78,7 @@ def collect_api(run, key):
         run.sources.append({'dataset_id': '15163576', 'url_without_key': API,
             'page': page, 'requested_page_size': 100, 'received_rows': len(items),
             'total_count': total, 'sha256': signature,
-            'retrieved_at_utc': datetime.now(timezone.utc).isoformat()})
+            'retrieved_at_utc': next(x['retrieved_at_utc'] for x in json.loads((stored.parent / 'sources.json').read_text()) if x.get('page') == page) if stored else datetime.now(timezone.utc).isoformat()})
         rows.extend(items)
         print(f'약국 API {page}페이지: {len(items)}건, 누적 {len(rows)}/{expected}', flush=True)
         if page == 1:
@@ -221,7 +222,8 @@ def process_pharmacies(run, raw, designated):
     master['coordinate_plausible'] = master['latitude'].between(34.8, 35.5) & master['longitude'].between(128.7, 129.4)
     master['coordinate_check_method'] = 'rough_bbox_only_not_administrative_boundary'
     master, audit = match_designations(master, designated)
-    master['api_collected_date'] = datetime.now().date().isoformat()
+    api_sources = [x for x in run.sources if x.get('page')]
+    master['api_collected_date'] = datetime.fromisoformat(api_sources[0]['retrieved_at_utc']).astimezone().date().isoformat() if api_sources else datetime.now().date().isoformat()
     master['has_notes_requires_review'] = master['notes'].fillna('').astype(str).str.strip().ne('')
     run.save('pharmacy_master', master)
     run.save('designation_match_audit', audit)

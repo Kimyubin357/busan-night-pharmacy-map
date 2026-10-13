@@ -35,10 +35,11 @@ def normalize(s):
     return re.sub(r'[\s·ㆍ.]','',str(s)).replace('제','')
 
 def main():
+    ctx=__import__('pipeline_context').context();month=ctx['population_month']
     demand=pd.read_csv(ROOT/'team2/outputs/demand_nodes.csv',dtype={'dong_code':str,'node_id':str})
     z=ZipFile(RAW/'sgis_codebook.zip')
     codefile=next(n for n in z.namelist() if 'adm_code' in n)
-    codes=pd.read_excel(io.BytesIO(z.read(codefile)),sheet_name='2025년 6월',header=1,dtype=str)
+    codes=pd.read_excel(io.BytesIO(z.read(codefile)),sheet_name=f"{ctx['boundary_date'][:4]}년 {int(ctx['boundary_date'][5:7])}월",header=1,dtype=str)
     codes=codes[codes['시도명칭'].eq('부산광역시')].copy()
     codes['sgis_code']=codes['시도코드'].str.zfill(2)+codes['시군구코드'].str.zfill(3)+codes['읍면동코드'].str.zfill(3)
     codes['key']=codes['시군구명칭'].map(normalize)+'|'+codes['읍면동명칭'].map(normalize)
@@ -94,9 +95,9 @@ def main():
     grid['weight_within_dong']=grid.resident_mass/grid.groupby('dong_code').resident_mass.transform('sum')
     grid['allocated_night_total_proxy']=grid.weight_within_dong*grid.night_population_proxy
     grid['allocated_night_resident_proxy']=grid.weight_within_dong*grid.night_mean_resident
-    grid['population_year']=2024
-    grid['boundary_date']='2025-06-30'
-    grid['living_population_month']='202512'
+    grid['population_year']=ctx['grid_year']
+    grid['boundary_date']=ctx['boundary_date']
+    grid['living_population_month']=month
     grid['allocation_method']='resident_grid_share_area_split'
     inverse=Transformer.from_crs(5179,4326,always_xy=True)
     grid['longitude'],grid['latitude']=inverse.transform(grid.x_5179.to_numpy(),grid.y_5179.to_numpy())
@@ -104,9 +105,9 @@ def main():
     grid['grid_node_id']=grid.dong_code+'_'+grid.grid_id
     grid.to_csv(OUT/'sgis_grid_demand.csv',index=False)
     # 22시·23시·00시를 평균으로 뭉개지 않고 각 시간대 총량도 따로 보존합니다.
-    source=Path(json.loads((ROOT/'reports/latest_run.json').read_text())['output_dir'])
+    source=__import__('pipeline_context').processed_source()
     hourly=pd.read_csv(source/'living_population_hourly.csv',dtype={'dong_code':str,'month':str})
-    hourly=hourly[hourly.month.eq('202512') & hourly.hour.isin([22,23,0])]
+    hourly=hourly[hourly.month.eq(month) & hourly.hour.isin([22,23,0])]
     hourly=hourly[['dong_code','hour','resident','worker','visitor','total_population_proxy']]
     expanded=grid[['grid_node_id','dong_code','weight_within_dong']].merge(hourly,on='dong_code',validate='many_to_many')
     for col in ['resident','worker','visitor','total_population_proxy']:

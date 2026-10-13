@@ -32,3 +32,23 @@ v2_data.json
 rankings_with_hira.csv
 model_summary_with_hira.json
 .DS_Store
+
+# Pipeline downloads, caches and each-run products
+reproduce/download_manifest.json
+reproduce/team2/osm/parsed_manifest.json
+reproduce/data/processed/20*/
+reproduce/reports/20*/
+reproduce/reports/run_context.json
+reproduce/reports/pipeline_run.json
+reproduce/team2/outputs/
+reproduce/team2/reports/
+reproduce/team2/osm/*.csv
+reproduce/team2/osm/network_quality.json
+reproduce/team2/update_20260915/raw/nmc/
+reproduce/dashboard_v3/*.csv
+reproduce/dashboard_v3/*.json
+reproduce/dashboard_v3/*.gz
+reproduce/sensitivity_results.json
+reproduce/sensitivity_rankings.csv
+reproduce/field_validation_plan.csv
+*.partial

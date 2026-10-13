@@ -1,38 +1,45 @@
 #!/usr/bin/env python3
-"""공개 원천파일을 재현 파이프라인의 정해진 위치에 내려받고 해시를 기록합니다."""
+"""큰 원천을 내려받거나 사용자가 제공한 원천 폴더에서 복사하고 SHA-256을 검사합니다."""
 from pathlib import Path
 from urllib.request import Request, urlopen
-from urllib.parse import quote
-import hashlib, json
+import argparse, json, shutil
+from pipeline_context import ROOT, sha256, utc_now
+from public_data import request_bytes, WAVE
 
-ROOT=Path(__file__).resolve().parent
-INPUT=ROOT/'team2/inputs'; RAW=ROOT/'team2/update_20260915/raw'; OSM=ROOT/'team2/osm'
-
-def get(url,path):
-    path.parent.mkdir(parents=True,exist_ok=True)
-    print('download',path,flush=True)
-    req=Request(url,headers={'User-Agent':'BusanNightPharmacyReproduction/1.0'})
-    with urlopen(req,timeout=180) as r, path.open('wb') as f:
-        while chunk:=r.read(1024*1024): f.write(chunk)
-    return {'url':url,'bytes':path.stat().st_size,'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
-
-def latest_from_metadata(name,out):
-    meta=json.loads((INPUT/name).read_text())
-    rows=[x for x in meta['fileList'] if x.get('downurl')]
-    return get(max(rows,key=lambda x:str(x.get('updatedAt') or ''))['downurl'],INPUT/out)
 
 def main():
-    records={}
-    records['road_address']=latest_from_metadata('15028854_metadata.json','15028854.csv')
-    records['age_population']=latest_from_metadata('PD_LP00002_metadata.json','PD_LP00002.xlsx')
-    sgis={
-      'sgis_grid_population.zip':'https://link.mods.go.kr/census/reqdoc/1789222868357.zip',
-      'sgis_grid_mara.zip':'https://link.mods.go.kr/grid_border/grid_2025/grid_%EB%A7%88%EB%9D%BC/grid_%EB%A7%88%EB%9D%BC.zip',
-      'sgis_grid_mama.zip':'https://link.mods.go.kr/grid_border/grid_2025/grid_%EB%A7%88%EB%A7%88/grid_%EB%A7%88%EB%A7%88.zip',
-      'sgis_dong.zip':'https://link.mods.go.kr/census/bnd_data/bnd_dong/bnd_dong_00_2025_2Q.zip',
-      'sgis_codebook.zip':'https://link.mods.go.kr/contents/include/download.jsp?filename=ref_code.zip&path=/board/&type=board'}
-    for name,url in sgis.items(): records[name]=get(url,RAW/name)
-    records['osm']=get('https://download.geofabrik.de/asia/south-korea-latest.osm.pbf',OSM/'south-korea-260913.osm.pbf')
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--mode',choices=['snapshot','latest'],default='snapshot')
+    parser.add_argument('--local-inputs',type=Path,help='동일한 원천이 있는 폴더. 경로는 input_catalog.json 기준')
+    args=parser.parse_args();catalog=json.loads((ROOT/'input_catalog.json').read_text());records={}
+    for rel,entry in catalog.items():
+        target=ROOT/rel;target.parent.mkdir(parents=True,exist_ok=True)
+        url=entry['snapshot_url'];source='download'
+        if args.mode=='latest':
+            if entry.get('latest_metadata_pk'):
+                metadata=json.loads(request_bytes(WAVE+'selectFileData.do',{'publicdatapk':entry['latest_metadata_pk']}))
+                rows=[x for x in metadata['fileList'] if x.get('downurl')]
+                url=max(rows,key=lambda x:str(x.get('updatedAt') or ''))['downurl']
+            else:url=entry.get('latest_url',url)
+        if target.exists() and args.mode=='snapshot' and sha256(target)==entry['snapshot_sha256']:
+            source='existing_verified'
+        else:
+            part=target.with_suffix(target.suffix+'.partial')
+            if args.local_inputs:
+                shutil.copy2(args.local_inputs/entry['local_path'],part);source='provided_original'
+            else:
+                print('download',rel,flush=True)
+                try:
+                    with urlopen(Request(url,headers={'User-Agent':'BusanPharmacyResearch/1.0'}),timeout=180) as response,part.open('wb') as stream:
+                        while chunk:=response.read(1024*1024):stream.write(chunk)
+                except Exception as error:
+                    raise SystemExit(f'{rel} 다운로드 실패: {type(error).__name__}. 원천 서버가 과거 파일을 제공하지 않으면 동일 해시의 파일을 --local-inputs로 제공하거나 --mode latest를 사용하세요.') from None
+            digest=sha256(part)
+            if args.mode=='snapshot' and digest!=entry['snapshot_sha256']:
+                raise ValueError(f'{rel}: 원천 스냅샷 해시 불일치. 최신 파일을 과거 파일로 사용하지 않습니다.')
+            part.replace(target)
+        records[rel]={'url':url,'source':source,'mode':args.mode,'checked_at':utc_now(),'sha256':sha256(target),'bytes':target.stat().st_size}
+        print('verified',rel,flush=True)
     (ROOT/'download_manifest.json').write_text(json.dumps(records,ensure_ascii=False,indent=2))
-    print('완료. 최신 파일은 기준 스냅샷과 값이 달라질 수 있습니다.')
+
 if __name__=='__main__':main()

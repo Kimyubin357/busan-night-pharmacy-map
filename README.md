@@ -19,6 +19,7 @@ python3 -m http.server 8000 --directory dist
 ```bash
 python3 build_html.py
 node check_report.cjs
+node check_finder.cjs
 ```
 
 생성물은 `dist/index.html`입니다. 이 경로는 원천 수집이나 거리행렬 재계산을 하지 않습니다.
@@ -51,3 +52,11 @@ node check_report.cjs
 ## API 키
 
 요청에 따라 `reproduce/.env`에 현재 공공데이터포털 키가 포함되어 있습니다. 이 저장소는 private으로 유지하고 키 만료·교체 시 해당 파일도 갱신해야 합니다. 공개 전환 전에는 키를 폐기하고 Git 기록에서도 제거해야 합니다.
+
+## 포트폴리오 보완 기록
+
+기준 원천을 다시 읽어 도로망·격자·거리행렬부터 계산하는 `snapshot` 모드와 API를 다시 조회하는 `latest` 모드를 제공합니다. 설정·입력 해시·검증·실행 기록은 [재현 안내](docs/REPRODUCING.md)와 [검사 기록](docs/VALIDATION_RUN.md)을 확인하세요.
+
+후보 비교에는 3/4/5km/h, 일요일 휴무 가정, 격자 배분 방식을 바꾼 순위 비교가 있습니다. 운영 약국 찾기는 전체 목록 페이지 이동, 선택 요일 팝업, 실제 심야 겹침 시간, 데이터 조회일을 제공합니다.
+
+사용자는 프로젝트를 거의 단독으로 수행했습니다. 포트폴리오의 기여·AI 활용·성과는 실제 수행 범위로 설명합니다. Cloud Run 배포, SQL·Docker·CI/CD, 실제 경로·운영시간 확인 등 남은 작업은 [다음 작업](docs/NEXT_STEPS.md)에 기록했습니다.

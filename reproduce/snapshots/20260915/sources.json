@@ -1,0 +1,204 @@
+[
+  {
+    "dataset_id": "15127987",
+    "title": "부산광역시_공공심야약국_20260810",
+    "metadata_updated_at": "20260825",
+    "download_url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003703502&fileDetailSn=1",
+    "retrieved_at_utc": "2026-09-13T15:40:53.015427+00:00",
+    "sha256": "9e43db636eb9372a1fd71c7fe48cbdd61cc049f6b11422adfa43a0430a42ec5b",
+    "bytes": 1533,
+    "raw_file": "public_night_original.csv",
+    "description": "이 데이터는 부산광역시에서 지정한 공공심야약국의 상세 운영 정보를 제공합니다. 공공심야약국은 시민이 야간 시간(22시~익일 01시) 및 휴일 등 의료 취약 시간대에 의약품을 안전하게 구입할 수 있도록 연중무휴로 운영되는 약국입니다. 데이터에는 약국명, 도로명 주소, 전화번호, 관리지역, 데이터 기준일 등의 정보가 포함되어 있습니다. 본 데이터는 응급환자, 야간근무자, 관광객 등 심야 약국 정보가 필요한 일반 시민에게 실질적 도움을 줄 수 있으며, 의료기관, 응급의료체계 운영자, 연구기관, 약사회 등은 이를 활용하여 심야 약국의 분포 및 접근성 분석, 정책 개선, 서비스 사각지대 해소 등의 목적으로 사용할 수 있습니다. 특히 보건의료정책 수립, 지역 약국 분포 지도 제작, 약국 이용 현황 조사, 야간 약물 접근성 개선 등에 활용가치가 높습니다. 이 데이터는 부산광역시에서 지정한 ‘공공심야약국’의 운영 현황을 정리한 것입니다. 공공심야약국은 밤 10시부터 다음 날 새벽 1시까지 연중무휴로 운영되어, 심야·휴일 등 의료 사각지대 해소에 기여하는 약국입니다. 데이터에는 약국명, 도로명 주소, 전화번호, 관리지역, 데이터 기준일 등의 항목이 포함되어 있습니다. 시민들은 이 정보를 통해 가까운 심야약국을 확인하고 응급상황에 대비할 수 있습니다. 특히 관광객, 야간근무자, 독거노인, 만성질환자 등 의료 취약계층이 심야에 의약품을 신속히 구매할 수 있도록 도와줍니다. 또한 지방자치단체, 보건소, 응급의료기관, 연구기관 등은 이 데이터를 활용해 약국의 지역별 분포 분석, 의료접근성 평가, 약국 정책 개선, 응급의약품 제공 전략 수립 등에 유용하게 활용할 수 있습니다. 향후 약국 배치의 형평성 검토, 약국 공공성 강화, 지역 건강 불균형 해소 자료로도 폭넓게 활용될 수 있습니다."
+  },
+  {
+    "dataset_id": "PD_LP00003",
+    "title": "일별 행정동 시간 생활인구 월별 일평균",
+    "metadata_updated_at": "20260415",
+    "download_url": "https://data.busan.go.kr/bdip/opendata/DATA_202411250501368840",
+    "retrieved_at_utc": "2026-09-13T15:40:54.437260+00:00",
+    "sha256": "c6c26134f53fe5171e4b2e872c52c8953573d23993caf3a8f272f5dac3403689",
+    "bytes": 6243714,
+    "raw_file": "population_original.xlsx",
+    "description": "통신사 기지국으로부터 수집된 신호데이터를 기반으로 전월 일평균 주거, 직장, 방문인구의 시간대(1시간단위)현황을 산출한 자료</br>\n∙ 주거지 산정 조건 : 전월 기준 00 ~ 06시에 가장 많이 체류한 행정동</br>\n∙ 직장지 산정 조건 : 전월 기준 평일 09 ~ 18시에 30%이상 체류한 행정동 중 가장 많이   체류한 행정동(직장 산정 로직에서 운송업, 택배, 물류 등 한 군데에서 오래 체류하지 않는 직업군은 제외될 수 있음)\n직장지 30%이상의 경우 통계청 사업체조사 통계와 비교하였을 때 인구수나 지역별 상관계수가 가장 잘 나오는 %를 산정하여 적용한 수치임.</br>\n∙ 방문지 산정 조건 : 주거지 산정과 직장지 산정 행정동이 아닌 지역을 방문지로 산정</br>\n   주거지와 직장지가 같을 경우 주거지로 판단(주거지와 직장지가 같은 경우의 거의 대부분은 주부나 재택근무 인원이 많아서 주거지로 판단함.)"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 1,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "9764d8a5cf95469665a6210a447ca76bd69d8785e710baa1a65152a55761547a",
+    "retrieved_at_utc": "2026-09-13T15:41:01.286893+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 2,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "bd4e80a642722a67aaa234485a4436abcd490e639a62551c7be684a6c67a0091",
+    "retrieved_at_utc": "2026-09-13T15:41:01.445619+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 3,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "a75a930032814344a2e422ff6ae5ea97d96eb52030d6d18c0aaf7f4025f793db",
+    "retrieved_at_utc": "2026-09-13T15:41:01.608081+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 4,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "f118822ae55bae7b80da8d736b8272b0424b7331c9e188c9988b031e10efe53a",
+    "retrieved_at_utc": "2026-09-13T15:41:02.345924+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 5,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "5746f839573ae22d4fdb048cc220b4655df468537c941b006992320194674728",
+    "retrieved_at_utc": "2026-09-13T15:41:02.486631+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 6,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "033e143cb072359bafdcb2096cc1ee671dc49d426df8eb3abfd31a96d2a37817",
+    "retrieved_at_utc": "2026-09-13T15:41:02.607431+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 7,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "87aa48c433b1da880142ceaf4920e65ed753469c1d935fc6f90c4b5e13bc9a33",
+    "retrieved_at_utc": "2026-09-13T15:41:02.773855+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 8,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "b697cf03e4dea98351f188de145feb9d0dec6a4674bc10c4d08afad9a95d7215",
+    "retrieved_at_utc": "2026-09-13T15:41:02.864587+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 9,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "8cd2ec2e31d46b15a29f1e1d10360ad02bcda3a3a5c85e280e0cad4c9e687e65",
+    "retrieved_at_utc": "2026-09-13T15:41:02.953238+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 10,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "5a1b450c372af9fdadee2f9ed2f95da115923ee85fcdc612c61d9a9a3cb70807",
+    "retrieved_at_utc": "2026-09-13T15:41:03.119003+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 11,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "6d278e944aca0242b3a04c16cc72804d407bed41a05254a295cddce45162c04c",
+    "retrieved_at_utc": "2026-09-13T15:41:07.004963+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 12,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "5ffadf66c4c54be2eb527ebea844ea1b7f9892203f1ea7d2bdd2add5519ae377",
+    "retrieved_at_utc": "2026-09-13T15:41:07.128299+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 13,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "2b96577b1863af79079ee07b92201445f6da43f7d62e38278c3b9f5725d9b0c4",
+    "retrieved_at_utc": "2026-09-13T15:41:07.238006+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 14,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "593ac441309df7a576b164699a75627fae7ea7cbb0d85fb100d0355346abde9f",
+    "retrieved_at_utc": "2026-09-13T15:41:07.362460+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 15,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "52d08fd1a5d53f77da55506f4cbdabb8e59622b8979ef8f35004e96c7cf6af79",
+    "retrieved_at_utc": "2026-09-13T15:41:07.454713+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 16,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "2296a8cf67775ca391f2e5842c74c1121e39da98dd7edc2bc389756551469c31",
+    "retrieved_at_utc": "2026-09-13T15:41:07.618857+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 17,
+    "requested_page_size": 100,
+    "received_rows": 100,
+    "total_count": 1701,
+    "sha256": "b68b3c08da1bbadd88747b6cef29fbd0c5144aa1da05830966d5cf2e1dd85f2a",
+    "retrieved_at_utc": "2026-09-13T15:41:07.737139+00:00"
+  },
+  {
+    "dataset_id": "15163576",
+    "url_without_key": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "page": 18,
+    "requested_page_size": 100,
+    "received_rows": 1,
+    "total_count": 1701,
+    "sha256": "d09e5f0e39626c3ac6f4923ef2a03f0ca4afac9925ca60c4fe269157c2dbca13",
+    "retrieved_at_utc": "2026-09-13T15:41:07.798099+00:00"
+  }
+]

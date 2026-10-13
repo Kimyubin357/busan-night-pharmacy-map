@@ -1,0 +1,27 @@
+{
+  "endpoint": "https://apis.data.go.kr/B552657/ErmctInsttInfoInqireService/getParmacyListInfoInqire",
+  "region": "부산광역시",
+  "collected_at": "2026-09-15T10:17:41.930387+00:00",
+  "rows": 1713,
+  "pages": 18,
+  "sha256": {
+    "page_001.xml": "26dbddc169c4d793fa51b601a987a3f4642cda4d2d23e0e79155553b88ab63ea",
+    "page_002.xml": "cd552767433487085088399ecb69ee05a56c8086689e185c42f2e4fd99e95daa",
+    "page_003.xml": "dd170d04429e3b7ed943d8c8bd6d2b4dc85c0eab2a500592db95d49f29191e73",
+    "page_004.xml": "a48311914f59150ad611eee35d517bf2f4c3e61a42d168f239e666e1920dac4f",
+    "page_005.xml": "480b0cf3c2f6c91a7bcb17830fba069124f80f32fe1a0506d3518f1dea277f6c",
+    "page_006.xml": "34f50efb93bde08d338f24aeee5f230cb422ddc4fd766cbf6eb3c4a3d0c22526",
+    "page_007.xml": "7087d0e825ec1b7847f3ea80e81e2b4249aad59724c58d7be760b6d31a8e1b6f",
+    "page_008.xml": "1190cd7a95c5c5f21841bae4dd6254cf70256efa24f386a5aee07d938938a80a",
+    "page_009.xml": "21655e8c6650e5e152c03bc8c7082b0d3bde499765195912e42412da5bf4d43e",
+    "page_010.xml": "69e08e8d4326c7837fd173a32fa5ce38b22c3effb29d0c3c92dd1b23adf14f8b",
+    "page_011.xml": "f7e71bbfc1f609e158232602a21f885227e40e3a96d7d23c34fadfb1bcb326c4",
+    "page_012.xml": "3ce93eb4d807b51ed2d85d4ae551b3a836e6f9964ee806e1e8a3a8f11bdca41b",
+    "page_013.xml": "ae14dbed1d4b74caea825005f5033aa205ca11a766329e89f693520ee919a6e6",
+    "page_014.xml": "d90e8e34f53a8cda4f741f8fbc679ef9b58356d260996491d2727bcd81d4c47b",
+    "page_015.xml": "374cfd08ee21b440fae083c48b54b9db92f5a41e09c90cf6fbd4c7de6f60f4b8",
+    "page_016.xml": "05eb15e830bab7cbce056704d82bb913631b693bf4ee92380ce16a4eef629978",
+    "page_017.xml": "6189ea0a4ac55df8e6db1f7f6917d44039cd9064729afa4f4f09e1cb8c61df3d",
+    "page_018.xml": "02cfecfe9c0dcc7b937a0efc24e17b0b2c69d9a20cc65c33e0e2a5d32942415d"
+  }
+}

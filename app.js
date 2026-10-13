@@ -26,8 +26,8 @@ try {
  $('allPharmacyCount').textContent=fmt(pharmacies.length)+'곳';
  $('publicPharmacyCount').textContent=fmt(pharmacies.filter(p=>p.designated).length)+'곳';
  function renderPharmacyLegend(){
-  $('legend').insertAdjacentHTML('beforeend','<div id="pharmacyLegend"></div>');
-  $('pharmacyLegend').innerHTML=($('allPharmacies').checked?'<div><span class="swatch" style="background:#e05a24;border-radius:50%"></span>전체 약국</div>':'')+($('publicPharmacies').checked?'<div><span class="swatch" style="background:#7c3aed"></span>공공심야약국 (+)</div>':'')+'<div><span class="swatch" style="background:#1765df;border-radius:50%"></span>선택한 추가 지정 후보 (+)</div><p class="sub">월요일 동일시간 추정 · 주말 휴무 가정 포함<br>약국 위치: 2026-09-15 조회 기준</p>';
+  $('legend').insertAdjacentHTML('beforeend','<div id="pharmacyLegend" class="pharmacy-legend"></div>');
+  $('pharmacyLegend').innerHTML=($('allPharmacies').checked?'<div><span class="swatch" style="background:#e05a24;border-radius:50%"></span>전체 약국</div>':'')+($('publicPharmacies').checked?'<div><span class="swatch" style="background:#7c3aed"></span>공공심야약국 (+)</div>':'')+`<div><span class="swatch" style="background:#1765df;border-radius:50%"></span>선택한 추가 지정 후보 (+)</div><p class="sub">월요일 동일시간 추정 · 주말 휴무 가정 포함<br>약국 위치: ${esc(D.meta.pharmacy_collected_at?.slice(0,10)||'2026-09-15')} 조회 기준</p>`;
  }
  function togglePharmacies(id,layer){$(id).onchange=e=>{if(e.target.checked)layer.addTo(map);else map.removeLayer(layer);$('pharmacyLegend')?.remove();renderPharmacyLegend();};}
  togglePharmacies('allPharmacies',allPharmacies);togglePharmacies('publicPharmacies',publicPharmacies);
@@ -58,10 +58,11 @@ try {
   const blank=()=>({w:0,lo:0,hi:0,al:0,ah:0,gl:0,gh:0});agg=D.dongs.map(blank);tot=blank();
   w.forEach((v,i)=>{const lo=model.known[slot][i]>=0&&model.known[slot][i]<=limit,hi=model.possible[slot][i]>=0&&model.possible[slot][i]<=limit,al=lo||!!cl[i],ah=hi||!!ch[i];const vals={w:v,lo:v*lo,hi:v*hi,al:v*al,ah:v*ah,gl:v*(cl[i]&&!hi),gh:v*(ch[i]&&!lo)};for(const k in vals){tot[k]+=vals[k];agg[D.grids.dong[i]][k]+=vals[k];}
    let c=S.after&&cl[i]&&!lo?colors.added:lo?colors.known:hi?colors.unknown:colors.outside;
-   if(S.view==='demand')c=S.after&&cl[i]&&!lo?coveredDemandColor(v):demandColor(v);
-   dots[i].setStyle({fillColor:c,fillOpacity:S.view==='demand'?.95:.8});
+   if(S.view==='demand')c=S.after&&cl[i]&&!hi?coveredDemandColor(v):S.after&&cl[i]&&!lo?colors.added:demandColor(v);
+   if(S.view==='need')c=S.after&&cl[i]&&!hi?coveredDemandColor(v):S.after&&cl[i]&&!lo?colors.added:lo?'#dfe5eb':hi?'#d49a32':demandColor(v);
+   dots[i].setStyle({fillColor:c,fillOpacity:S.view==='access'?.8:.95});
   });
-  const showCoverage=S.view==='demand'&&S.after;
+  const showCoverage=S.view!=='access'&&S.after;
   coverageReference.setLatLng([p.lat,p.lon]).setRadius(S.t*4000/60);
   coverageReference.unbindTooltip().bindTooltip(`${esc(p.name)} · ${S.t}분 직선 참고범위<br>실제 도보 커버는 색이 바뀐 격자로 확인`);
   if(showCoverage){if(!map.hasLayer(coverageReference))coverageReference.addTo(map);}else if(map.hasLayer(coverageReference))map.removeLayer(coverageReference);
@@ -71,8 +72,12 @@ try {
   pin.setLatLng([p.lat,p.lon]).unbindTooltip().bindTooltip(esc(p.name)+'<br>추가 지정 비교 후보');
   $('affected').innerHTML=agg.map((a,i)=>({i,...a})).filter(a=>a.gh>0).sort((a,b)=>b.gh-a.gh).slice(0,5).map(a=>`<button data-dong="${a.i}">${esc(D.dongs[a.i].name)}</button>`).join('');
   $('legend').innerHTML=S.view==='demand'?'<strong>배분된 심야 잠재수요</strong><p>연한 회색: 적음 · 짙은 빨강: 많음</p><div style="height:12px;border-radius:3px;background:linear-gradient(to right,#e2e5e9,#f3b3a3,#e34a33,#7f0000)"></div><div style="justify-content:space-between"><span>0명</span><span>1,000명 이상</span></div><p class="sub">100m 격자·동 경계 조각의 대표점<br>색 기준은 모든 시각에 동일합니다.<br>실측 심야 격자인구가 아닙니다.</p>':`<strong>${S.t}분 보행 · ${S.after?'1곳 추가 후':'현재'}</strong>`+[[colors.known,'시간표·가정상 접근'],[colors.unknown,'정보 부족 · 판단 유보'],[colors.outside,'모형상 기준 밖'],...(S.after?[[colors.added,'후보 추가 후 모형상 접근']]:[])].map(([c,t])=>`<div><span class="swatch" style="background:${c}"></span>${t}</div>`).join('')+'<p class="sub">작은 점: 격자 대표점<br>도로 배경만 인터넷 연결 필요</p>';
-  if(showCoverage)$('legend').insertAdjacentHTML('beforeend',`<div><span class="swatch" style="background:#00695c"></span>청록: 추가 후 새로 접근 가능</div><div><span style="width:18px;border-top:2px dashed #008574;flex:none"></span>${S.t}분 직선 참고범위</div><p class="sub">청록의 진함도 수요량을 나타냅니다.<br>수요가 줄어든 것이 아닙니다.<br>기존 영업정보 미상 지역의 개선도 포함합니다.</p>`);
+  if(showCoverage)$('legend').insertAdjacentHTML('beforeend',`<div><span class="swatch" style="background:#00695c"></span>청록: 추가 접근 하한에 기여</div><div><span style="width:18px;border-top:2px dashed #008574;flex:none"></span>${S.t}분 직선 참고범위</div><p class="sub">청록의 진함도 수요량을 나타냅니다.<br>수요가 줄어든 것이 아닙니다.<br>파랑: 기존 미상에서 가정상 접근으로 변경. 하한 증가와 구분합니다.</p>`);
+  if(S.view==='need')$('legend').innerHTML=`<strong>기존 공급으로 채우지 못한 수요</strong><div><span class="swatch" style="background:#a22"></span>빨강: 기준 밖 · 진할수록 수요 많음</div><div><span class="swatch" style="background:#d49a32"></span>황색: 정보 부족 · 판단 유보</div><div><span class="swatch" style="background:#dfe5eb"></span>회색: 이미 시간표·가정상 접근</div>${S.after?'<div><span class="swatch" style="background:#00695c"></span>청록: 추가 접근 하한에 기여</div><div><span class="swatch" style="background:#1765df"></span>파랑: 미상 → 가정상 접근</div>':''}<p class="sub">${S.t}분 · ${S.after?'후보 추가 후':'현재'}<br>점선 원은 직선 참고범위입니다.<br>실제 도보 범위는 색이 바뀐 격자입니다.</p>`;
   renderPharmacyLegend();
+  const next=ranks().find(x=>x.rank>r.rank),gap=next&&r.rank===1?`${fmt(r.low-next.low)}명 (${(100*(r.low-next.low)/(r.low||1)).toFixed(2)}%)`:null;
+  $('candidateReason').innerHTML=`<strong>왜 이 후보인가?</strong><p>① 생활인구로 잠재수요를 배분합니다.<br>② 기존 약국의 운영시간·도보 접근을 제외합니다.<br>③ 후보의 실제 도로 ${S.t}분권에 남은 수요를 더합니다.</p><p>선택 시간: 최소 <b>${fmt(tot.gl)}명</b><br>21개 시간대 평균: 최소 <b>${fmt(r.low)}명</b>${gap?`<br>2위와 차이: ${gap}`:''}</p>${r.rank===1&&D.sensitivity?'<p class="sub">보행속도·가정에 따른 순위 변화는<br>03 후보 비교에서 확인하세요.</p>':''}<button id="showUnmetDemand">미충족 수요와 추가 범위 보기</button>`;
+  $('showUnmetDemand').onclick=()=>{S.view='need';S.after=true;$('allPharmacies').checked=false;map.removeLayer(allPharmacies);document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===S.view));render();focus();};
   document.querySelectorAll('[data-after]').forEach(b=>b.classList.toggle('active',Boolean(+b.dataset.after)===S.after));renderList();renderDetails();
  }
  function focus(){const p=D.pharmacies[S.j];map.setView([p.lat,p.lon],14);}

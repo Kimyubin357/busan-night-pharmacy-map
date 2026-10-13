@@ -1,5 +1,7 @@
 """원본을 보존하며 월요일 시간 및 일요일 휴무/공공심야 운영 가정을 적용합니다."""
 from pathlib import Path
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 import json
 import pandas as pd
 from collections import Counter
@@ -7,7 +9,7 @@ P=Path(__file__).resolve().parent
 UP=P.parent/'team2/update_20260915'
 
 def build_schedules():
-    source=Path(json.loads((P.parent/'reports/latest_run.json').read_text())['output_dir'])
+    source=__import__('pipeline_context').processed_source()
     original=pd.read_csv(source/'pharmacy_opening_hours_analysis.csv').fillna('')
     merged=pd.read_csv(UP/'pharmacy_opening_hours_nmc.csv').fillna('')
     nmc=pd.read_csv(UP/'nmc_opening_hours_long.csv').fillna('')
@@ -16,7 +18,7 @@ def build_schedules():
     raw={(r.pharmacy_id,int(r.day_code)):r for r in original.itertuples()}
     nm={(r.pharmacy_id,int(r.day_code)):r for r in nmc.itertuples()}
     rows={(r.pharmacy_id,int(r.day_code)):r for r in merged.itertuples()}
-    policy=pd.read_csv(P.parent/'team2_handoff/public_policy_hours.csv').set_index('pharmacy_id')
+    policy=pd.read_csv(P.parent/'team2/outputs/public_policy_hours.csv').set_index('pharmacy_id')
     ids=sorted({k[0] for k in rows}|{k[0] for k in nm})
     weekly={};audit=[];counts=Counter();conflict_audit=[]
     route_ids={k[0] for k in rows}

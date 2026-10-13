@@ -65,17 +65,21 @@ def sparse_minimum(arcs,n):
     return csr_matrix(([d for d in best.values()],([k[0] for k in best],[k[1] for k in best])),shape=(n,n))
 
 def main():
-    meta=json.loads((ROOT/'reports/latest_run.json').read_text());source=Path(meta['output_dir'])
+    from pipeline_context import context
+    ctx=context();pbf=BASE/ctx['osm_filename'];pbf_hash=ctx['osm_sha256']
+    meta=json.loads((ROOT/'reports/latest_run.json').read_text());source=__import__('pipeline_context').processed_source()
     demand=pd.read_csv(ROOT/'team2/outputs/demand_nodes.csv',dtype={'node_id':'string'})
     ph=pd.read_csv(source/'pharmacy_master.csv',dtype={'pharmacy_id':'string'})
     fp=BASE/'parsed.pkl'
-    if fp.exists():
+    cache_meta=BASE/'parsed_manifest.json'
+    if fp.exists() and cache_meta.exists() and json.loads(cache_meta.read_text()).get('sha256')==pbf_hash:
         with fp.open('rb') as f:coords,raw,counts=pickle.load(f)
     else:
         r=Reader();print('OSM parse start',flush=True)
-        r.apply_file(str(BASE/'south-korea-260913.osm.pbf'),locations=True,idx='flex_mem')
+        r.apply_file(str(pbf),locations=True,idx='flex_mem')
         coords,raw,counts=r.coords,r.edges,dict(r.counts)
         with fp.open('wb') as f:pickle.dump((coords,raw,counts),f)
+        cache_meta.write_text(json.dumps({'sha256':pbf_hash}))
     print('OSM accepted',len(coords),len(raw),counts,flush=True)
     ids=list(coords);lookup={x:i for i,x in enumerate(ids)}
     lonlat=np.array([coords[i] for i in ids]);x,y=PROJECT.transform(lonlat[:,0],lonlat[:,1]);xy=list(zip(x,y))
@@ -136,6 +140,6 @@ def main():
         print('Dijkstra',i,'/',len(starts),flush=True)
         dist=dijkstra(graph,directed=True,indices=starts[i:i+8]);matrix[i:i+8]=dist[:,ends]
     np.save(BASE/'distance_matrix_m.npy',matrix)
-    qa={'osm_source':'https://download.geofabrik.de/asia/south-korea-260913.osm.pbf','osm_date':'2026-09-13','pbf_sha256':hashlib.sha256((BASE/'south-korea-260913.osm.pbf').read_bytes()).hexdigest(),'bbox':BBOX,'graph_nodes':len(xy),'directed_arcs':graph.nnz,'weak_components':int(ncomp),'largest_component_nodes':int(sizes.max()),'counts':counts,'snap_status':snaps.snap_status.value_counts().to_dict(),'snap_distance_quantiles_m':snaps.snap_distance_m.quantile([.5,.9,.95,.99,1]).to_dict(),'pair_count':int(matrix.size),'finite_pairs':int(np.isfinite(matrix).sum()),'demand_count':len(demand),'pharmacy_count':len(ph),'route_model':'public outdoor OSM walking; steps included; no slope; foot direction respected; no turn-restriction relations; <=100m straight connector'}
+    qa={'osm_source':ctx['osm_snapshot_url'] if ctx.get('mode')=='snapshot' else ctx['osm_latest_url'],'osm_date':ctx['osm_date'],'pbf_sha256':pbf_hash,'bbox':BBOX,'graph_nodes':len(xy),'directed_arcs':graph.nnz,'weak_components':int(ncomp),'largest_component_nodes':int(sizes.max()),'counts':counts,'snap_status':snaps.snap_status.value_counts().to_dict(),'snap_distance_quantiles_m':snaps.snap_distance_m.quantile([.5,.9,.95,.99,1]).to_dict(),'pair_count':int(matrix.size),'finite_pairs':int(np.isfinite(matrix).sum()),'demand_count':len(demand),'pharmacy_count':len(ph),'route_model':'public outdoor OSM walking; steps included; no slope; foot direction respected; no turn-restriction relations; <=100m straight connector'}
     (BASE/'network_quality.json').write_text(json.dumps(qa,ensure_ascii=False,indent=2));print(json.dumps(qa,ensure_ascii=False,indent=2),flush=True)
 if __name__=='__main__':main()

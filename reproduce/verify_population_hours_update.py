@@ -8,7 +8,7 @@ ROOT=Path(__file__).resolve().parent
 OUT=ROOT/'team2/update_20260915'
 
 def main():
-    source=Path(json.loads((ROOT/'reports/latest_run.json').read_text())['output_dir'])
+    source=__import__('pipeline_context').processed_source()
     original=pd.read_csv(source/'pharmacy_opening_hours_analysis.csv')
     updated=pd.read_csv(OUT/'pharmacy_opening_hours_supplemented.csv')
     # 원본 원시 시각과 행 순서 보존. 조회·추정값은 별도 컬럼으로만 기록합니다.

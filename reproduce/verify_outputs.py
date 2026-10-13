@@ -14,8 +14,8 @@ from pharmacy_data import START
 def main():
     root = Path(__file__).resolve().parent
     latest = json.loads((root / 'reports/latest_run.json').read_text())
-    output = Path(latest['output_dir'])
-    reports = Path(latest['report_dir'])
+    output = root / latest['output_dir']
+    reports = root / latest['report_dir']
     raw_dir = root / 'data/raw' / latest['run_id']
     assert all(v == 'complete' for v in latest['stages'].values()), '먼저 모든 수집 단계를 완료하세요'
     checks = []
@@ -64,7 +64,7 @@ def main():
     checks.append('약국×8종 요일 시간표, 약국×7요일×3시간 상태표의 키/행 수 일치')
     sources = json.loads((reports / 'sources.json').read_text())
     for source in sources:
-        file = Path(source['raw_file']) if 'raw_file' in source else raw_dir / f"pharmacy_api_page_{source['page']:03}.json"
+        file = root / source['raw_file'] if 'raw_file' in source else raw_dir / f"pharmacy_api_page_{source['page']:03}.json"
         assert hashlib.sha256(file.read_bytes()).hexdigest() == source['sha256']
     checks.append('모든 원본 파일의 SHA-256 해시 일치')
 

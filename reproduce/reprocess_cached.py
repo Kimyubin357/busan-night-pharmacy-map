@@ -15,11 +15,11 @@ def main():
     root = Path(__file__).resolve().parent
     previous = json.loads((root / 'reports/latest_run.json').read_text())
     old_raw = root / 'data/raw' / previous['run_id']
-    old_reports = Path(previous['report_dir'])
+    old_reports = root / previous['report_dir']
     sources = json.loads((old_reports / 'sources.json').read_text())
     # 먼저 모든 원본 해시를 확인합니다. 검증 실패 시 새 결과를 만들지 않습니다.
     for source in sources:
-        file = Path(source['raw_file']) if 'raw_file' in source else old_raw / f"pharmacy_api_page_{source['page']:03}.json"
+        file = root / source['raw_file'] if 'raw_file' in source else old_raw / f"pharmacy_api_page_{source['page']:03}.json"
         if hashlib.sha256(file.read_bytes()).hexdigest() != source['sha256']:
             raise ValueError('원본 해시 불일치: ' + file.name)
     run = Run(root)

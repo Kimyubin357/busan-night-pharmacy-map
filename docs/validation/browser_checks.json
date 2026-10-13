@@ -1,0 +1,103 @@
+{
+  "environment": {
+    "url": "http://127.0.0.1:8123/",
+    "viewports": [
+      "1440x900",
+      "1366x768",
+      "390x844"
+    ],
+    "browser": "Existing Playwright; Browser plugin skill is unavailable"
+  },
+  "checks": [
+    {
+      "name": "초기 화면",
+      "status": "passed",
+      "evidence": "Meaningful dashboard rendered"
+    },
+    {
+      "name": "전체 목록 페이지 이동",
+      "status": "passed",
+      "evidence": {
+        "pages": 18,
+        "visibleFacilities": 1716
+      }
+    },
+    {
+      "name": "구 → 동 및 페이지 초기화",
+      "status": "passed",
+      "evidence": [
+        "전체 동",
+        "반송1동",
+        "반송2동",
+        "반여1동"
+      ]
+    },
+    {
+      "name": "부분 심야영업 및 팝업 요일",
+      "status": "passed",
+      "evidence": {
+        "item": "심야 운영\n365연산온누리약국\n연제구 연산4동 · 부산광역시 연제구 반송로 30, 석산빌딩 1층 일부호 (연산동)\n일요일 22:00–23:00 · 051-852-3574\n지도 보기",
+        "popup": "365연산온누리약국\n부산광역시 연제구 반송로 30, 석산빌딩 1층 일부호 (연산동)\n051-852-3574\n선택한 일요일: 09:00–23:00\n22–01시 중 운영: 22:00–23:00\n조회 운영시간 · 조회 2026-09-15\n방문 전 전화 확인"
+      }
+    },
+    {
+      "name": "공공심야 목록 및 상위 지도 레이어",
+      "status": "passed",
+      "evidence": {
+        "count": 19,
+        "zIndex": "650"
+      }
+    },
+    {
+      "name": "부산 현재 시각 자동 갱신",
+      "status": "passed",
+      "evidence": "화 14:31"
+    },
+    {
+      "name": "검색 결과 없음 및 페이지 버튼",
+      "status": "passed",
+      "evidence": "조건에 맞는 약국이 없습니다.\n지역이나 필터를 바꿔보세요."
+    },
+    {
+      "name": "미충족 수요 → 후보 도보권 및 범례",
+      "status": "passed",
+      "evidence": "왜 이 후보인가?\n\n① 생활인구로 잠재수요를 배분합니다.\n② 기존 약국의 운영시간·도보 접근을 제외합니다.\n③ 후보의 실제 도로 15분권에 남은 수요를 더합니다.\n\n선택 시간: 최소 51,943명\n21개 시간대 평균: 최소 51,949명\n2위와 차이: 373명 (0.72%)\n\n보행속도·가정에 따른 순위 변화는\n03 후보 비교에서 확인하세요.\n\n미충족 수요와 추가 범위 보기"
+    },
+    {
+      "name": "노트북 지도 높이",
+      "status": "passed",
+      "evidence": {
+        "viewport": 768,
+        "document": 768
+      }
+    },
+    {
+      "name": "후보 순위 민감도 6개 기준",
+      "status": "passed",
+      "evidence": {
+        "modes": 2,
+        "thresholds": 3,
+        "scenarios": 5
+      }
+    },
+    {
+      "name": "모바일 약국 찾기",
+      "status": "passed",
+      "evidence": {
+        "viewport": 390,
+        "document": 390
+      }
+    },
+    {
+      "name": "모바일 지도",
+      "status": "passed",
+      "evidence": "No horizontal overflow"
+    },
+    {
+      "name": "JavaScript runtime",
+      "status": "passed",
+      "evidence": []
+    }
+  ],
+  "html_sha256": "cf17df529a9f8074131528155e5fc1b687ca78a211ad4725dd8976646609403c"
+}

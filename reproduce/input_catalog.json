@@ -1,0 +1,47 @@
+{
+  "team2/inputs/15028854.csv": {
+    "snapshot_url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003632450&fileDetailSn=1",
+    "latest_metadata_pk": "15028854",
+    "snapshot_sha256": "10960ef68e6b47362ea13d6a89c5b39589a28744e59543a9d126c56ef3869ff1",
+    "local_path": "team2/inputs/15028854.csv"
+  },
+  "team2/inputs/PD_LP00002.xlsx": {
+    "snapshot_url": "https://data.busan.go.kr/bdip/opendata/DATA_202411250501368790",
+    "latest_metadata_pk": "PD_LP00002",
+    "snapshot_sha256": "9975536274f015c68356c7463e7942f89edd8982746066d3332bbb9dfcbab3fd",
+    "local_path": "team2/inputs/PD_LP00002.xlsx"
+  },
+  "team2/update_20260915/raw/sgis_grid_population.zip": {
+    "snapshot_url": "https://link.mods.go.kr/census/reqdoc/1789222868357.zip",
+    "snapshot_sha256": "12e3ed6b07fd9da782e01335b449ac3e1256c1a0e9fe5c893c17fe5d26341c83",
+    "local_path": "team2/update_20260915/raw/sgis_grid_population.zip",
+    "grid_year": 2024
+  },
+  "team2/update_20260915/raw/sgis_grid_mara.zip": {
+    "snapshot_url": "https://link.mods.go.kr/grid_border/grid_2025/grid_%EB%A7%88%EB%9D%BC/grid_%EB%A7%88%EB%9D%BC.zip",
+    "snapshot_sha256": "37bc428db9f35907f74fd24cfcf3553ba8df52a43326e6535d3eaa905334a480",
+    "local_path": "team2/update_20260915/raw/sgis_grid_mara.zip"
+  },
+  "team2/update_20260915/raw/sgis_grid_mama.zip": {
+    "snapshot_url": "https://link.mods.go.kr/grid_border/grid_2025/grid_%EB%A7%88%EB%A7%88/grid_%EB%A7%88%EB%A7%88.zip",
+    "snapshot_sha256": "3b993e0e53f884b41104ddac6eb00b09bb146224d363b78770ae7cfd8a82148a",
+    "local_path": "team2/update_20260915/raw/sgis_grid_mama.zip"
+  },
+  "team2/update_20260915/raw/sgis_dong.zip": {
+    "snapshot_url": "https://link.mods.go.kr/census/bnd_data/bnd_dong/bnd_dong_00_2025_2Q.zip",
+    "snapshot_sha256": "6a675f0c5ae569f33fbe903d620d804fb2672ca65790ea53b23aba7118fa9ec7",
+    "local_path": "team2/update_20260915/raw/sgis_dong.zip",
+    "boundary_date": "2025-06-30"
+  },
+  "team2/update_20260915/raw/sgis_codebook.zip": {
+    "snapshot_url": "https://link.mods.go.kr/contents/include/download.jsp?filename=ref_code.zip&path=/board/&type=board",
+    "snapshot_sha256": "e95f43f59c9f159ae103fae86d239f81c05ded17441885e420aca022ae07ca0c",
+    "local_path": "team2/update_20260915/raw/sgis_codebook.zip"
+  },
+  "team2/osm/south-korea.osm.pbf": {
+    "snapshot_url": "https://download.geofabrik.de/asia/south-korea-260913.osm.pbf",
+    "latest_url": "https://download.geofabrik.de/asia/south-korea-latest.osm.pbf",
+    "snapshot_sha256": "9fd311e570571d18b6131521a37f3be0fe6335b742066f2994a342d170ea83a0",
+    "local_path": "team2/osm/south-korea-260913.osm.pbf"
+  }
+}
