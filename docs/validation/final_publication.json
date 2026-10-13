@@ -1,0 +1,25 @@
+{
+  "data_checked_at": "2026-10-13",
+  "html_sha256": "5a286fff8b449de9f34c57623e6468c147eeb9c619db92ec08291319e4ed4543",
+  "payload_sha256": "c5b1065725a70e04a441d5e5d630919f0c5e3a7d776cbf62f332a1c53eb050bc",
+  "browser_checks_passed": 13,
+  "viewports": [
+    "1440x900",
+    "1440x768",
+    "390x844"
+  ],
+  "page_errors": [],
+  "console_errors": [],
+  "python_contract_tests": 5,
+  "python_exception_tests": 8,
+  "python_refresh_tests": 2,
+  "source_sha256": {
+    "finder.js": "400cbce6a24f4fa0a5114edf88b0ea062a063437a7155b083b9e161c04050597",
+    "report.css": "31b5d6e229120dd4d634d40f2db35e00d035fd3f35930433f840ebc9b6abf9ef",
+    "report.js": "e61befbb048c08bcdbed29893dc7d361932e7d93aa121cc40ac9348bdad9f382",
+    "reproduce/dashboard_v3/schedule_assumptions.py": "bf4afbddbbbbd1e338938f14ec68b044e5514a7efad42d1d20b078e11ba7ed51",
+    "reproduce/dashboard_v3/schedule_exceptions.py": "6f07243ba03a837dbed1d9233d6db2d70186245dcb0ef441e86918c35e04193d",
+    "reproduce/refresh_dashboard.py": "0ebf6a443b5116bf4059e8ef6348c5ac430c50781708849c93e1d8599630794c",
+    "reproduce/run_pipeline.py": "e1871b5de559c97767951ebe1648601b7d19081a81fb4e0e3814400edd1140c9"
+  }
+}
