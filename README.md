@@ -52,7 +52,13 @@ node check_finder.cjs
 
 ## API 키
 
-요청에 따라 `reproduce/.env`에 현재 공공데이터포털 키가 포함되어 있습니다. 이 저장소는 private으로 유지하고 키 만료·교체 시 해당 파일도 갱신해야 합니다. 공개 전환 전에는 키를 폐기하고 Git 기록에서도 제거해야 합니다.
+키는 저장소에 포함하지 않습니다. `latest` 모드로 공공데이터포털 API를 다시 조회하려면 [공공데이터포털](https://www.data.go.kr)에서 활용승인받은 키를 `reproduce/.env`에 넣습니다.
+
+```bash
+cp reproduce/.env.example reproduce/.env
+```
+
+`snapshot` 모드와 HTML 재생성(`build_html.py`)은 키 없이 동작합니다.
 
 ## 포트폴리오 보완 기록
 

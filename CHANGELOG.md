@@ -1,6 +1,6 @@
 # 부산 심야약국 대시보드 v3
 
-실행 파일: /Users/yubin/Downloads/busan-night-pharmacy-v3-dashboard.html
+실행 파일: busan-night-pharmacy-v3-dashboard.html
 최신 Chrome, Edge, Safari에서 파일을 열면 됩니다. 도로 배경을 제외한 분석 자료와 지도 라이브러리는 파일에 포함되어 있습니다.
 
 ## v2 기능 검토 및 변경
@@ -84,7 +84,7 @@ JavaScript 구문 검사 통과. 브라우저별 상호작용/현장 보행 경�
 - 기존 전체 약국/공공심야약국 레이어와 월·토·일 시간표 팝업 유지.
 - 최신 model payload를 변경하지 않았음을 비교 검증. 화면 생성 4차트·3임계값·2운영시나리오와 SVG XML, HTML ID, JavaScript 구문 검사 통과.
 - 브라우저 상호작용 및 인쇄 레이아웃의 시각 검증은 수행하지 않음.
-- 결과 파일: /Users/yubin/Downloads/busan-night-pharmacy-v3-report-dashboard.html
+- 결과 파일: busan-night-pharmacy-v3-report-dashboard.html
 - 변경 전 UI 소스: backup_before_report_tabs/ 보관. 기존 다운로드 v3 파일은 보존.
 
 ## 2026-09-16 운영 약국 찾기

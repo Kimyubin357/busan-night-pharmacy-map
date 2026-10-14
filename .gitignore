@@ -53,3 +53,8 @@ reproduce/sensitivity_rankings.csv
 reproduce/field_validation_plan.csv
 *.partial
 .refresh-lock/
+
+# API keys stay local; see reproduce/.env.example
+.env
+**/.env
+!.env.example
