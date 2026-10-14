@@ -29,6 +29,7 @@ node check_finder.cjs
 - `dist/index.html` — 배포 가능한 단일 HTML
 - `dashboard_data.json.gz` — 최종 화면용 독립 가공 데이터
 - `app.js`, `finder.js`, `report.js`, `report.css` — 화면 코드
+- `theme.css`, `fonts/` — 화면 테마와 내장 글꼴 Wanted Sans(OFL, `fonts/OFL.txt`, 축소 스크립트 `fonts/subset_fonts.py`)
 - `build_html.py` — 독립 payload로 HTML 생성
 - `build_data.py`, `grid_routes.py`, `schedule_assumptions.py` — 최종 분석 단계 원본
 - `reproduce/` — 원천 수집부터 도로망·격자·거리행렬·payload까지 재현하는 코드

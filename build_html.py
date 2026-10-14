@@ -9,7 +9,9 @@ payload=(P/'dashboard_data.json.gz').read_bytes()
 data=json.loads(gzip.decompress(payload))
 s=(P/'dist/template.html').read_text()
 # 보고서 탭만 확장하며 기존 지도 기능과 분석 payload를 그대로 보존합니다.
-s=s.replace('</head>', '<style>'+(P/'report.css').read_text()+'</style><style>'+(P/'ui.css').read_text()+'</style></head>')
+# 화면 글꼴 Wanted Sans(OFL)를 내장해 다른 기기에서도 같은 글꼴로 보입니다. fonts/subset_fonts.py로 줄인 파일입니다.
+font_face=''.join("@font-face{font-family:'Wanted Sans';font-weight:%d;font-display:swap;src:url(data:font/woff;base64,%s) format('woff')}"%(w,base64.b64encode((P/f'fonts/WantedSans-{n}.subset.woff').read_bytes()).decode()) for n,w in [('Regular',400),('SemiBold',600),('Bold',700)])
+s=s.replace('</head>', '<style>'+font_face+'</style><style>'+(P/'report.css').read_text()+'</style><style>'+(P/'ui.css').read_text()+'</style><style>'+(P/'theme.css').read_text()+'</style></head>')
 nav='<nav class="reportnav" aria-label="분석 화면"><div role="tablist" style="display:contents">'+''.join(f'<button role="tab" id="tab-{key}" aria-controls="{key}Pane" aria-selected="false" data-tab="{key}">{label}</button>' for key,label in [('overview','분석 요약'),('map','접근성 지도'),('compare','후보 비교'),('evidence','데이터·검증'),('finder','운영 약국 찾기')])+'</div><button class="print" id="printReport">현재 탭 인쇄 / PDF</button></nav>'
 s=s.replace('</header>', '</header>'+nav+'<section class="viewpane" id="overviewPane" role="tabpanel" aria-labelledby="tab-overview" hidden></section><section class="viewpane" id="mapPane" role="tabpanel" aria-labelledby="tab-map"><div class="printlabel">부산 심야약국 접근성 · 시간표와 운영 가정 포함</div>')
 s=s.replace('</main>', '</main></section><section class="viewpane" id="comparePane" role="tabpanel" aria-labelledby="tab-compare" hidden></section><section class="viewpane" id="evidencePane" role="tabpanel" aria-labelledby="tab-evidence" hidden></section><section class="viewpane" id="finderPane" role="tabpanel" aria-labelledby="tab-finder" hidden></section>')

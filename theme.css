@@ -1,0 +1,272 @@
+/* 약국 초록 테마
+   - 글꼴: Wanted Sans(OFL, HTML에 내장) 하나로 제목·숫자·본문을 통일합니다.
+   - 색: 데이터 초록 #13775a를 기준으로 같은 색상(H≈160°)의 짙은 숲색·연한 민트를 만들고,
+     중립색에도 초록을 아주 조금 섞었습니다. 보조 강조는 초록과 어울리는 황토색 하나만 씁니다. */
+
+:root{
+ /* 초록 단계 */
+ --green-950:#0c241d;
+ --green-900:#123329;
+ --green-700:#13775a;
+ --green-500:#3f9a7b;
+ --green-300:#8fcfb3;
+ --green-100:#e2f0e8;
+ --green-50:#f1f7f3;
+ /* 초록 기운의 중립색 */
+ --bg:#f3f5f3;
+ --surface:#ffffff;
+ --ink:#17221d;
+ --muted:#5a6761;
+ --line:#dbe2dd;
+ --line-soft:#eaeeeb;
+ /* 보조 강조: 황토 */
+ --ochre:#c98a1e;
+ --ochre-soft:#faf1df;
+ --ochre-ink:#6b4a0f;
+
+ --navy:var(--ink);
+ --primary:var(--green-700);
+ --primary-soft:var(--green-100);
+ --blue:var(--green-700);
+ --green:var(--green-700);
+ --font:'Wanted Sans','Pretendard','Apple SD Gothic Neo','Noto Sans KR',system-ui,sans-serif;
+ --shell-height:104px;
+}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--font)}
+button,input,select,textarea,.leaflet-container,.leaflet-tooltip,.leaflet-popup-content{font-family:var(--font)}
+::selection{background:var(--green-100);color:var(--green-950)}
+button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--green-700);outline-offset:2px}
+
+h1,h2,h3,.sectiontop h2,.cardhead h3,.candidate-title,.finderhead h2,.dialoghead h2{font-weight:700;letter-spacing:-.02em}
+.reportstat .num,.kpi .value,.delta,.finder-now strong,.finderresulthead strong,.rankscore,.reportstat small{font-variant-numeric:tabular-nums}
+.reportstat .num,.kpi .value,.delta,.finder-now strong,.finderresulthead strong{font-weight:700;letter-spacing:-.025em}
+
+/* ── 상단: 짙은 숲색 띠 ───────────────────── */
+.top{height:56px;background:var(--green-950);color:#fff;border:0;padding:0 32px}
+.brand h1{font-size:20px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.brand small{display:block;color:#9fb8ad;font-size:12px}
+.mark{width:30px;height:30px;color:var(--green-300)}
+.mark svg{width:28px;height:28px}
+.top button{background:transparent;border:0;color:#b9cdc4;font-size:13px;padding:6px 0}
+.top button:hover{background:transparent;color:#fff;text-decoration:underline;text-underline-offset:4px}
+
+.reportnav{height:48px;min-height:48px;background:var(--green-950);border:0;border-top:1px solid #ffffff12;gap:4px;padding:0 20px}
+.reportnav [role=tab]{height:48px;padding:12px 12px 9px;font-size:15px;font-weight:600;color:#9fb8ad;background:transparent;border:0;border-bottom:3px solid transparent;border-radius:0}
+.reportnav [role=tab]:hover{background:transparent;color:#fff}
+.reportnav [role=tab][aria-selected=true]{color:#fff;background:transparent;border-color:var(--green-300)}
+.reportnav .print{height:30px;background:transparent;border:1px solid #ffffff2e;color:#b9cdc4;border-radius:4px;font-size:12px;padding:4px 10px}
+.reportnav .print:hover{color:#fff;border-color:#ffffff80;background:transparent}
+
+/* ── 공통 표면 ────────────────────────────── */
+.reportcard,.panel,.map-panel,.finder-controls,.findermapwrap,.finderresults,.toolbar,.kpis{background:var(--surface);border:1px solid var(--line);border-radius:4px}
+.reportcard{border-top:3px solid var(--green-900);padding:20px 22px}
+button{border-color:var(--line);background:var(--surface);color:var(--ink);border-radius:4px}
+button:hover{border-color:var(--green-500);background:var(--green-50)}
+select,.toolbar select,.comparetools select,.finderfilters select,.finderfilters input,.search{background-color:var(--surface);border-color:var(--line);border-radius:4px}
+
+/* ── 보고서 머리글 ────────────────────────── */
+.kicker{margin:0 0 8px;font-size:14px;font-weight:600;color:var(--green-700)}
+.sectiontop{align-items:end}
+.sectiontop h2{font-size:34px;line-height:1.3;margin:0 0 10px;word-break:keep-all}
+.sectiontop h2 mark{background:linear-gradient(transparent 60%,var(--green-100) 60%);color:var(--green-700);padding:0 2px}
+.reportlead{font-size:15px;color:var(--muted);max-width:46em;word-break:keep-all}
+.contextpill{font-size:12px;color:var(--muted);border:0;border-left:1px solid var(--line);border-radius:0;background:none;padding:2px 0 2px 14px}
+
+/* 핵심 수치: 상자 대신 굵은 위선과 세로 구분선 */
+.reportstats{background:none;border:0;border-top:3px solid var(--green-900);border-bottom:1px solid var(--line);border-radius:0;margin:0 0 24px}
+.reportstat{padding:16px 22px 18px;border-right:1px solid var(--line)}
+.reportstat:first-child{padding-left:0}
+.reportstat label{font-size:13px;font-weight:500;color:var(--muted)}
+.reportstat .num{font-size:clamp(32px,3.1vw,44px);line-height:1.15;color:var(--ink);margin:10px 0 6px}
+.reportstat .num.accent{color:var(--green-700)}
+.reportstat small{font-size:12px;color:var(--muted)}
+
+.cardhead{margin-bottom:12px}
+.cardhead h3{font-size:18px;margin:0}
+.cardhead p{font-size:12px;color:var(--muted)}
+.savechart{border:0;border-bottom:1px solid var(--line);border-radius:0;background:none;padding:2px 0;font-size:12px;color:var(--muted)}
+.savechart:hover{border-color:var(--green-700);color:var(--green-700);background:none}
+.datasetline,.pagecaption{color:var(--muted)}
+.reviewstrip{background:var(--ochre-soft);border:0;border-left:3px solid var(--ochre);border-radius:0;color:var(--ochre-ink)}
+.reporttable th{background:transparent;border-bottom:2px solid var(--green-900);color:var(--ink);font-weight:600}
+.reporttable td{border-color:var(--line-soft)}
+.reporttable tbody tr:hover{background:var(--green-50)}
+.reporttable .tablelink{color:var(--green-700);font-weight:600}
+.comparetools{background:var(--surface);border-color:var(--line);border-radius:4px}
+.stability-summary{background:var(--green-50);border-color:var(--green-700);border-radius:0}
+.evidencebadge{background:var(--ochre-soft);color:var(--ochre-ink);border-radius:3px}
+.reportpage a{color:var(--green-700)}
+
+/* 처리 단계: 번호를 크게, 카드 테두리 없이 */
+.pipeline{background:none;border:0;border-top:3px solid var(--green-900);border-radius:0;gap:0;margin-bottom:24px}
+.pipeline article{background:none;border:0;border-right:1px solid var(--line);border-radius:0;padding:18px 22px 20px}
+.pipeline article:first-child{padding-left:0}
+.pipeline .step{display:flex;align-items:baseline;gap:8px;color:var(--muted);font-size:13px;font-weight:500;letter-spacing:0}
+.pipeline .step b{font-size:36px;font-weight:700;line-height:1;color:var(--green-700);letter-spacing:-.03em}
+.pipeline h3{font-size:17px;margin:10px 0 6px}
+.pipeline p{color:var(--muted)}
+.auditrow{border-color:var(--line-soft)}
+
+/* ── 접근성 지도 ─────────────────────────── */
+.toolbar label,.toolbar .field label{color:var(--muted)}
+.seg{background:var(--bg);border:1px solid var(--line);border-radius:5px}
+.seg button{border:0;border-radius:3px;color:var(--muted)}
+.seg button:hover{background:transparent;color:var(--ink)}
+.seg button.active{background:var(--green-700);color:#fff;border-color:var(--green-700)}
+.kpis{border-top:3px solid var(--green-900)}
+.kpi .eyebrow{color:var(--muted);font-weight:500}
+.kpi .value{font-size:30px;color:var(--ink)}
+.kpi .value.blue{color:var(--green-700)}
+.panelhead h2{font-size:18px}
+.rankitem{border-color:var(--line-soft);background:var(--surface)}
+.rankitem:hover{background:var(--green-50)}
+.rankitem.active{background:var(--green-50);border-left:3px solid var(--green-700)}
+.ranknum{width:26px;height:auto;font-size:17px;font-weight:700;color:#9aa69f;background:none;place-items:start}
+.rankitem.active .ranknum{color:var(--green-700)}
+.rankbody strong{font-size:15px;font-weight:600}
+.rankscore{color:var(--ink)}
+.spark{background:var(--line-soft)}
+.spark span{background:var(--green-300)}
+.rankitem.active .spark span{background:var(--green-700)}
+.count{background:var(--surface);border-color:var(--line)}
+.maptools{background:var(--surface);border-color:var(--line)}
+.map-layer-menu summary{border-color:var(--line);border-radius:4px;background:var(--surface)}
+.maptools #resetMap{border:0;border-bottom:1px solid var(--line);border-radius:0;padding:2px 0;color:var(--muted)}
+.maptools #resetMap:hover{color:var(--green-700);border-color:var(--green-700);background:none}
+.legend,.finderlegend,.map-layer-menu .layer-options,.map-legend-menu>summary{background:var(--surface);border-color:var(--line);border-radius:4px}
+.leaflet-container{background:#e9eeea}
+.candidate-title{font-size:24px;line-height:1.3}
+.badge{border-left-color:var(--green-700);color:var(--muted)}
+.inspector h3{color:var(--ink);font-weight:600}
+.delta{font-size:28px;color:var(--green-700)}
+.candidate-reason,.detailbox{background:var(--green-50);border:0;border-radius:4px}
+.candidate-reason button,#focusCandidate,#downloadCsv{background:var(--surface);border-color:var(--green-700);color:var(--green-700);font-weight:600}
+.candidate-reason button:hover,#focusCandidate:hover,#downloadCsv:hover{background:var(--green-700);color:#fff}
+.tags button{border-radius:3px}
+.warning{background:var(--ochre-soft);border-left-color:var(--ochre);color:var(--ochre-ink)}
+.progress{background:var(--line-soft);border-radius:2px}
+
+/* ── 운영 약국 찾기 ──────────────────────── */
+.finderhead h2{font-size:30px}
+.finder-now span{color:var(--muted)}
+.finder-now strong{font-size:28px;color:var(--ink)}
+.finderfilters label{color:var(--muted);font-weight:500}
+.finderchips button{border-radius:4px;background:var(--surface);color:var(--ink);font-weight:500}
+.finderchips button:hover{border-color:var(--green-500)}
+.finderchips button.active{background:var(--green-700);border-color:var(--green-700);color:#fff}
+.finderreset{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.finderresulthead{border-bottom:3px solid var(--green-900)}
+.finderresulthead strong{font-size:24px}
+.finderresulthead span{color:var(--muted)}
+.finderitem{background:var(--surface);border-color:var(--line-soft)}
+.finderitem:hover{background:var(--green-50)}
+.finderitem.selected{background:var(--green-50);box-shadow:inset 3px 0 var(--green-700)}
+.finderitem .finder-title-row strong{font-size:17px;font-weight:700}
+.finderitem .finder-title-row em{font-style:normal;color:var(--green-700)}
+.finderitem .finder-closing{color:var(--green-700)}
+.finderitem .finder-closing.soon{color:var(--ochre)}
+.finderitem .state.open{color:var(--green-700)}
+.finderitem .state.assumed,.finderitem .state.unknown{color:var(--ochre-ink)}
+.finder-phone{color:var(--ink);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+.finder-phone:hover{color:var(--green-700)}
+.finderpagination{background:var(--surface);border-color:var(--line)}
+.finder-map-selection{background:var(--surface);border-color:var(--green-700);border-radius:4px}
+.finderempty strong{font-size:16px;color:var(--ink)}
+.finderlegend i{background:var(--green-700)}
+.finderpage[data-mode=night] .finderlegend i:not(.public){background:var(--ochre)}
+.finderitem .state.night{color:var(--ochre-ink)}
+
+/* ── 대화상자·로딩 ───────────────────────── */
+dialog{border:0;border-top:4px solid var(--green-900);border-radius:4px;background:var(--surface)}
+dialog::backdrop{background:#0c241d99;backdrop-filter:none}
+.dialoghead{background:var(--surface);border-color:var(--line)}
+.dialoghead h2{font-size:21px}
+.dialogbody{color:var(--ink)}
+.dialogbody th{background:transparent;border-bottom:2px solid var(--green-900)}
+.method-history{border-color:var(--line);border-radius:4px}
+.method-history summary{color:var(--green-700)}
+
+.loading{background:var(--green-950);color:#fff}
+.loading>div{text-align:center}
+.loading-sign{display:block;color:var(--green-300)}
+.loading-sign svg{width:48px;height:48px;display:block;margin:0 auto 16px;animation:pill-pulse 1.4s ease-in-out infinite alternate}
+.loading h2{font-size:24px;color:#fff;margin:0 0 4px}
+.loading p{color:#9fb8ad}
+@keyframes pill-pulse{from{opacity:.45}to{opacity:1}}
+
+/* ── 반응형 ──────────────────────────────── */
+@media(max-width:1100px){
+ .brand small{display:none}
+ .reportstat:first-child,.pipeline article:first-child{padding-left:22px}
+}
+@media(max-width:899px){
+ .reportstat{padding:14px 16px}
+ .reportstat:first-child{padding-left:16px}
+ .pipeline article,.pipeline article:first-child{padding:16px}
+ .sectiontop h2{font-size:28px}
+}
+@media(max-width:599px){
+ .top{padding:0 16px}
+ .brand h1{font-size:18px}
+ .reportnav{padding:0 8px;overflow-x:auto;scrollbar-width:none}
+ .reportnav [role=tab]{flex:none;font-size:14px;white-space:nowrap;padding:12px 9px 9px}
+ .sectiontop h2{font-size:24px}
+ .sectiontop h2 br{display:none}
+ .reportstat .num{font-size:28px}
+ .kpi .value{font-size:23px}
+ .finder-now strong{font-size:15px}
+ .finder-now{background:var(--surface);border:1px solid var(--line);border-radius:4px}
+}
+@media(prefers-reduced-motion:reduce){.loading-sign svg{animation:none}}
+@media print{
+ .reportcard,.reportstats,.pipeline{border-top-width:2px}
+ body{background:#fff}
+}
+
+/* ── 낮은 화면(노트북 720~820px) 보정 ─────────
+   화면 높이에 맞춰 줄이기만 하면 지도·목록·차트가 읽을 수 없을 만큼 작아지므로,
+   최소 높이를 두고 넘치면 페이지가 스크롤되게 합니다. */
+@media screen and (min-width:1000px){
+ .overview-core{height:auto;min-height:0}
+ .overview-core .reportcard{height:auto}
+ .overview-core #thresholdChart,.overview-core #weekChart{flex:none}
+ .overview-core .reportcard svg:not(.ui-icon){height:auto;max-height:360px;min-height:0}
+}
+@media screen and (min-width:900px){
+ #mapPane{min-height:720px}
+ .finderpage{min-height:780px}
+}
+@media screen and (min-width:1181px) and (max-height:860px){
+ #mapPane .kpi{padding:8px 17px}
+ #mapPane .kpi .value{font-size:24px;margin:2px 0}
+ #mapPane .toolbar{padding:8px 14px}
+ /* 범례는 접었다 펼치는 버튼으로 바꿔 지도를 가리지 않게 합니다. */
+ .map-legend-menu{position:absolute;left:12px;bottom:12px;z-index:800;display:block;max-width:calc(100% - 24px)}
+ .map-legend-menu>summary{display:flex;align-items:center;gap:6px;list-style:none;border:1px solid var(--line);background:var(--surface);padding:8px 11px;font-size:12px;color:var(--muted);cursor:pointer}
+ .map-legend-menu>summary::-webkit-details-marker{display:none}
+ .map-legend-menu>summary .ui-icon{width:12px;height:12px}
+ .map-legend-menu[open]>summary .ui-icon{transform:rotate(90deg)}
+ .map-legend-menu #legend{position:static;max-width:100%;width:255px;max-height:min(330px,calc(100vh - 380px));overflow:auto;box-shadow:none;padding-bottom:12px}
+}
+
+/* 표시 레이어 메뉴: 체크박스를 버튼 상자 없이 목록 행으로 */
+.map-layer-menu .layer-options{padding:6px 12px}
+.map-layer-menu .toggle{border:0;border-radius:0;border-bottom:1px solid var(--line-soft);padding:9px 2px;background:none}
+.map-layer-menu .toggle:last-child{border-bottom:0}
+.map-layer-menu .toggle span{color:var(--muted);margin-left:auto}
+.map-layer-menu input{accent-color:var(--green-700)}
+
+/* 좁은 데스크톱(900~1180px) 보정 */
+.maptools #resetMap,.map-layer-menu summary{flex:none;white-space:nowrap}
+.delta{white-space:nowrap}
+@media(min-width:900px) and (max-width:1180px){
+ .delta{font-size:22px}
+ .candidate-title{font-size:21px}
+}
+.kpi .value{white-space:nowrap}
+@media(min-width:600px) and (max-width:899px){.kpi .value{font-size:23px}}
+@media(max-width:599px){.kpi .value{font-size:clamp(19px,6vw,23px)}}
+
+/* 한국어는 어절 단위로 줄바꿈합니다(‘불확/실’처럼 단어 중간에서 끊기지 않게). */
+body{word-break:keep-all;overflow-wrap:break-word}
