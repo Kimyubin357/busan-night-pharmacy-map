@@ -44,7 +44,7 @@ Browser 스킬이 제공되지 않아 설치된 Playwright와 임시 Chrome 프�
 - 노트북 지도 전체 높이가 768px 화면 안에 맞고 모바일 가로 넘침 없음.
 - JavaScript 실행 오류 0건.
 
-브라우저 실행 결과는 `validation/browser_checks.json`에 보관합니다. 실제 방문 경로·약국 현장 영업·전화 확인은 아직 실시하지 않았으며 `field_validation_plan.csv`에 미실시 상태로 기록했습니다.
+브라우저 실행 결과는 `validation/browser_checks.json`에 보관합니다. 실제 방문 경로·약국 현장 영업·전화 확인은 실시하지 않았습니다. `field_validation_plan.csv`는 과거 생성한 미실시 검토 목록이며, 2026-10-14 사용자 결정에 따라 수행 계획이 없습니다.
 
 ## 추가 보완 1~4: 최신 전체 수집 및 영업 판정 검사
 
@@ -68,7 +68,7 @@ Browser 스킬이 제공되지 않아 설치된 Playwright와 임시 Chrome 프�
 
 실제 Chrome/Playwright 화면은 `http://127.0.0.1:8123/`에서 1440×900, 1440×768, 390×844로 검사했습니다. Browser plugin not available로 Playwright를 사용했습니다. 광제약국 20시 제외/22시 포함, 화요일 00:40 전날 영업·01시 종료·20분 남음, 01시 정각 제외, 하이타운약국 첫째/둘째 일요일 휴무 차이, 123약국 휴무 가정, 지역 필터·전체 목록, 조회일·갱신 성공 표시, 기존 분석 탭을 확인했습니다. 앱/콘솔 오류는 0개이며 모바일 가로 넘침과 768px 지도 하단 잘림을 확인·수정했습니다. 화면 검증 JSON과 캡처는 `/tmp/busan-four-improvements-qa.json`, `/tmp/busan-four-carry-desktop.png`, `/tmp/busan-four-assumptions-mobile.png`에 저장했습니다.
 
-자동 갱신 일정·Cloud Run 배포·현장/전화 확인은 아직 하지 않았습니다. 미확인 공휴일과 임시휴무, 원문의 모호한 안내는 여전히 실제 방문 전 확인이 필요합니다.
+이 검사 당시에는 자동 갱신 일정·Cloud Run 배포·현장/전화 확인을 하지 않았습니다. Cloud Run 배포는 이후 2026-10-14에 완료했습니다. 자동 갱신 서비스와 전화·현장 검증은 수행 계획에 포함하지 않습니다. 미확인 공휴일과 임시휴무, 원문의 모호한 안내는 여전히 실제 방문 전 확인이 필요합니다.
 
 ## 2026-10-14 주소·좌표 보정과 시설 ID 선택
 

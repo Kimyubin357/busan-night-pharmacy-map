@@ -69,7 +69,7 @@ OSM 기준시각은 PBF 헤더의 실제 replication timestamp를 읽습니다. 
 - 루트 `dist/index.html` + `dist/assets/`: 웹 화면과 탭별 분리 자료·코드·글꼴
 - 루트 `dist/downloads/busan-night-pharmacy.html`: 모든 데이터·코드·글꼴을 포함한 독립 HTML
 - 루트 `sensitivity_results.json` / `sensitivity_rankings.csv`: 가정별 후보 점수와 순위
-- 루트 `field_validation_plan.csv`: 현장·전화 확인 체크리스트. 현재는 미실시
+- 루트 `field_validation_plan.csv`: 과거 생성한 미실시 검토 목록. 사용자 결정으로 전화·현장 검증 수행 계획 없음
 - `dashboard_v3/validation.json`: 수치·경로 알고리즘 일치 검사. 현장 검증과 구분
 
 수집·원천 파싱 시간을 포함한 전체 실행시간은 장비와 네트워크에 따라 달라집니다. 이 프로젝트의 실제 로컬 검사 기록은 `docs/VALIDATION_RUN.md`에 보관합니다. 약 142MB 거리행렬, 약 36MB 불확실성 배열, OSM 그래프·PBF·SGIS ZIP은 Git에 넣지 않고 재생성합니다.

@@ -2,6 +2,8 @@
 
 부산의 심야 약국 접근성을 100m 격자와 보행 도로망으로 분석하고, 공공심야약국 추가 지정 후보와 시민용 운영 약국 찾기를 한 화면에 제공합니다.
 
+**[배포된 대시보드 열기](https://busan-night-pharmacy-map-768810209035.asia-east1.run.app/)** — DB 없이 Cloud Run에서 제공합니다. 자료 기준일은 화면에 표시하며, 실시간 운영정보 갱신 서비스는 아닙니다. 배포 구성·재배포·비용 기준은 [Cloud Run 안내](docs/CLOUD_RUN.md)를 확인하세요.
+
 ## 바로 실행
 
 Python 외에는 설치할 필요가 없습니다.
@@ -38,6 +40,7 @@ node check_finder.cjs
 - `theme.css`, `fonts/` — 화면 테마와 내장 글꼴 Wanted Sans(OFL, `fonts/OFL.txt`, 축소 스크립트 `fonts/subset_fonts.py`)
 - `build_html.py`, `check_build.py` — 독립 payload로 두 배포본 생성·분리 데이터 일치 검사
 - `serve.py`, `test_static_server.py` — 압축·캐시를 적용하는 정적 서버와 HTTP 검사
+- `prepare_cloud_run.py`, `deploy/cloudrun/`, `.gcloudignore` — Dockerfile 없는 최소 소스 배포 준비
 - `build_data.py`, `grid_routes.py`, `schedule_assumptions.py` — 최종 분석 단계 원본
 - `reproduce/` — 원천 수집부터 도로망·격자·거리행렬·payload까지 재현하는 코드
 - `docs/DATA_SOURCES.md` — 출처와 취득 방법
@@ -67,13 +70,15 @@ cp reproduce/.env.example reproduce/.env
 
 `snapshot` 모드와 HTML 재생성(`build_html.py`)은 키 없이 동작합니다.
 
+저장소는 비공개로 유지합니다. 과거 API 키 파일의 이력을 정리한 후에는 팀원도 새로 clone하고, 이전 이력을 다시 push하지 않습니다. Git 이력 제거와 API 키 폐기·재발급은 별개입니다. 키 자체는 변경하지 않았습니다.
+
 ## 포트폴리오 보완 기록
 
 기준 원천을 다시 읽어 도로망·격자·거리행렬부터 계산하는 `snapshot` 모드와 API를 다시 조회하는 `latest` 모드를 제공합니다. 설정·입력 해시·검증·실행 기록은 [재현 안내](docs/REPRODUCING.md)와 [검사 기록](docs/VALIDATION_RUN.md)을 확인하세요.
 
 후보 비교에는 3/4/5km/h, 일요일 휴무 가정, 격자 배분 방식을 바꾼 순위 비교가 있습니다. 운영 약국 찾기는 전체 목록 페이지 이동, 선택 요일 팝업, 실제 심야 겹침 시간, 데이터 조회일을 제공합니다.
 
-사용자는 프로젝트를 거의 단독으로 수행했습니다. 포트폴리오의 기여·AI 활용·성과는 실제 수행 범위로 설명합니다. Cloud Run 배포, SQL·Docker·CI/CD, 실제 경로·운영시간 확인 등 남은 작업은 [다음 작업](docs/NEXT_STEPS.md)에 기록했습니다.
+외부 데이터 선정, 운영시간 검색·교차 대조와 전처리, 보행거리 기반 후보 분석 아이디어는 본인이 담당했고 나머지 구현은 AI의 도움을 받았습니다. Cloud Run 배포는 유지하며 DB는 사용하지 않습니다. Dockerfile은 제거하고 다음 배포를 위한 최소 소스 구성을 준비했습니다. 전화·현장 검증은 수행하지 않았고 수행 계획도 없습니다. 포트폴리오 사이트 반영은 보류하며 나머지 상태는 [다음 작업](docs/NEXT_STEPS.md)에 기록했습니다.
 
 ## 약국 위치 검토
 

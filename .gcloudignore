@@ -1,0 +1,8 @@
+# Direct-root uploads contain static files only. For a source deployment use
+# prepare_cloud_run.py; it adds runtime-only requirements and an entrypoint.
+**
+!serve.py
+!dist/
+!dist/**
+dist/template.html
+**/.DS_Store

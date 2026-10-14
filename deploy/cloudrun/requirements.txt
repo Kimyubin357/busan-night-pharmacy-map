@@ -1,0 +1,2 @@
+# Static server uses Python standard library only.
+# Analysis dependencies remain in the repository-root requirements.txt.
