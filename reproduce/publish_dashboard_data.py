@@ -7,6 +7,12 @@ from build_map_data import build_map_pharmacies
 source=ROOT/'dashboard_v3/data.json.gz'
 data=json.loads(gzip.decompress(source.read_bytes()))
 data['mapPharmacies']=build_map_pharmacies(data)
+data['meta']['location_validation']=json.loads((ROOT/'coordinate_validation.json').read_text())
+reviews={p['id']:p.get('locationReview') for p in data['mapPharmacies'] if p.get('locationReview')}
+for p in data['pharmacies']:
+    if p['id'] in reviews:p['locationReview']=reviews[p['id']]
+# 원천 조회일은 고정하고 위치 검토일은 별도로 표시합니다.
+data['meta']['publication_mode']='dated_snapshot'
 data['sensitivity']=json.loads((ROOT/'sensitivity_results.json').read_text())
 data['validation']=json.loads((ROOT/'dashboard_v3/validation.json').read_text())
 # 브라우저의 주모형은 4km/h·최대 15분입니다. 민감도 계산용 1250m 경로는
@@ -27,3 +33,6 @@ for name in ['sensitivity_results.json','sensitivity_rankings.csv','field_valida
 for source,name in [('nmc_busan_pharmacies.csv','nmc_pharmacies_latest.csv'),('nmc_identity_review.csv','nmc_identity_review_latest.csv')]:
     (ROOT.parent/name).write_bytes((ROOT/'team2/update_20260915'/source).read_bytes())
 print(target,target.stat().st_size)
+
+for name in ['coordinate_corrections.csv','coordinate_building_review.csv','coordinate_validation.json']:
+    (ROOT.parent/name).write_bytes((ROOT/name).read_bytes())

@@ -1,0 +1,154 @@
+{
+  "reviewed_at": "2026-10-14",
+  "source": "부산광역시 도로명주소 정보 2026-04-21",
+  "source_url": "https://www.data.go.kr/data/15028854/fileData.do",
+  "source_path": "team2/inputs/15028854.csv",
+  "source_sha256": "10960ef68e6b47362ea13d6a89c5b39589a28744e59543a9d126c56ef3869ff1",
+  "method": "ID·이름·전화·주소를 고정하여 도로명 건물번호 정확 일치 1건의 건물점 사용. 이름으로 병합하지 않음. 출입구/현장 검증 아님.",
+  "corrections": [
+    {
+      "id": "C1200669",
+      "name": "늘봄약국",
+      "address": "부산광역시 동구 수정로 28-1 (수정동)",
+      "phone": "051-468-1138",
+      "original_lat": 35.18829291603441,
+      "original_lon": 129.08422772091467,
+      "lat": 35.1286583,
+      "lon": 129.044165,
+      "address_key": [
+        "동구",
+        "수정로",
+        "28",
+        "1"
+      ],
+      "admin_dong": "수정제2동",
+      "identity_crosscheck_url": "https://www.bsdonggu.go.kr/board/list.donggu?boardId=BBS_0000148&contentsSid=52&menuCd=DOM_000000405008002000"
+    },
+    {
+      "id": "C1200927",
+      "name": "삼강약국",
+      "address": "부산광역시 사하구 낙동남로 1401-1, 1층 (하단동)",
+      "phone": "051-898-1300",
+      "original_lat": 35.165733333333336,
+      "original_lon": 129.041175,
+      "lat": 35.1065538,
+      "lon": 128.9650512,
+      "address_key": [
+        "사하구",
+        "낙동남로",
+        "1401",
+        "1"
+      ],
+      "admin_dong": "하단제2동",
+      "identity_crosscheck_url": "https://www.saha.go.kr/mask.do"
+    },
+    {
+      "id": "C1202834",
+      "name": "송송약국",
+      "address": "부산광역시 해운대구 해운대로161번길 33, 지하1층 일부호 (재송동)",
+      "phone": "051-714-4203",
+      "original_lat": 35.2005272590921,
+      "original_lon": 129.064161116661,
+      "lat": 35.1850094,
+      "lon": 129.1247266,
+      "address_key": [
+        "해운대구",
+        "해운대로161번길",
+        "33",
+        "0"
+      ],
+      "admin_dong": "재송제1동",
+      "identity_crosscheck_url": "https://www.sinsinpas.net/customer/index.php?lat=&lng=&page=120&pid=33&sh=&xylng="
+    },
+    {
+      "id": "C1201695",
+      "name": "신나는부부 한약국",
+      "address": "부산광역시 동래구 아시아드대로181번가길 94 (온천동)",
+      "phone": "0518067588",
+      "original_lat": 35.147096326133756,
+      "original_lon": 129.01590246856549,
+      "lat": 35.2052853,
+      "lon": 129.0647917,
+      "address_key": [
+        "동래구",
+        "아시아드대로181번가길",
+        "94",
+        "0"
+      ],
+      "admin_dong": "온천제3동",
+      "identity_crosscheck_url": ""
+    },
+    {
+      "id": "C1202173",
+      "name": "신제일약국",
+      "address": "부산광역시 동래구 안남로 23, 보림프라자 109호 (낙민동)",
+      "phone": "051-525-8903",
+      "original_lat": 35.27163324737898,
+      "original_lon": 129.09242850339248,
+      "lat": 35.1946677,
+      "lon": 129.094833,
+      "address_key": [
+        "동래구",
+        "안남로",
+        "23",
+        "0"
+      ],
+      "admin_dong": "수민동",
+      "identity_crosscheck_url": "https://www.dongnae.go.kr/index.dongnae?menuCd=DOM_000000504003005000"
+    },
+    {
+      "id": "C1200342",
+      "name": "에이스약국",
+      "address": "부산광역시 부산진구 서면로 64, 청석빌딩 1층 (부전동)",
+      "phone": "051-806-5553",
+      "original_lat": 35.18950420216693,
+      "original_lon": 129.07837669035618,
+      "lat": 35.1564851,
+      "lon": 129.0580719,
+      "address_key": [
+        "부산진구",
+        "서면로",
+        "64",
+        "0"
+      ],
+      "admin_dong": "부전제2동",
+      "identity_crosscheck_url": ""
+    },
+    {
+      "id": "C1201250",
+      "name": "햇살약국",
+      "address": "부산광역시 동래구 석사로 5, 1층 일부 (사직동)",
+      "phone": "0515033452",
+      "original_lat": 35.22250376064482,
+      "original_lon": 129.01133976884205,
+      "lat": 35.1980919,
+      "lon": 129.0606904,
+      "address_key": [
+        "동래구",
+        "석사로",
+        "5",
+        "0"
+      ],
+      "admin_dong": "사직제1동",
+      "identity_crosscheck_url": ""
+    },
+    {
+      "id": "C1200847",
+      "name": "제일약국",
+      "address": "부산광역시 부산진구 가야대로 783 (부전동)",
+      "phone": "051-557-7447",
+      "original_lat": 35.2133069534994,
+      "original_lon": 129.07888012651648,
+      "lat": 35.1580852,
+      "lon": 129.0572453,
+      "address_key": [
+        "부산진구",
+        "가야대로",
+        "783",
+        "0"
+      ],
+      "admin_dong": "부전제1동",
+      "identity_crosscheck_url": ""
+    }
+  ]
+}

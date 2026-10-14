@@ -83,7 +83,7 @@ OSM 기준시각은 PBF 헤더의 실제 replication timestamp를 읽습니다. 
 python reproduce/refresh_dashboard.py --mode latest
 ```
 
-`run_pipeline.py --mode latest`도 이 격리 실행을 거칩니다. 별도 폴더에서 수집·분석·검증·HTML 검사를 마친 뒤에만 공개 payload와 CSV/HTML을 교체합니다. 실패하면 기존 시간표와 분석 수치를 유지하고 갱신 실패 상태만 표시합니다. `refresh_status.json`에 성공/실패·시각·실패 단계·로그 위치가 남습니다. 자동 갱신 일정은 아직 설정하지 않았고 화면에 '다음 갱신 미예약'을 표시합니다.
+`run_pipeline.py --mode latest`도 이 격리 실행을 거칩니다. 별도 폴더에서 수집·분석·검증·HTML 검사를 마친 뒤에만 공개 payload와 CSV/HTML을 교체합니다. 실패하면 기존 시간표와 분석 수치를 유지하고 갱신 실패 상태만 표시합니다. `refresh_status.json`에 성공/실패·시각·실패 단계·로그 위치가 남습니다. 현재 공개 화면은 주기 운영 서비스가 아닌 기준일 자료 데모입니다. 화면에는 데이터 기준일을 표시하며 자동 갱신 예정 문구는 사용하지 않습니다.
 
 - 시작·종료 시간에서 NMC 비고의 명확한 휴게 구간을 차감합니다.
 - 요일별 복합 규칙은 `reproduce/dashboard_v3/schedule_exceptions.py`의 검토된 원문 조각이 일치할 때만 적용합니다. 문구가 달라지면 검토 대상으로 남깁니다.
@@ -95,3 +95,11 @@ python reproduce/refresh_dashboard.py --mode latest
 고정한 SGIS 원천의 임시 다운로드 링크가 만료될 수 있습니다. 2026-10-13 실제 실행에서는 같은 해시의 검증된 원본을 명시적으로 제공했습니다. 처음 실행하는 팀원도 공식 SGIS 포털에서 같은 연도·경계 기준의 파일을 확보하고 `download_inputs.py --mode snapshot --local-inputs ...`로 검증해야 합니다. 다른 기준 파일을 동일 원천으로 바꾸어 쓰면 안 됩니다. 최신 갱신 시 이미 존재하며 해시가 맞는 고정 연도 원천은 재사용합니다.
 
 이번 최신 수집은 부산 API 1,701건, NMC 1,714건이며 합쳐진 지도 목록은 1,716곳입니다. 생활인구 공통 기준 월은 202607, OSM 실제 시각은 2026-10-12입니다. 현재 공개 결과와 기본 20260915 스냅샷 재실행 결과는 기준 원천이 달라 수치가 다릅니다. 자세한 기록은 `docs/VALIDATION_RUN.md`의 추가 검사 기록을 봅니다.
+
+## 주소·좌표 대조와 보정 (2026-10-14)
+
+`reconcile_locations.py`는 부산시 도로명주소 자료의 구·도로명·본번·부번이 정확히 일치하는 유일한 건물점을 대조합니다. 검토한 8개 시설의 규칙은 `pharmacy_location_overrides.json`에 있습니다. 이름만으로 연결하지 않으며 ID·이름·주소·전화와 기존 좌표를 검사합니다. 조건이 달라지면 보정을 중단합니다. 원본 API 파일은 그대로 보존합니다.
+
+보정은 `osm_network.py` 이전의 약국 원장과 전체 지도 목록에 동일하게 적용됩니다. 도로망·거리행렬·접근성·민감도를 다시 계산한 뒤 `verify_location_publication.py`가 양쪽 좌표와 구 분류를 검사합니다. 전체 재실행 순서에도 포함됩니다. 최신 수집을 하지 않고 같은 입력으로 위치만 보정한 실행 기록은 `validation/coordinate_correction_run.json`입니다.
+
+루트 `coordinate_corrections.csv`는 8개 시설의 변경 전후, `coordinate_building_review.csv`는 자동 이동하지 않은 추가 21개 거리 차이 기록, `coordinate_validation.json`은 전체 1,716곳 중 주소 건물점 정확 일치 1,693곳의 대조 요약입니다. 건물 대표점 보정은 약국 출입구·실제 영업 현장 검증과 다릅니다. 다른 건물점 거리 차이도 위치 오류로 확정하지 않습니다.

@@ -1,6 +1,7 @@
 """접근성 분석 대상과 독립된 전체 약국 지도 목록을 구성합니다."""
 from pathlib import Path
 import csv,json
+from pharmacy_locations import resolve_location
 from shapely.geometry import Point, shape
 
 P = Path(__file__).resolve().parent
@@ -14,11 +15,12 @@ def build_map_pharmacies(data):
             lat, lon = float(row['wgs84Lat']), float(row['wgs84Lon'])
             if not (34 < lat < 36 and 128 < lon < 130):
                 raise ValueError(f"부산 지도 좌표 확인 필요: {row['hpid']}")
+            lat, lon, location = resolve_location(row['hpid'],row['dutyName'],row['dutyAddr'],row['dutyTel1'],lat,lon)
             original = existing.get(row['hpid'])
             points[row['hpid']] = dict(id=row['hpid'], name=row['dutyName'],
                 address=row['dutyAddr'], phone=row['dutyTel1'], lat=lat, lon=lon,
                 designated=bool(original and original['designated']),
-                source='NMC '+data['meta']['pharmacy_collected_at'][:10]+' 조회')
+                source='NMC '+data['meta']['pharmacy_collected_at'][:10]+' 조회',location=location)
     # 최신 API에서 누락된 기존 시설도 표시하되 확인 필요 상태를 명시합니다.
     for pid, p in existing.items():
         if pid not in points:
@@ -29,7 +31,10 @@ def build_map_pharmacies(data):
     from schedule_exceptions import load_exceptions
     exceptions=load_exceptions()
     dong_shapes=[(shape(f['geometry']),data['dongs'][f['properties']['i']]) for f in data['boundaries']['features']]
+    pending_path=P.parent/'coordinate_building_review.csv'
+    pending={r['id']:r for r in csv.DictReader(pending_path.open(encoding='utf-8-sig'))} if pending_path.exists() else {}
     for pid,p in points.items():
+        if pid in pending:p['locationReview']='주소 건물점과 '+pending[pid]['distance_m']+'m 차이 · 위치 확인 필요'
         p['schedule']=json.loads(audit[pid]['finder_schedule'])
         e=exceptions.get(pid,dict(notes='',breaks=[[] for _ in range(7)],recurring=[],closedDates=[],review=['NMC 미조회 · 운영 여부 확인 필요']))
         p['scheduleExceptions']=e

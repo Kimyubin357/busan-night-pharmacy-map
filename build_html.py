@@ -30,6 +30,7 @@ month=data['meta']['population_month']
 s=s.replace('2025년 12월 시간별 월평균',month[:4]+'년 '+str(int(month[5:7]))+'월 시간별 월평균')
 nmc_note=f"{collected} 조회 {data['meta']['nmc_rows']:,}곳. 부산 원본과 보완한 지도 목록은 {len(data.get('mapPharmacies',data['pharmacies'])):,}곳이며, 후보·경로 분석 대상은 {len(data['pharmacies']):,}곳입니다. NMC 미조회 시설은 운영 여부 확인 필요로 표시합니다. 조회 시간표에 따른 판정이며 실시간 영업·폐업 상태를 확인한 것은 아닙니다."
 s=re.sub(r'(href="https://www.data.go.kr/data/15000576/openapi.do".*?</a></td><td>).*?(</td>)',lambda m:m[1]+nmc_note+m[2],s,flags=re.S)
+s=s.replace('<h3>최종 지정 전 확인할 것</h3>', '<h3>약국 위치 대조</h3><p>동명 약국은 시설 ID·주소·전화번호로 각각 유지합니다. '+str(data['meta'].get('location_validation',{}).get('corrected',0))+'곳은 부산시 도로명주소의 구·도로명·건물번호 정확 일치 건물점으로 보정했습니다. 위치 검토일은 '+data['meta'].get('location_validation',{}).get('reviewed_at','미기록')+'입니다. 건물 대표 좌표이며 출입구 현장 확인이 아닙니다. 주소 건물점과 250m 이상 차이가 남은 시설은 위치 확인 필요로 표시합니다.</p><h3>최종 지정 전 확인할 것</h3>')
 s=s.replace('/*LEAFLET_CSS*/',(P/'leaflet.css').read_text()).replace('/*LEAFLET_JS*/',(P/'leaflet.js').read_text()).replace('/*DATA_GZIP*/',base64.b64encode(payload).decode()).replace('/*APP_JS*/',(P/'ui.js').read_text()+'\n'+(P/'finder.js').read_text()+'\n'+(P/'report.js').read_text()+'\n'+(P/'app.js').read_text())
 assert not any(x in s for x in ['/*APP_JS*/','/*DATA_GZIP*/'])
 (P/'dist/index.html').write_text(s)

@@ -26,3 +26,11 @@ assert.equal(current(p,{date:'2026-10-04',day:6,minutes:600}).state,'unknown');
 assert.equal(current(p,{date:'2026-10-11',day:6,minutes:600}).state,'closed');
 assert.equal(ctx.pharmacyAssumption(p,6),true);
 console.log('Break, carry-over, end boundary, monthly closure and assumption: 9 assertions passed.');
+
+// 이름·좌표가 같은 시설도 ID로 선택한 팝업 한 개만 연다.
+const opened=[];const sameCoordinate=[35.2,129.064];
+const markers=new Map(['C1202834','C1203068'].map(id=>[id,{coordinates:sameCoordinate,openPopup:()=>opened.push(id)}]));
+ctx.pharmacyOpenSelectedMarker(markers,'C1202834');assert.deepStrictEqual(opened,['C1202834']);
+ctx.pharmacyOpenSelectedMarker(markers,'C1203068');assert.deepStrictEqual(opened,['C1202834','C1203068']);
+ctx.pharmacyOpenSelectedMarker(markers,'missing');assert.equal(opened.length,2);
+console.log('Same-name/same-coordinate marker identity: passed.');

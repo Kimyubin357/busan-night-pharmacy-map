@@ -1,0 +1,12 @@
+{
+  "reviewed_at": "2026-10-14",
+  "address_source": "부산광역시 도로명주소 정보 2026-04-21",
+  "source_url": "https://www.data.go.kr/data/15028854/fileData.do",
+  "source_sha256": "10960ef68e6b47362ea13d6a89c5b39589a28744e59543a9d126c56ef3869ff1",
+  "map_records": 1716,
+  "exact_address_matches": 1693,
+  "corrected": 8,
+  "building_distance_review": 21,
+  "review_threshold_m": 250,
+  "note": "ID·이름·전화·주소를 고정하여 도로명 건물번호 정확 일치 1건의 건물점 사용. 이름으로 병합하지 않음. 출입구/현장 검증 아님."
+}

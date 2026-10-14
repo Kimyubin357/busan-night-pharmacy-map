@@ -11,6 +11,7 @@ from sgis_population_weights import reader
 from shapely.geometry import shape,mapping
 from shapely.ops import transform
 from schedule_assumptions import build_schedules
+from pharmacy_locations import resolve_location
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'dashboard_v3';UP=ROOT/'team2/update_20260915'
 SLOTS=[(d,h) for d in range(1,8) for h in [22,23,0]]
 def main():
@@ -80,6 +81,8 @@ def main():
   for d in range(1,8):
    iv=weekly.get(p.pharmacy_id,{}).get(d);schedule.append(iv)
   pharmacies.append(dict(id=p.pharmacy_id,name=p['name'],district=p.district,address=p.address,phone=p.phone,lat=p.latitude,lon=p.longitude,designated=bool(public[j]),reach=idx.tolist(),seconds=np.round(mins*60,5).tolist(),uncertain=ui.tolist(),uncertainSeconds=np.round(um*60,5).tolist(),schedule=schedule,scheduleSources={'monday':schedule_audit[p.pharmacy_id]['monday_source'],'sunday':schedule_audit[p.pharmacy_id]['sunday_source'],'saturday':schedule_audit[p.pharmacy_id]['saturday_source']}))
+ for p in pharmacies:
+  _,_,p['location']=resolve_location(p['id'],p['name'],p['address'],p['phone'],p['lat'],p['lon'])
  data=dict(meta={'title':'부산 심야약국 접근성','version':3,'population_month':ctx['population_month'][:4]+'-'+ctx['population_month'][4:],'grid_year':ctx['grid_year'],'boundary_date':ctx['boundary_date'],'osm_date':ctx['osm_date'],'exception_scope':'명확한 비고 휴게구간을 차감합니다. 월별 정기휴무가 있는 요일은 날짜 없는 주간 분석에서 미상으로 두며, 시민 화면은 실제 날짜로 판정합니다. 정책 시나리오는 매일 22–01시 운영 가정입니다.','nmc_identity_review_count':json.loads((UP/'nmc_update_summary.json').read_text())['identity_review'],'nmc_rows':len(pd.read_csv(UP/'nmc_busan_pharmacies.csv')),'pharmacy_collected_at':json.loads((UP/'raw/nmc'/json.loads((ROOT/'reports/latest_run.json').read_text())['run_id']/'manifest.json').read_text())['collected_at'],'input_manifest':ctx['inputs'],'monday_known':sum(weekly[pid][1] is not None for pid in ph.pharmacy_id),'monday_unknown':sum(weekly[pid][1] is None for pid in ph.pharmacy_id),'schedule_assumptions':schedule_summary,'conflicting_days':len(conflicts),'unique_grid_count':int(grid.grid_id.nunique()),'grid_count':N,'pharmacy_count':len(ph),'designated_count':int(public.sum()),'route_quality':json.loads((OUT/'grid_route_quality.json').read_text())},
   dongs=[dict(code=r.dong_code,name=r.dong_name,district=r.district,age60plus=r.age60plus_share_all_day) for r in dongs.itertuples()],boundaries={'type':'FeatureCollection','features':features},
   grids={'lat':grid.latitude.round(7).tolist(),'lon':grid.longitude.round(7).tolist(),'dong':di.tolist(),'weight':np.round(weights,6).tolist(),'snapAccepted':grid.route_snap_accepted.tolist()},pharmacies=pharmacies,models=models)

@@ -52,7 +52,7 @@ def main():
         if status['status']=='passed':
             stamp(stage,status)
             # 주 분석 데이터와 모든 공개 CSV/JSON/HTML이 같은 실행에서 나와야 합니다.
-            names=['dashboard_data.json.gz','data.json.gz','validation.json','model_summary.json','candidate_rankings_v3.csv','schedule_assumptions_audit.csv','schedule_assumptions_summary.json','schedule_exceptions_audit.csv','nmc_pharmacies_latest.csv','nmc_identity_review_latest.csv','nmc_conflict_resolutions.csv','remaining_sunday_errors.csv','grid_route_quality.json','sensitivity_results.json','sensitivity_rankings.csv','field_validation_plan.csv','build_manifest.json','dist/index.html']
+            names=['coordinate_corrections.csv','coordinate_building_review.csv','coordinate_validation.json','dashboard_data.json.gz','data.json.gz','validation.json','model_summary.json','candidate_rankings_v3.csv','schedule_assumptions_audit.csv','schedule_assumptions_summary.json','schedule_exceptions_audit.csv','nmc_pharmacies_latest.csv','nmc_identity_review_latest.csv','nmc_conflict_resolutions.csv','remaining_sunday_errors.csv','grid_route_quality.json','sensitivity_results.json','sensitivity_rankings.csv','field_validation_plan.csv','build_manifest.json','dist/index.html']
             backup=stage/'previous_publication';backup.mkdir()
             replaced=[]
             try:
