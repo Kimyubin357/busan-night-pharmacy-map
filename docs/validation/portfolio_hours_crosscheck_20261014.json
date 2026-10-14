@@ -1,0 +1,196 @@
+{
+  "collected_at": "2026-10-14T17:40:24.250597+09:00",
+  "endpoints": {
+    "busan": "https://apis.data.go.kr/6260000/PharmacyInfoService/getPharmacyInfo",
+    "nmc": "https://apis.data.go.kr/B552657/ErmctInsttInfoInqireService/getParmacyListInfoInqire"
+  },
+  "counts": {
+    "busan_rows": 1701,
+    "nmc_rows": 1714,
+    "identity_matches": 1693,
+    "busan_weekday_missing_by_day": {
+      "1": 1696,
+      "3": 17,
+      "2": 15,
+      "4": 14,
+      "5": 15
+    },
+    "nmc_fillable_weekday_rows_by_day": {
+      "1": 1679
+    },
+    "day_codes": {
+      "1": "Monday",
+      "2": "Tuesday",
+      "3": "Wednesday",
+      "4": "Thursday",
+      "5": "Friday"
+    },
+    "busan_rows_in_region": 1696
+  },
+  "cases": [
+    {
+      "id": "C1202293",
+      "name": "대남약국",
+      "busan_address": "부산광역시 수영구 수영로 394, 1층 (남천동, 남천동 메디칼센타)",
+      "nmc_address": "부산광역시 수영구 수영로 394, 1층 (남천동, 남천동 메디칼센타)",
+      "busan_phone": "051-900-9611",
+      "nmc_phone": "051-900-9611",
+      "busan_lat": "35.1414069074",
+      "busan_lon": "129.1075725057",
+      "nmc_lat": "35.1414069074",
+      "nmc_lon": "129.1075725057",
+      "day": 1,
+      "busan_fields": [
+        "monSalsBgngTm",
+        "monMdexmEndTm"
+      ],
+      "busan_raw": [
+        "",
+        "2030"
+      ],
+      "nmc_fields": [
+        "dutyTime1s",
+        "dutyTime1c"
+      ],
+      "nmc_raw": [
+        "0830",
+        "2030"
+      ],
+      "name_match": true,
+      "phone_match": true,
+      "distance_m": 0.0,
+      "all_nmc_weekdays_complete": true,
+      "current_published_monday_intervals_minutes": [
+        [
+          510.0,
+          1230.0
+        ]
+      ],
+      "current_published_source": "NMC 2026-10-13 조회",
+      "raw_evidence": [
+        {
+          "path": "reproduce/data/raw/portfolio_hours_20261014_174024/busan/page_001.json",
+          "sha256": "f1afed62965ca5b92aea70f662a1e44584fcea2a48fa318681ce4c480b8eaf81"
+        },
+        {
+          "path": "reproduce/data/raw/portfolio_hours_20261014_174024/nmc/page_003.xml",
+          "sha256": "3ff3fb72fa039c5423fa0c6c35f8375c3f4d0c93053cd4fe617fe3298f2b693d"
+        }
+      ]
+    },
+    {
+      "id": "C1200076",
+      "name": "대도약국",
+      "busan_address": "부산광역시 동래구 금강공원로 28, (온천동)",
+      "nmc_address": "부산광역시 동래구 금강공원로 28, (온천동)",
+      "busan_phone": "051-556-7890",
+      "nmc_phone": "051-556-7890",
+      "busan_lat": "35.219219444444441",
+      "busan_lon": "129.081419444444435",
+      "nmc_lat": "35.219219444444441",
+      "nmc_lon": "129.081419444444435",
+      "day": 1,
+      "busan_fields": [
+        "monSalsBgngTm",
+        "monMdexmEndTm"
+      ],
+      "busan_raw": [
+        "",
+        "2200"
+      ],
+      "nmc_fields": [
+        "dutyTime1s",
+        "dutyTime1c"
+      ],
+      "nmc_raw": [
+        "0830",
+        "2200"
+      ],
+      "name_match": true,
+      "phone_match": true,
+      "distance_m": 0.0,
+      "all_nmc_weekdays_complete": true,
+      "current_published_monday_intervals_minutes": [
+        [
+          510.0,
+          1320.0
+        ]
+      ],
+      "current_published_source": "NMC 2026-10-13 조회",
+      "raw_evidence": [
+        {
+          "path": "reproduce/data/raw/portfolio_hours_20261014_174024/busan/page_001.json",
+          "sha256": "f1afed62965ca5b92aea70f662a1e44584fcea2a48fa318681ce4c480b8eaf81"
+        },
+        {
+          "path": "reproduce/data/raw/portfolio_hours_20261014_174024/nmc/page_003.xml",
+          "sha256": "3ff3fb72fa039c5423fa0c6c35f8375c3f4d0c93053cd4fe617fe3298f2b693d"
+        }
+      ]
+    },
+    {
+      "id": "C1200177",
+      "name": "대림약국",
+      "busan_address": "부산광역시 북구 금곡대로 268",
+      "nmc_address": "부산광역시 북구 금곡대로 268",
+      "busan_phone": "051-363-3413",
+      "nmc_phone": "051-363-3413",
+      "busan_lat": "35.232377277913315",
+      "busan_lon": "129.01391616321095",
+      "nmc_lat": "35.232377277913315",
+      "nmc_lon": "129.01391616321095",
+      "day": 1,
+      "busan_fields": [
+        "monSalsBgngTm",
+        "monMdexmEndTm"
+      ],
+      "busan_raw": [
+        "",
+        "1830"
+      ],
+      "nmc_fields": [
+        "dutyTime1s",
+        "dutyTime1c"
+      ],
+      "nmc_raw": [
+        "0900",
+        "1830"
+      ],
+      "name_match": true,
+      "phone_match": true,
+      "distance_m": 0.0,
+      "all_nmc_weekdays_complete": true,
+      "current_published_monday_intervals_minutes": [
+        [
+          540.0,
+          1110.0
+        ]
+      ],
+      "current_published_source": "NMC 2026-10-13 조회",
+      "raw_evidence": [
+        {
+          "path": "reproduce/data/raw/portfolio_hours_20261014_174024/busan/page_001.json",
+          "sha256": "f1afed62965ca5b92aea70f662a1e44584fcea2a48fa318681ce4c480b8eaf81"
+        },
+        {
+          "path": "reproduce/data/raw/portfolio_hours_20261014_174024/nmc/page_003.xml",
+          "sha256": "3ff3fb72fa039c5423fa0c6c35f8375c3f4d0c93053cd4fe617fe3298f2b693d"
+        }
+      ]
+    }
+  ],
+  "scope": "Read-only API recollection for portfolio evidence. Does not refresh published data. Missing means an incomplete valid start/end pair, not observed closure.",
+  "matching_rule": "Same facility ID AND distance <= 200m AND (normalized name OR phone). Selected examples additionally have equal names, phones, addresses and coordinates.",
+  "request_parameters_without_credentials": {
+    "busan": {
+      "pageNo": "1..18",
+      "numOfRows": 100,
+      "resultType": "json"
+    },
+    "nmc": {
+      "pageNo": "1..18",
+      "numOfRows": 100,
+      "Q0": "부산광역시"
+    }
+  }
+}

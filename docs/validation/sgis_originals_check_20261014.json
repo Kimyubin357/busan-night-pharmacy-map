@@ -1,0 +1,61 @@
+{
+  "checked_at": "2026-10-14T17:45:18.354190+09:00",
+  "files": [
+    {
+      "path": "team2/update_20260915/raw/sgis_grid_population.zip",
+      "expected_sha256": "12e3ed6b07fd9da782e01335b449ac3e1256c1a0e9fe5c893c17fe5d26341c83",
+      "exists": true,
+      "bytes": 11185764,
+      "sha256": "12e3ed6b07fd9da782e01335b449ac3e1256c1a0e9fe5c893c17fe5d26341c83",
+      "matches_expected": true,
+      "link_status": 404,
+      "link_returns_zip": false,
+      "content_type": "text/html; charset=UTF-8"
+    },
+    {
+      "path": "team2/update_20260915/raw/sgis_grid_mara.zip",
+      "expected_sha256": "37bc428db9f35907f74fd24cfcf3553ba8df52a43326e6535d3eaa905334a480",
+      "exists": true,
+      "bytes": 3196747,
+      "sha256": "37bc428db9f35907f74fd24cfcf3553ba8df52a43326e6535d3eaa905334a480",
+      "matches_expected": true,
+      "link_status": 404,
+      "link_returns_zip": false,
+      "content_type": "text/html; charset=UTF-8"
+    },
+    {
+      "path": "team2/update_20260915/raw/sgis_grid_mama.zip",
+      "expected_sha256": "3b993e0e53f884b41104ddac6eb00b09bb146224d363b78770ae7cfd8a82148a",
+      "exists": true,
+      "bytes": 15276884,
+      "sha256": "3b993e0e53f884b41104ddac6eb00b09bb146224d363b78770ae7cfd8a82148a",
+      "matches_expected": true,
+      "link_status": 404,
+      "link_returns_zip": false,
+      "content_type": "text/html; charset=UTF-8"
+    },
+    {
+      "path": "team2/update_20260915/raw/sgis_dong.zip",
+      "expected_sha256": "6a675f0c5ae569f33fbe903d620d804fb2672ca65790ea53b23aba7118fa9ec7",
+      "exists": true,
+      "bytes": 79381548,
+      "sha256": "6a675f0c5ae569f33fbe903d620d804fb2672ca65790ea53b23aba7118fa9ec7",
+      "matches_expected": true,
+      "link_status": 404,
+      "link_returns_zip": false,
+      "content_type": "text/html; charset=UTF-8"
+    },
+    {
+      "path": "team2/update_20260915/raw/sgis_codebook.zip",
+      "expected_sha256": "e95f43f59c9f159ae103fae86d239f81c05ded17441885e420aca022ae07ca0c",
+      "exists": true,
+      "bytes": 40167509,
+      "sha256": "e95f43f59c9f159ae103fae86d239f81c05ded17441885e420aca022ae07ca0c",
+      "matches_expected": true,
+      "link_status": 200,
+      "link_returns_zip": true,
+      "content_type": "text/html;charset=utf-8"
+    }
+  ],
+  "note": "Remote links checked with ordinary GET reading first 256 bytes; local originals fully SHA-256 verified. ZIP prefix alone does not verify the full remote file."
+}
