@@ -39,7 +39,7 @@ def main():
     except Exception:
         status='failed';outputs={};raise
     finally:
-        code={str(p.relative_to(ROOT.parent)):sha256(p) for p in [*ROOT.rglob('*.py'),ROOT.parent/'build_html.py',ROOT.parent/'finder.js',ROOT.parent/'app.js',ROOT.parent/'report.js',ROOT.parent/'report.css',ROOT.parent/'dist/template.html'] if '__pycache__' not in p.parts}
+        code={str(p.relative_to(ROOT.parent)):sha256(p) for p in [*ROOT.rglob('*.py'),ROOT.parent/'build_html.py',ROOT.parent/'finder.js',ROOT.parent/'app.js',ROOT.parent/'report.js',ROOT.parent/'report.css',ROOT.parent/'ui.css',ROOT.parent/'ui.js',ROOT.parent/'dist/template.html'] if '__pycache__' not in p.parts}
         report.write_text(json.dumps({'mode':args.mode,'started_at':started,'finished_at':utc_now(),'status':status,'stages':stages,'output_sha256':outputs,'code_sha256':code},ensure_ascii=False,indent=2))
     print('PASS: 전체 파이프라인, 수치 검증, 민감도 기준 일치, HTML 검사',flush=True)
 
