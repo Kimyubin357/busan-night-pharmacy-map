@@ -57,7 +57,7 @@ OSM 기준시각은 PBF 헤더의 실제 replication timestamp를 읽습니다. 
 9. 접근성 및 후보 점수 생성
 10. 모든 후보 점수 독립 재집계, 20개 출발점의 정방향 최단경로 대조
 11. 3·4·5km/h, 일요일 결측, 수요 배분 민감도 재계산 및 기준 점수 일치 검사
-12. 독립 payload·감사표 게시, 단일 HTML 생성, 보고서 생성 검사
+12. 독립 payload·감사표 게시, 웹본과 독립 HTML 생성, 보고서·약국 찾기·분리 데이터 일치 검사
 
 도로 거리행렬은 5km/h·15분 민감도 계산까지 빠짐없이 비교하기 위해 1250m까지 생성합니다. 주모형은 기존 4km/h·5/10/15분이며 브라우저에는 이에 필요한 1000m 범위만 전달합니다.
 
@@ -66,7 +66,8 @@ OSM 기준시각은 PBF 헤더의 실제 replication timestamp를 읽습니다. 
 ## 산출물과 해석
 
 - 루트 `dashboard_data.json.gz`: 지도 목록과 분석·검증·민감도를 포함한 독립 화면 데이터
-- 루트 `dist/index.html`: 브라우저에서 볼 단일 HTML
+- 루트 `dist/index.html` + `dist/assets/`: 웹 화면과 탭별 분리 자료·코드·글꼴
+- 루트 `dist/downloads/busan-night-pharmacy.html`: 모든 데이터·코드·글꼴을 포함한 독립 HTML
 - 루트 `sensitivity_results.json` / `sensitivity_rankings.csv`: 가정별 후보 점수와 순위
 - 루트 `field_validation_plan.csv`: 현장·전화 확인 체크리스트. 현재는 미실시
 - `dashboard_v3/validation.json`: 수치·경로 알고리즘 일치 검사. 현장 검증과 구분
@@ -84,6 +85,8 @@ python reproduce/refresh_dashboard.py --mode latest
 ```
 
 `run_pipeline.py --mode latest`도 이 격리 실행을 거칩니다. 별도 폴더에서 수집·분석·검증·HTML 검사를 마친 뒤에만 공개 payload와 CSV/HTML을 교체합니다. 실패하면 기존 시간표와 분석 수치를 유지하고 갱신 실패 상태만 표시합니다. `refresh_status.json`에 성공/실패·시각·실패 단계·로그 위치가 남습니다. 현재 공개 화면은 주기 운영 서비스가 아닌 기준일 자료 데모입니다. 화면에는 데이터 기준일을 표시하며 자동 갱신 예정 문구는 사용하지 않습니다.
+
+웹 자료의 내용 해시 파일을 먼저 복사한 뒤 `index.html`을 교체합니다. `build_manifest.json`에 활성 파일별 바이트·SHA-256과 원본 payload 해시가 기록됩니다. 이전 해시 파일은 이미 열린 페이지가 계속 읽을 수 있도록 보존합니다. 웹 게시에는 `dist` 전체를 사용하며, 한 파일만 전달할 때는 `dist/downloads/busan-night-pharmacy.html`을 사용합니다. `python3 serve.py --port 8000`은 표준 라이브러리만으로 gzip·ETag·장기 캐시를 적용합니다. 일반 정적 서버에서도 실행은 가능하지만 압축·캐시 정책은 서버 설정에 따라 달라집니다.
 
 - 시작·종료 시간에서 NMC 비고의 명확한 휴게 구간을 차감합니다.
 - 요일별 복합 규칙은 `reproduce/dashboard_v3/schedule_exceptions.py`의 검토된 원문 조각이 일치할 때만 적용합니다. 문구가 달라지면 검토 대상으로 남깁니다.

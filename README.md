@@ -7,10 +7,12 @@
 Python 외에는 설치할 필요가 없습니다.
 
 ```bash
-python3 -m http.server 8000 --directory dist
+python3 serve.py --port 8000
 ```
 
-브라우저에서 <http://localhost:8000>을 엽니다. `file://`로도 열리지만 OpenStreetMap 타일은 Referer 제한으로 403이 날 수 있습니다.
+브라우저에서 <http://localhost:8000>을 엽니다. 이 서버는 gzip 전송·ETag·내용 해시 파일 캐시를 적용합니다. 기존 `python3 -m http.server 8000 --directory dist`로도 화면은 실행되지만, 코드·스타일의 HTTP 압축과 장기 캐시는 적용되지 않습니다.
+
+한 파일로 전달할 때는 `dist/downloads/busan-night-pharmacy.html`을 사용합니다. 데이터·코드·글꼴이 내장된 독립 HTML입니다. 도로 배경 타일은 인터넷 연결이 필요하고 `file://`에서는 제공처 제한으로 403이 날 수 있습니다.
 
 ## 화면 수정 후 다시 만들기
 
@@ -18,19 +20,24 @@ python3 -m http.server 8000 --directory dist
 
 ```bash
 python3 build_html.py
+python3 check_build.py
 node check_report.cjs
 node check_finder.cjs
 ```
 
-생성물은 `dist/index.html`입니다. 이 경로는 원천 수집이나 거리행렬 재계산을 하지 않습니다.
+웹용 `dist/index.html`과 독립 실행용 `dist/downloads/busan-night-pharmacy.html`을 함께 만듭니다. 이 경로는 원천 수집이나 거리행렬 재계산을 하지 않습니다. `python3 build_html.py --export /path/to/demo.html`은 독립 HTML을 추가 저장합니다.
+
+웹 게시에는 **`dist` 전체**가 필요합니다. `index.html`만 복사하면 분리된 자료를 읽지 못합니다. 처음에는 요약 자료만 읽고, 운영 약국 찾기와 접근성 지도는 해당 탭을 처음 열 때 자료·코드를 불러옵니다. 동일한 자료 요청은 페이지 안에서 재사용합니다. 파일명에 내용 해시를 넣어 갱신 시 이전 캐시와 섞이지 않게 합니다. 원천 재수집 게시에서는 새 파일을 먼저 복사하고 HTML을 교체하며, 기존 해시 파일은 이미 열린 세션을 위해 유지합니다.
 
 ## 저장소 구성
 
-- `dist/index.html` — 배포 가능한 단일 HTML
+- `dist/index.html`, `dist/assets/` — 탭별로 자료를 읽는 웹 배포본
+- `dist/downloads/busan-night-pharmacy.html` — 데이터·글꼴 내장 독립 HTML
 - `dashboard_data.json.gz` — 최종 화면용 독립 가공 데이터
-- `app.js`, `finder.js`, `report.js`, `report.css` — 화면 코드
+- `bootstrap.js`, `app.js`, `finder.js`, `report.js`, `report.css` — 공통 로더와 화면 코드
 - `theme.css`, `fonts/` — 화면 테마와 내장 글꼴 Wanted Sans(OFL, `fonts/OFL.txt`, 축소 스크립트 `fonts/subset_fonts.py`)
-- `build_html.py` — 독립 payload로 HTML 생성
+- `build_html.py`, `check_build.py` — 독립 payload로 두 배포본 생성·분리 데이터 일치 검사
+- `serve.py`, `test_static_server.py` — 압축·캐시를 적용하는 정적 서버와 HTTP 검사
 - `build_data.py`, `grid_routes.py`, `schedule_assumptions.py` — 최종 분석 단계 원본
 - `reproduce/` — 원천 수집부터 도로망·격자·거리행렬·payload까지 재현하는 코드
 - `docs/DATA_SOURCES.md` — 출처와 취득 방법

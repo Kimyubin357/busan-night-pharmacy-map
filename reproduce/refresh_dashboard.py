@@ -7,6 +7,7 @@ from pipeline_context import ROOT,utc_now,sha256
 PROJECT=ROOT.parent
 
 def atomic(path,content):
+    path.parent.mkdir(parents=True,exist_ok=True)
     tmp=path.with_name(path.name+'.partial');tmp.write_bytes(content);tmp.replace(path)
 
 def fingerprint(folder):
@@ -53,6 +54,11 @@ def main():
             stamp(stage,status)
             # 주 분석 데이터와 모든 공개 CSV/JSON/HTML이 같은 실행에서 나와야 합니다.
             names=['coordinate_corrections.csv','coordinate_building_review.csv','coordinate_validation.json','dashboard_data.json.gz','data.json.gz','validation.json','model_summary.json','candidate_rankings_v3.csv','schedule_assumptions_audit.csv','schedule_assumptions_summary.json','schedule_exceptions_audit.csv','nmc_pharmacies_latest.csv','nmc_identity_review_latest.csv','nmc_conflict_resolutions.csv','remaining_sunday_errors.csv','grid_route_quality.json','sensitivity_results.json','sensitivity_rankings.csv','field_validation_plan.csv','build_manifest.json','dist/index.html']
+            manifest=json.loads((stage/'build_manifest.json').read_text())
+            extra=['dist/'+name for name in manifest.get('files',{})]
+            if manifest.get('standalone'):extra += ['dist/'+manifest['standalone']['file'],'dist/index.html.gz']
+            # 새 해시 파일을 먼저 복사하고 index.html은 마지막에 교체합니다.
+            names=extra+names
             backup=stage/'previous_publication';backup.mkdir()
             replaced=[]
             try:

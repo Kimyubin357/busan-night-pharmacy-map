@@ -25,7 +25,7 @@ def main():
     if args.mode=='snapshot':env['BUSAN_SNAPSHOT_DIR']=str(ROOT/'snapshots'/cfg['snapshot_id'])
     else:env.pop('BUSAN_SNAPSHOT_DIR',None)
     started=utc_now();stages=[];report=ROOT/'reports/pipeline_run.json';report.parent.mkdir(exist_ok=True)
-    steps=[*STEPS,['../build_html.py'],['../check_finder.cjs'],['../check_report.cjs']]
+    steps=[*STEPS,['../build_html.py'],['../check_finder.cjs'],['../check_report.cjs'],['../check_build.py']]
     if args.mode=='latest':steps.insert(4,['download_inputs.py','--mode','latest'])
     try:
         for i,argv in enumerate(steps,1):
@@ -39,7 +39,7 @@ def main():
     except Exception:
         status='failed';outputs={};raise
     finally:
-        code={str(p.relative_to(ROOT.parent)):sha256(p) for p in [*ROOT.rglob('*.py'),ROOT.parent/'build_html.py',ROOT.parent/'finder.js',ROOT.parent/'app.js',ROOT.parent/'report.js',ROOT.parent/'report.css',ROOT.parent/'ui.css',ROOT.parent/'ui.js',ROOT.parent/'theme.css',*ROOT.parent.glob('fonts/*.woff'),ROOT/'pharmacy_location_overrides.json',ROOT.parent/'dist/template.html'] if '__pycache__' not in p.parts}
+        code={str(p.relative_to(ROOT.parent)):sha256(p) for p in [*ROOT.rglob('*.py'),ROOT.parent/'build_html.py',ROOT.parent/'bootstrap.js',ROOT.parent/'check_build.py',ROOT.parent/'serve.py',ROOT.parent/'finder.js',ROOT.parent/'app.js',ROOT.parent/'report.js',ROOT.parent/'report.css',ROOT.parent/'ui.css',ROOT.parent/'ui.js',ROOT.parent/'theme.css',*ROOT.parent.glob('fonts/*.woff'),ROOT/'pharmacy_location_overrides.json',ROOT.parent/'dist/template.html'] if '__pycache__' not in p.parts}
         report.write_text(json.dumps({'mode':args.mode,'started_at':started,'finished_at':utc_now(),'status':status,'stages':stages,'output_sha256':outputs,'code_sha256':code},ensure_ascii=False,indent=2))
     print('PASS: 전체 파이프라인, 수치 검증, 민감도 기준 일치, HTML 검사',flush=True)
 

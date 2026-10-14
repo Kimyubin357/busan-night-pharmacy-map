@@ -270,3 +270,8 @@ dialog::backdrop{background:#0c241d99;backdrop-filter:none}
 
 /* 한국어는 어절 단위로 줄바꿈합니다(‘불확/실’처럼 단어 중간에서 끊기지 않게). */
 body{word-break:keep-all;overflow-wrap:break-word}
+
+/* 처음 여는 탭의 자료 대기/재시도 상태. 기존 화면은 로드 후 그대로 표시합니다. */
+.viewpane[data-loading=true]>:not(.tab-load){visibility:hidden}
+.tab-load{padding:32px;color:var(--muted);font-size:14px;line-height:1.7}
+.tab-load button{margin-left:12px;font-size:13px;padding:7px 12px}

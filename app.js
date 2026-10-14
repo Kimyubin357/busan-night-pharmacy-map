@@ -1,9 +1,7 @@
-(async()=>{
+/* 접근성 지도는 탭을 처음 열 때만 생성합니다. */
+function mountAccessibilityMap(D){
 'use strict';
 const $=id=>document.getElementById(id), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),fmt=n=>Math.round(n).toLocaleString('ko-KR'),pct=(a,b)=>(b?100*a/b:0).toFixed(1)+'%';
-try {
- const bytes=Uint8Array.from(atob($('payload').textContent.trim()),c=>c.charCodeAt(0));
- const D=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).json();
  const S={t:15,day:1,hour:23,mode:'api',view:'access',after:false,j:D.models.api.rankings['15'][0].j,dong:null};
  $('resetMap').textContent='부산 전체';
  $('printReport').textContent='인쇄 · PDF';
@@ -101,8 +99,9 @@ try {
  $('beforeAfter').onclick=e=>{if(e.target.dataset.after!==undefined){S.after=!!+e.target.dataset.after;render();}};
  $('roads').onchange=e=>{if(e.target.checked){tiles=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors'}).addTo(map);boundaries.setStyle({fillOpacity:.08});}else{if(tiles)map.removeLayer(tiles);boundaries.setStyle({fillOpacity:.7});}};
  map.attributionControl.addAttribution('SGIS 2025 경계 · © OpenStreetMap contributors');$('resetMap').onclick=()=>{S.dong=null;map.fitBounds(boundaries.getBounds(),{animate:false});renderDetails();};$('focusCandidate').onclick=focus;
- $('methodBtn').onclick=()=>$('method').showModal();$('closeMethod').onclick=()=>$('method').close();
+
  $('downloadCsv').onclick=()=>{const quote=x=>'"'+String(x).replace(/"/g,'""')+'"';const rows=[['순위','약국ID','약국명','구군','주소','도보기준_분','운영시나리오','21시간대평균_추가수요하한','21시간대평균_추가수요상한'],...ranks().map(r=>{let p=D.pharmacies[r.j];return[r.rank,p.id,p.name,p.district,p.address,S.t,S.mode,r.low,r.high];})];const url=URL.createObjectURL(new Blob(['\ufeff'+rows.map(r=>r.map(quote).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=`busan-v3-${S.mode}-${S.t}min.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
- render();mountReport(D,map,(j,mode,t)=>{S.j=j;S.mode=mode;S.t=t;S.after=true;S.dong=null;$('source').value=mode;document.querySelectorAll('[data-t]').forEach(b=>b.classList.toggle('active',+b.dataset.t===t));render();focus();});$('loading').remove();
-}catch(e){$('loading').innerHTML='<div class="error"><h2>데이터를 불러오지 못했습니다.</h2><p>최신 Chrome·Edge·Safari에서 다시 열어주세요.</p><pre>'+esc(e.message)+'</pre></div>';console.error(e);}
-})();
+
+ render();let sized=false;
+ return {map,open(){map.invalidateSize();if(!sized){map.fitBounds(boundaries.getBounds(),{animate:false});sized=true;}},select(j,mode,t){S.j=j;S.mode=mode;S.t=t;S.after=true;S.dong=null;$('source').value=mode;document.querySelectorAll('[data-t]').forEach(b=>b.classList.toggle('active',+b.dataset.t===t));render();focus();}};
+}
