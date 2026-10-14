@@ -51,3 +51,85 @@ dialog{border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 80px #1
 
 /* 분석 지도의 선택 후보는 데이터 범례와 같은 파랑을 유지합니다. */
 .candidate-pin{background:#1765df}
+
+/* 2026-10-14: 지도를 중심으로 한 단정한 정보 화면. */
+:root{--bg:#f7f8fa;--line:#dce2e6;--radius:6px;--ink:#24343d;--navy:#24343d}
+.brand small{display:none}
+.brand h1{font-size:21px;letter-spacing:-.6px}
+.top button{border-color:transparent}
+.reportnav button[aria-selected=true]{background:transparent;color:#243e49;border-color:#243e49}
+.reportnav button:hover{background:#f6f7f8}
+.contextpill{background:transparent;border:0;border-left:1px solid var(--line);border-radius:0;padding:2px 0 2px 16px;color:#60717a}
+.reportcard,.reportstats,.panel,.map-panel,.finder-controls,.findermapwrap,.finderresults,.pipeline{border-radius:6px}
+.toolbar,.kpis,.reviewstrip,.comparetools,.detailbox,.candidate-reason{border-radius:5px}
+.reportstat .num{font-weight:700}
+.seg{border-radius:5px;background:#f4f5f6}
+.seg button{border:1px solid transparent;border-radius:3px}
+.seg button.active{color:#243e49;border-color:#cbd6da;background:white}
+.ranknum{border-radius:3px;background:transparent;color:#657781}
+.rankitem.active{background:#f2f6f7;border-left-color:#405e6a;box-shadow:none}
+.rankitem.active .ranknum{background:transparent;color:#243e49;font-weight:750}
+.badge{background:transparent;border-left:2px solid #1765df;border-radius:0;padding:0 0 0 7px;color:#395464}
+.candidate-reason{background:#f7f9fa;border-color:#dce2e6}
+.candidate-reason button{background:white;color:#294954;border-color:#bfcdd3}
+.finder-now{background:transparent;padding:0}
+.finder-now strong{color:#24343d}
+.finderchips button{border-radius:4px;background:#fff;color:#53656e}
+.finderchips button.active{background:#2c4a57;border-color:#2c4a57;color:#fff}
+.finderfilters input,.finderfilters select{border-radius:4px}
+/* 브라우저 기본 화살표 대신 동일한 도형과 14px 오른쪽 여백을 씁니다. */
+select,.toolbar select,.comparetools select,.finderfilters select{
+ appearance:none;-webkit-appearance:none;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' fill='none' stroke='%23506872' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+ background-repeat:no-repeat;background-position:right 13px center;background-size:16px;
+ padding-right:38px;
+}
+.finderfilters select:disabled{background-color:#f5f7f8;opacity:.65}
+.finderitem:hover{background:#f7f9fa}
+.finderitem.selected{background:#f0f5f7;box-shadow:inset 3px 0 #294e60}
+.finder-title-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:5px}
+.finderitem .finder-title-row strong{margin:0;padding:0;font-size:17px;line-height:1.5;overflow-wrap:anywhere}
+.finderitem .finder-title-row em{position:static;flex:none;font-size:12px;color:#385c6b}
+.finderitem .finder-badges{gap:8px;margin-bottom:7px}
+.finderitem .state{border-radius:0;background:none;font-size:11px;font-weight:500;padding:0;line-height:1.5}
+.finderitem .state.public{border-left:1px solid #d1c5e8;padding-left:8px;color:#6747a5}
+.finderitem .state.assumed,.finderitem .state.unknown{color:#805b1a}
+.finderitem .finder-main{padding:15px 16px 7px}
+.finderitem .finder-hours{margin-top:5px}
+.finderitem .finder-closing{font-weight:500}
+.finderitem .finder-extra{margin-top:4px}
+.finder-phone{margin-bottom:10px}
+.finderlegend,.legend,.map-layer-menu .layer-options{box-shadow:none;border-radius:4px}
+.findermapwrap{scroll-margin-top:64px}
+#finderMap:focus{outline:none}
+#finderMap:focus-visible{outline:2px solid #355c6d;outline-offset:-3px}
+.finder-map-selection{position:absolute;z-index:750;bottom:24px;left:12px;right:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 12px;background:#fff;border:1px solid #a5b8c2;border-radius:4px}
+.finder-map-selection[hidden]{display:none}
+.finder-map-selection [role=status]{min-width:0;display:flex;align-items:baseline;flex-wrap:wrap;gap:8px}
+.finder-map-selection span{font-size:11px;color:#6b7c84}
+.finder-map-selection strong{font-size:14px;color:#263f4d}
+.finder-map-selection button{flex:none;border:0;border-radius:0;border-bottom:1px solid #8c9fa8;padding:2px 0;background:none;font-size:12px;color:#385c6b}
+.findermapwrap.has-selection .finderlegend{display:none}
+.finderitem{scroll-margin-top:72px}
+/* 기호의 중심은 글꼴 기준선과 무관한 SVG 중심에 고정합니다. */
+.pharmacy-map-pin{background:transparent;border:0}
+.pharmacy-map-pin .public-pin,.pharmacy-map-pin .candidate-pin{width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;border-radius:50%;box-shadow:0 1px 4px #24343d33}
+.pharmacy-map-pin .ui-icon{display:block;width:66%;height:66%;margin:0;stroke-width:2.2;flex:none}
+.leaflet-control-zoom a{display:flex!important;align-items:center;justify-content:center;padding:0!important;line-height:1!important}
+.leaflet-control-zoom a span{display:block;line-height:1;transform:translateY(-1px)}
+#finderMap .leaflet-popup-content{max-height:250px;max-height:min(250px,30dvh);overflow:auto;overscroll-behavior:contain;margin:12px 17px 12px 13px}
+.leaflet-control-scale-line{font-size:10px;background:#ffffffe6;border-color:#5e6f77;color:#324c58}
+@media(max-width:599px){
+ .brand h1{font-size:19px}.contextpill{border:0;padding:0}.finderhead h2{font-size:24px}
+ .finder-map-selection{bottom:26px;padding:9px 10px;gap:8px}
+ .finder-map-selection [role=status]{gap:2px;display:flex;flex-direction:column}
+ .finder-map-selection strong{font-size:13px}
+ .finder-map-selection button{font-size:12px}
+ .finderitem .finder-title-row em{font-size:12px}
+ .finderitem .finder-title-row strong{font-size:17px}
+}
+
+@media(max-width:599px){#finderMap .leaflet-popup-content{max-height:min(180px,24dvh)}}
+
+.maptools .seg{box-shadow:none}
+#focusCandidate{background:white;border-color:#c3d0d6;color:#294954}

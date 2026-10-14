@@ -8,10 +8,10 @@ try {
  $('resetMap').innerHTML=pharmacyUiIcon('focus')+'전체 보기';
  $('printReport').innerHTML=pharmacyUiIcon('print')+'현재 탭 인쇄 / PDF';
  $('methodBtn').innerHTML='분석 방법'+pharmacyUiIcon('chevron');
- const map=L.map('map',{preferCanvas:true}),canvas=L.canvas({padding:.3}), colors={known:'#087f77',unknown:'#d49a32',outside:'#a9b7c5',added:'#1765df'};
+ const map=L.map('map',{preferCanvas:true,maxZoom:19}),canvas=L.canvas({padding:.3}), colors={known:'#087f77',unknown:'#d49a32',outside:'#a9b7c5',added:'#1765df'};
  const boundaries=L.geoJSON(D.boundaries,{style:{color:'#879bad',weight:1,fillColor:'#fff',fillOpacity:.7},onEachFeature:(f,l)=>l.on('click',()=>{S.dong=f.properties.i;renderDetails();})}).addTo(map);
- map.fitBounds(boundaries.getBounds());
- const dots=D.grids.lat.map((lat,i)=>L.circleMarker([lat,D.grids.lon[i]],{renderer:canvas,radius:2.5,stroke:false,fillOpacity:.8}).on('click',()=>{S.dong=D.grids.dong[i];renderDetails();}).addTo(map));
+ map.fitBounds(boundaries.getBounds());L.control.scale({imperial:false,position:'bottomright'}).addTo(map);
+ const dots=D.grids.lat.map((lat,i)=>L.circleMarker([lat,D.grids.lon[i]],{renderer:canvas,radius:pharmacyGridPointRadius(map.getZoom(),lat),stroke:false,fillOpacity:.8}).on('click',()=>{S.dong=D.grids.dong[i];renderDetails();}).addTo(map));
  const pharmacies=D.mapPharmacies||D.pharmacies;
  map.createPane('pharmacyPoints');map.getPane('pharmacyPoints').style.zIndex=450;
  const pharmacyCanvas=L.canvas({pane:'pharmacyPoints',padding:.3});
@@ -21,9 +21,9 @@ try {
  const scheduleText=iv=>iv===null||iv===undefined?'오류·미상':iv.length?iv.map(([a,b])=>clock(a)+'–'+clock(b)).join(', '):'휴무 가정';
  const pharmacyInfo=p=>`<strong>${esc(p.name)}</strong><br>${p.designated?'공공심야약국 지정':'일반 약국'}<br>${esc(p.address)}${p.phone?'<br>전화 '+esc(p.phone):''}<br>월요일: ${esc(scheduleText(p.schedule?.[0]))}<br><small>${esc(sourceLabel(p.scheduleSources?.monday||'unknown'))}</small><br>토요일: ${esc(scheduleText(p.schedule?.[5]))}<br><small>${esc(sourceLabel(p.scheduleSources?.saturday||'unknown'))}</small><br>일요일: ${esc(scheduleText(p.schedule?.[6]))}<br><small>${esc(sourceLabel(p.scheduleSources?.sunday||'unknown'))}</small><br><small>${esc(p.source||'기존 부산 약국 목록')}<br>위치 표시 · 선택 시간의 영업 여부와 무관</small>`;
  pharmacies.forEach(p=>{
-  L.circleMarker([p.lat,p.lon],{renderer:pharmacyCanvas,radius:5,color:'#fff',weight:1.2,fillColor:'#e05a24',fillOpacity:.95})
+  L.circleMarker([p.lat,p.lon],{renderer:pharmacyCanvas,radius:pharmacyMapPointSize(map.getZoom()),color:'#fff',weight:1.2,fillColor:'#e05a24',fillOpacity:.95})
    .bindTooltip(esc(p.name)).bindPopup(pharmacyInfo(p)).addTo(allPharmacies);
-  if(p.designated)L.marker([p.lat,p.lon],{zIndexOffset:100,icon:L.divIcon({className:'',html:'<span class="public-pin">+</span>',iconSize:[18,18],iconAnchor:[9,9]})})
+  if(p.designated)L.marker([p.lat,p.lon],{zIndexOffset:100,icon:pharmacyMapPinIcon('public',map.getZoom())})
    .bindTooltip(esc(p.name)+' · 공공심야약국').bindPopup(pharmacyInfo(p)).addTo(publicPharmacies);
  });
  $('allPharmacyCount').textContent=fmt(pharmacies.length)+'곳';
@@ -34,7 +34,14 @@ try {
  }
  function togglePharmacies(id,layer){$(id).onchange=e=>{if(e.target.checked)layer.addTo(map);else map.removeLayer(layer);$('pharmacyLegend')?.remove();renderPharmacyLegend();};}
  togglePharmacies('allPharmacies',allPharmacies);togglePharmacies('publicPharmacies',publicPharmacies);
- const pin=L.marker([0,0],{icon:L.divIcon({className:'',html:'<span class="candidate-pin">+</span>',iconSize:[24,24]})}).addTo(map);
+ const pin=L.marker([0,0],{icon:pharmacyMapPinIcon('candidate',map.getZoom())}).addTo(map);
+ function resizeMapPoints(){
+  const z=map.getZoom();dots.forEach((dot,i)=>dot.setRadius(pharmacyGridPointRadius(z,D.grids.lat[i])));
+  allPharmacies.eachLayer(dot=>dot.setRadius(pharmacyMapPointSize(z)));
+  publicPharmacies.eachLayer(marker=>marker.setIcon(pharmacyMapPinIcon('public',z)));
+  pin.setIcon(pharmacyMapPinIcon('candidate',z));
+ }
+ map.on('zoomend',resizeMapPoints);resizeMapPoints();
  map.createPane('coverageReference');map.getPane('coverageReference').style.zIndex=430;
  const coverageReference=L.circle([0,0],{pane:'coverageReference',radius:1000,color:'#008574',weight:2,dashArray:'7 6',fill:false});
  let tiles=null,agg=[],tot=null;
@@ -74,7 +81,7 @@ try {
   $('eligibility').textContent=p.name.includes('한약국')?'명칭상 한약국입니다. 취급 의약품·지정 자격 확인이 필요하며 참여·인력은 미확인입니다.':'입지 효과 비교 후보입니다. 참여 의향·야간 약사 인력은 확인되지 않았습니다.';
   pin.setLatLng([p.lat,p.lon]).unbindTooltip().bindTooltip(esc(p.name)+'<br>추가 지정 비교 후보');
   $('affected').innerHTML=agg.map((a,i)=>({i,...a})).filter(a=>a.gh>0).sort((a,b)=>b.gh-a.gh).slice(0,5).map(a=>`<button data-dong="${a.i}">${esc(D.dongs[a.i].name)}</button>`).join('');
-  $('legend').innerHTML=S.view==='demand'?'<strong>배분된 심야 잠재수요</strong><p>연한 회색: 적음 · 짙은 빨강: 많음</p><div style="height:12px;border-radius:3px;background:linear-gradient(to right,#e2e5e9,#f3b3a3,#e34a33,#7f0000)"></div><div style="justify-content:space-between"><span>0명</span><span>1,000명 이상</span></div><p class="sub">100m 격자·동 경계 조각의 대표점<br>색 기준은 모든 시각에 동일합니다.<br>실측 심야 격자인구가 아닙니다.</p>':`<strong>${S.t}분 보행 · ${S.after?'1곳 추가 후':'현재'}</strong>`+[[colors.known,'시간표·가정상 접근'],[colors.unknown,'정보 부족 · 판단 유보'],[colors.outside,'모형상 기준 밖'],...(S.after?[[colors.added,'후보 추가 후 모형상 접근']]:[])].map(([c,t])=>`<div><span class="swatch" style="background:${c}"></span>${t}</div>`).join('')+'<p class="sub">작은 점: 격자 대표점<br>도로 배경만 인터넷 연결 필요</p>';
+  $('legend').innerHTML=S.view==='demand'?'<strong>배분된 심야 잠재수요</strong><p>연한 회색: 적음 · 짙은 빨강: 많음</p><div style="height:12px;border-radius:3px;background:linear-gradient(to right,#e2e5e9,#f3b3a3,#e34a33,#7f0000)"></div><div style="justify-content:space-between"><span>0명</span><span>1,000명 이상</span></div><p class="sub">100m 격자·동 경계 조각의 대표점<br>색 기준은 모든 시각에 동일합니다.<br>실측 심야 격자인구가 아닙니다.</p>':`<strong>${S.t}분 보행 · ${S.after?'1곳 추가 후':'현재'}</strong>`+[[colors.known,'시간표·가정상 접근'],[colors.unknown,'정보 부족 · 판단 유보'],[colors.outside,'모형상 기준 밖'],...(S.after?[[colors.added,'후보 추가 후 모형상 접근']]:[])].map(([c,t])=>`<div><span class="swatch" style="background:${c}"></span>${t}</div>`).join('')+'<p class="sub">점: 격자 대표점 · 확대 배율 반영<br>도로 배경만 인터넷 연결 필요</p>';
   if(showCoverage)$('legend').insertAdjacentHTML('beforeend',`<div><span class="swatch" style="background:#00695c"></span>청록: 추가 접근 하한에 기여</div><div><span style="width:18px;border-top:2px dashed #008574;flex:none"></span>${S.t}분 직선 참고범위</div><p class="sub">청록의 진함도 수요량을 나타냅니다.<br>수요가 줄어든 것이 아닙니다.<br>파랑: 기존 미상에서 가정상 접근으로 변경. 하한 증가와 구분합니다.</p>`);
   if(S.view==='need')$('legend').innerHTML=`<strong>기존 공급으로 채우지 못한 수요</strong><div><span class="swatch" style="background:#a22"></span>빨강: 기준 밖 수요</div><div><span class="swatch" style="background:#d49a32"></span>황색: 정보 부족</div><div><span class="swatch" style="background:#dfe5eb"></span>회색: 기존 모형상 접근</div>${S.after?'<div><span class="swatch" style="background:#00695c"></span>청록: 추가 접근 하한에 기여</div><div><span class="swatch" style="background:#1765df"></span>파랑: 미상 → 가정상 접근</div>':''}<p class="sub">${S.t}분 · ${S.after?'후보 추가 후':'현재'}<br>짙은 빨강일수록 배분 수요가 많습니다.<br>점선은 직선 참고범위이며,<br>색 변화는 도로망 기준입니다.</p>`;
   renderPharmacyLegend();
